@@ -1,48 +1,49 @@
-const { dir } = require('console');
-const fs = require('fs');
+import parser from './parser.js';
 
-const filePath = '/mnt/c/Everquest/Logs/eqlog_Jakxitz_P1999Green.txt';
+parser.startFileWatcher();
 
 const enableLogging = false;
 
-let eqLog;
 let readIteration = 0;
 let previousLineCount = 0;
-let currentLineCount = 0;
-const printFullLog = false;
-const compassEnabled = true; 
-const locationEnabled = true;
-const currentZoneEnabled = true;
-setInterval(() => {
-  debugLog('New reading cycle: ', readIteration);
-  readIteration += 1;
-  if (readIteration === 1 && !printFullLog) return;
-  
-  fs.readFile(filePath, 'utf8', (err, data) => {
+const printFullLog = true;
+const compassEnabled = false; 
+const locationEnabled = false;
+const currentZoneEnabled = false;
 
-      if (err) {
-          console.error('Error reading the file:', err);
-          return;
-      }
-      eqLog = data.split('\n');
-
-      if (currentZoneEnabled) getCurrentZone(eqLog);
-
-      currentLineCount = eqLog.length - 1;
-      debugLog(`Current line count: ${currentLineCount}, Previous line count: ${previousLineCount}`);
-
-      eqLog = eqLog.slice(previousLineCount, currentLineCount);
-
-      previousLineCount = currentLineCount;
+// await parser.watchFile();
 
 
-      // Anything below this point is only read after first read
-      
-      eqLog.forEach(line => {
-        if (compassEnabled) getCompassDirection(line)
-        if (locationEnabled) getLocationData(line);
-      });
-    });
+setInterval(async () => {
+  // console.log(await watcher.next())
+
+  // console.log(watcher)
+  // for (const event of watcher) {
+  //   console.log(event);
+  // }
+
+  // for await (const event of watcher) {
+  //   console.log(event);
+  // }
+  // debugLog('New reading cycle: ', readIteration);
+  // readIteration += 1;
+  // if (readIteration === 1 && !printFullLog) return;
+
+  // await parser.readFullLog();
+  // const eqLog = parser.fullLog;
+  // console.log(eqLog)
+
+  // if (currentZoneEnabled) getCurrentZone(eqLog);
+  // const newLines = eqLog.slice(previousLineCount, parser.logLineCount);
+
+  // newLines.forEach(line => {
+  //   if (printFullLog) console.log(line);
+  //   if (compassEnabled) getCompassDirection(line)
+  //   if (locationEnabled) getLocationData(line);
+  // });
+
+  // previousLineCount = parser.logLineCount;
+
 }, 1000);
 
 function getCompassDirection(line) {

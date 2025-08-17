@@ -4,7 +4,7 @@
   "description": "Log parser for Project 1999",
   "license": "ISC",
   "author": "",
-  "type": "commonjs",
+  "type": "module",
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
