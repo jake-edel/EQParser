@@ -1,14 +1,11 @@
+import gameState from './GameState.js';
+
 class Parser {
   constructor({
     readRawInput = false,
     dashboardMode = false
   } = {}
 ) {
-    this.currentLocation = null;
-    this.compassDirection = null;
-    this.currentZone = null;
-    this.currentSpell = null;
-    this.currentPet = null;
     this.readRawInput = readRawInput; // Read each line as it comes straight from the log
     this.dashboardMode = dashboardMode; // Display a dashboard in the console
     this.debugMode = false;
@@ -25,7 +22,8 @@ class Parser {
     ],
     this.petSignatures = [
       'At your service master.',
-      'Sorry, Master..calming down.'
+      'Sorry, Master..calming down.',
+      'Following you, Master.'
     ]
   }
   debugLog() {
@@ -81,28 +79,27 @@ class Parser {
 
   getCompassDirection(line) {
     const direction = line.split(' ').pop().slice(0, -2);
-    this.compassDirection = direction;
+    gameState.compassDirection = direction;
     this.debugLog('Compass Direction:', direction);
   }
 
   getLocationData(line) {
     // Example line: [Sat Aug 16 08:54:54 2025] Your Location is -1218.92, 827.11, 3.04
     const [, , , , , , , , y, x, z] = line.replace(',', '').split(' ');
-    this.currentLocation = `X: ${x} Y: ${y} Z: ${z}`;
-    this.debugLog('Current Location:', this.currentLocation);
+    gameState.currentLocation = `X: ${x} Y: ${y} Z: ${z}`;
+    this.debugLog('Current Location:', gameState.currentLocation);
   }
 
   getCurrentZone(line) {
     const zoneName = line.split('You have entered ')[1].split('.').shift();
-    this.currentZone = zoneName;
-    this.debugLog('Current Zone:', this.currentZone);
+    gameState.currentZone = zoneName;
+    this.debugLog('Current Zone:', gameState.currentZone);
   }
 
   getPetData(line) {
-    const lineParts = line.split(' ');
-    console.log(lineParts); 
-    this.currentPet = lineParts[5];
-    this.debugLog('Current Pet:', this.currentPet);
+    const [ , , , , , petName] = line.split(' ');
+    gameState.currentPet = petName;
+    this.debugLog('Current Pet:', gameState.currentPet);
   }
 
 //   function getCurrentZone(log) {
@@ -117,49 +114,37 @@ class Parser {
   handleSpellCast(line) {
     if (line?.includes('You begin casting')) {
       const spellName = line.split('You begin casting ')[1].split('.').shift();
-      this.currentSpell = spellName;
-      this.debugLog('Current Spell:', this.currentSpell);
+      gameState.currentSpell = spellName;
+      this.debugLog('Current Spell:', gameState.currentSpell);
       return
     }
     if (line?.includes('Your spell is interrupted')) {
-      this.debugLog('Spell Interrupted:', this.currentSpell);
-      this.currentSpell = 'INTERRUPTED!';
-      setTimeout(() => this.currentSpell = null, 2000);
+      this.debugLog('Spell Interrupted:', gameState.currentSpell);
+      gameState.currentSpell = 'INTERRUPTED!';
+      setTimeout(() => gameState.currentSpell = null, 2000);
       return
     }
 
     if (line?.includes('Your spell fizzles!')) {
-      this.debugLog('Spell Fizzled:', this.currentSpell);
-      this.currentSpell = 'FIZZLE!';
-      setTimeout(() => this.currentSpell = null, 2000);
+      this.debugLog('Spell Fizzled:', gameState.currentSpell);
+      gameState.currentSpell = 'FIZZLE!';
+      setTimeout(() => gameState.currentSpell = null, 2000);
       return
     }
 
-    const spellId = this.currentSpell?.toLowerCase().replace(/ /g, '_');
+    const spellId = gameState.currentSpell?.toLowerCase().replace(/ /g, '_');
     const spellSignature = this.spellSignatures[spellId];
-    if (!spellSignature) this.debugLog('UNKNOWN SPELL:', this.currentSpell);
+    if (!spellSignature) this.debugLog('UNKNOWN SPELL:', gameState.currentSpell);
     if (spellId && line?.includes(spellSignature)) {
-      this.debugLog('Spell Complete: ', this.currentSpell);
-      this.currentSpell = null;
+      this.debugLog('Spell Complete: ', gameState.currentSpell);
+      gameState.currentSpell = null;
       return
     }
   }
   
   beginParsing() {
     if (this.readRawInput) return
-    if (this.dashboardMode) setInterval(() => this.logGameState(), 1000);
-  }
-  
-  logGameState() {
-    console.clear();
-    const dashBoardString = `
-      Location: ${this.currentLocation}
-      Compass Direction: ${this.compassDirection}
-      Zone: ${this.currentZone}
-      Spell: ${this.currentSpell}
-      Pet Name: ${this.currentPet}
-    `;
-    console.log(dashBoardString);
+    if (this.dashboardMode) setInterval(() => gameState.log(), 1000);
   }
 }
 
