@@ -1,5 +1,5 @@
-import logReader from './logReader.js';
-import Parser from './parser.js';
+import logReader from './LogReader.js';
+import Parser from './Parser.js';
 
 const readRawInput = process.argv[2] === 'raw';
 const dashboardMode = process.argv[2] === 'dashboard';
