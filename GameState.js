@@ -5,6 +5,7 @@ class GameState {
     this.currentZone = null;
     this.currentSpell = null;
     this.currentPet = null;
+    this.petStatus = null
   }
 
   log() {
@@ -15,6 +16,7 @@ class GameState {
       Zone: ${this.currentZone || ''}
       Spell: ${this.currentSpell || ''}
       Pet Name: ${this.currentPet || ''}
+      Pet Status: ${this.petStatus || ''}
     `;
     console.log(dashBoardString);
   }
