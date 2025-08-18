@@ -1,4 +1,5 @@
 import gameState from './GameState.js';
+import location from './Location.js';
 
 class Parser {
   constructor({
@@ -36,16 +37,16 @@ class Parser {
       console.log(line);
     } else {
       switch (true) {
-        case line.includes('You think you are heading'):
-          this.getCompassDirection(line);
+        case location.isDirection(line):
+          location.getCompassDirection(line);
           break;
 
-        case line.includes('Your Location is'):
-          this.getLocationData(line);
+        case location.isLocation(line):
+          location.getLocationData(line);
           break;
 
-        case line.includes('You have entered'):
-          this.getCurrentZone(line);
+        case location.isZone(line):
+          location.getCurrentZone(line);
           break;
 
         case this.isSpellCast(line):
@@ -75,25 +76,6 @@ class Parser {
   isPetData(line) {
     this.debugLog('Checking Pet Data:', line);
     return this.petSignatures.some(signature => line.includes(signature));
-  }
-
-  getCompassDirection(line) {
-    const direction = line.split(' ').pop().slice(0, -2);
-    gameState.compassDirection = direction;
-    this.debugLog('Compass Direction:', direction);
-  }
-
-  getLocationData(line) {
-    // Example line: [Sat Aug 16 08:54:54 2025] Your Location is -1218.92, 827.11, 3.04
-    const [, , , , , , , , y, x, z] = line.replace(',', '').split(' ');
-    gameState.currentLocation = `X: ${x} Y: ${y} Z: ${z}`;
-    this.debugLog('Current Location:', gameState.currentLocation);
-  }
-
-  getCurrentZone(line) {
-    const zoneName = line.split('You have entered ')[1].split('.').shift();
-    gameState.currentZone = zoneName;
-    this.debugLog('Current Zone:', gameState.currentZone);
   }
 
   getPetData(line) {
