@@ -22,9 +22,13 @@ class Parser {
       'Your spell is interrupted',
       'Your spell fizzles!',
       this.spellSignatures[this.currentSpellId]
+    ],
+    this.petSignatures = [
+      'At your service master.',
+      'Sorry, Master..calming down.'
     ]
   }
-  logLine() {
+  debugLog() {
     if (this.debugMode) console.log(...arguments);
   }
 
@@ -34,21 +38,26 @@ class Parser {
       console.log(line);
     } else {
       switch (true) {
-        case line?.includes('You think you are heading'):
+        case line.includes('You think you are heading'):
           this.getCompassDirection(line);
           break;
 
-        case line?.includes('Your Location is'):
+        case line.includes('Your Location is'):
           this.getLocationData(line);
           break;
 
-        case line?.includes('You have entered'):
+        case line.includes('You have entered'):
           this.getCurrentZone(line);
           break;
 
         case this.isSpellCast(line):
           this.handleSpellCast(line);
           break;
+
+        case this.isPetData(line):
+          this.getPetData(line);
+          break;
+
         default:
           return
       }
@@ -56,6 +65,7 @@ class Parser {
   }
 
   isSpellCast(line) {
+    this.debugLog('Checking Spell Cast:', line);
     const currentSpellId = this.currentSpell?.toLowerCase().replace(/ /g, '_');
 
     const isSpellCast = this.spellCastSignatures.some(signature => line?.includes(signature))
@@ -64,30 +74,39 @@ class Parser {
     return isSpellCast
   }
 
+  isPetData(line) {
+    this.debugLog('Checking Pet Data:', line);
+    return this.petSignatures.some(signature => line.includes(signature));
+  }
+
   getCompassDirection(line) {
-    if (line?.includes('You think you are heading')) {
-      const direction = line.split(' ').pop().slice(0, -2);
-      this.compassDirection = direction;
-      this.logLine('Compass Direction:', direction);
-    }
+    const direction = line.split(' ').pop().slice(0, -2);
+    this.compassDirection = direction;
+    this.debugLog('Compass Direction:', direction);
   }
 
   getLocationData(line) {
+    // Example line: [Sat Aug 16 08:54:54 2025] Your Location is -1218.92, 827.11, 3.04
+    const [, , , , , , , , y, x, z] = line.replace(',', '').split(' ');
+    this.currentLocation = `X: ${x} Y: ${y} Z: ${z}`;
+    this.debugLog('Current Location:', this.currentLocation);
     if (line?.includes('Your Location is')) {
-      // Example line: [Sat Aug 16 08:54:54 2025] Your Location is -1218.92, 827.11, 3.04
-      const [, , , , , , , , y, x, z] = line.replace(',', '').split(' ');
-      this.currentLocation = `X: ${x} Y: ${y} Z: ${z}`;
-      this.logLine('Current Location:', this.currentLocation);
     }
   }
 
   getCurrentZone(line) {
-    if (line?.includes('You have entered')) {
-      const zoneName = line.split('You have entered ')[1].split('.').shift();
-      this.currentZone = zoneName;
-      this.logLine('Current Zone:', this.currentZone);
-    }
+    const zoneName = line.split('You have entered ')[1].split('.').shift();
+    this.currentZone = zoneName;
+    this.debugLog('Current Zone:', this.currentZone);
   }
+
+  getPetData(line) {
+    const lineParts = line.split(' ');
+    console.log(lineParts); 
+    this.currentPet = lineParts[5];
+    this.debugLog('Current Pet:', this.currentPet);
+  }
+
 //   function getCurrentZone(log) {
 //   const zoneData = log.filter(line => line.includes('You have entered'));
 //   if (zoneData) {
@@ -101,18 +120,18 @@ class Parser {
     if (line?.includes('You begin casting')) {
       const spellName = line.split('You begin casting ')[1].split('.').shift();
       this.currentSpell = spellName;
-      this.logLine('Current Spell:', this.currentSpell);
+      this.debugLog('Current Spell:', this.currentSpell);
       return
     }
     if (line?.includes('Your spell is interrupted')) {
-      this.logLine('Spell Interrupted:', this.currentSpell);
+      this.debugLog('Spell Interrupted:', this.currentSpell);
       this.currentSpell = 'INTERRUPTED!';
       setTimeout(() => this.currentSpell = null, 2000);
       return
     }
 
     if (line?.includes('Your spell fizzles!')) {
-      this.logLine('Spell Fizzled:', this.currentSpell);
+      this.debugLog('Spell Fizzled:', this.currentSpell);
       this.currentSpell = 'FIZZLE!';
       setTimeout(() => this.currentSpell = null, 2000);
       return
@@ -120,22 +139,14 @@ class Parser {
 
     const spellId = this.currentSpell?.toLowerCase().replace(/ /g, '_');
     const spellSignature = this.spellSignatures[spellId];
-    if (!spellSignature) this.logLine('UNKNOWN SPELL:', this.currentSpell);
+    if (!spellSignature) this.debugLog('UNKNOWN SPELL:', this.currentSpell);
     if (spellId && line?.includes(spellSignature)) {
-      this.logLine('Spell Complete: ', this.currentSpell);
+      this.debugLog('Spell Complete: ', this.currentSpell);
       this.currentSpell = null;
       return
     }
   }
-
-  logGameState() {
-    console.clear();
-    console.log('Current Location:', this.currentLocation);
-    console.log('Compass Direction:', this.compassDirection);
-    console.log('Current Zone:', this.currentZone);
-    console.log('Current Spell:', this.currentSpell);
-  }
-
+  
   beginParsing() {
     if (this.readRawInput) return
     if (this.dashboardMode) setInterval(() => this.logGameState(), 1000);
