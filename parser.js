@@ -90,8 +90,6 @@ class Parser {
     const [, , , , , , , , y, x, z] = line.replace(',', '').split(' ');
     this.currentLocation = `X: ${x} Y: ${y} Z: ${z}`;
     this.debugLog('Current Location:', this.currentLocation);
-    if (line?.includes('Your Location is')) {
-    }
   }
 
   getCurrentZone(line) {
