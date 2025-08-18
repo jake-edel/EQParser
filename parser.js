@@ -1,12 +1,17 @@
 class Parser {
-  constructor() {
+  constructor({
+    readRawInput = false,
+    dashboardMode = false
+  } = {}
+) {
     this.currentLocation = null;
     this.compassDirection = null;
     this.currentZone = null;
-    this.currentSpell = null
-    this.readRawInput = false;
-    this.dashboardMode = true;
-    this.debugMode = false
+    this.currentSpell = null;
+    this.currentPet = null;
+    this.readRawInput = readRawInput; // Read each line as it comes straight from the log
+    this.dashboardMode = dashboardMode; // Display a dashboard in the console
+    this.debugMode = false;
     this.spellSignatures = {
       deadeye: 'Your vision shifts.',
       shadow_sight: 'The shadows fade.',
@@ -24,7 +29,8 @@ class Parser {
   }
 
   readLine(line) {
-    if (this.readRawInput) {
+    if (!line) return;
+    if (this.readRawInput && !this.debugMode) {
       console.log(line);
     } else {
       switch (true) {
@@ -132,9 +138,20 @@ class Parser {
 
   beginParsing() {
     if (this.readRawInput) return
-    if (this.dashboardMode) setInterval(() => this.logGameState(), 100);
+    if (this.dashboardMode) setInterval(() => this.logGameState(), 1000);
   }
-
+  
+  logGameState() {
+    console.clear();
+    const dashBoardString = `
+      Location: ${this.currentLocation}
+      Compass Direction: ${this.compassDirection}
+      Zone: ${this.currentZone}
+      Spell: ${this.currentSpell}
+      Pet Name: ${this.currentPet}
+    `;
+    console.log(dashBoardString);
+  }
 }
 
-export default new Parser();
+export default Parser;

@@ -1,11 +1,11 @@
 import fs from 'fs'
-import parser from './parser.js'
 
 class LogReader {
-  constructor() {
+  constructor(parser) {
     this.filePath = 'C:\\Everquest\\Logs\\eqlog_Jakxitz_P1999Green.txt';
     this.lastReadPosition = 0;
     this.leftover = '';
+    this.parser = parser;
   }
 
   async readFullLog() {
@@ -19,7 +19,7 @@ class LogReader {
     }
   }
 
-  async startReadingLog() {
+  async startReadingLog(parser) {
     const fileStats = await fs.promises.stat(this.filePath);
     this.lastReadPosition = fileStats.size;
     
@@ -55,7 +55,8 @@ class LogReader {
         });
       }
     });
+    return this.parser;
   }
 }
 
-export default new LogReader()
+export default new LogReader();

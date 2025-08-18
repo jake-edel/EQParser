@@ -1,5 +1,11 @@
 import logReader from './logReader.js';
-import parser from './parser.js';
+import Parser from './parser.js';
 
-await logReader.startReadingLog();
+const readRawInput = process.argv[2] === 'raw';
+const dashboardMode = process.argv[2] === 'dashboard';
+
+
+const parser = new Parser({ readRawInput, dashboardMode });
+await logReader.startReadingLog(parser);
+
 parser.beginParsing();
