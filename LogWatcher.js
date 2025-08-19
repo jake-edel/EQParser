@@ -5,34 +5,19 @@ class LogWatcher {
   constructor(parser) {
     this.filePath = 'C:\\Everquest\\Logs\\eqlog_Jakxitz_P1999Green.txt';
     this.file = null
-    this.fileSize = 0;
-    this.readBuffer = Buffer.alloc(0);
+    this.readBuffer = null;
     this.lastReadPosition = 0;
     this.leftover = '';
     this.parser = parser;
-    this.debug = new Debugger(this.constructor.name);
-    this.debug.enable();
-  }
-
-  async readFullLog() {
-    try {
-      const log = await fs.promises.readFile(this.testFilePath, 'utf8');
-      this.fullLog = log.split('\n');
-      this.fullLog.pop();
-      this.logLineCount = this.fullLog.length;
-    } catch (err) {
-      console.error('Error reading the file:', err);
-    }
+    this.debug = new Debugger(this.constructor.name).enable();
   }
 
   async getFileSize() {
     try {
-      this.fileSize = (await fs.promises.stat(this.filePath)).size;
+      return (await fs.promises.stat(this.filePath)).size;
     } catch (error) {
       this.debug.log('Error getting log size:', error);
     }
-
-    return this.fileSize
   }
 
   async openFile() {
@@ -46,11 +31,11 @@ class LogWatcher {
   async readFile(readLength) {
     try {
       this.debug.log('Getting ready to read', readLength, 'new bytes');
-      this.readBuffer = Buffer.alloc(readLength);
       const { bytesRead } = await this.file.read(this.readBuffer, 0, readLength, this.lastReadPosition)
-      this.lastReadPosition += bytesRead;
       if (bytesRead <= 0) throw new Error('No data read from file. How did you manage to fuck that up')
-    } catch {
+      
+      return bytesRead
+    } catch (error) {
       this.debug.log('Error reading file:', error);
     }
   }
@@ -78,14 +63,14 @@ class LogWatcher {
 
   async startWatchingLog() {
     this.lastReadPosition = await this.getFileSize();
-    this.debug.log('Log size:', this.getByteSize(this.fileSize));
+    this.debug.log('Log size:', this.getByteSize(this.lastReadPosition), '\n');
 
-    fs.watch(this.filePath, this.onFileEvent.bind(this));
+    fs.watch(this.filePath, eventType => {
+      if (eventType === 'change') this.onFileChangeEvent(eventType);
+    });
   }
 
-  async onFileEvent(eventType) {
-    this.debug.log('File event emitted: ', eventType);
-
+  async onFileChangeEvent(eventType) {
     if (eventType !== 'change')
       throw new Error('Unexpected file event type: ' + eventType);
 
@@ -96,17 +81,22 @@ class LogWatcher {
 
     await this.openFile();
     await this.handleFileRead();
+
     const data = this.readBuffer.toString('utf8');
     const lines = this.handleLineSplit(data);
     lines.forEach(line => this.parser.readLine(line.trim()));
 
     await this.file.close();
   }
+
   async handleFileRead() {
-    const readLength = this.fileSize - this.lastReadPosition;
-    await this.readFile(readLength);
+    const currentFileSize = await this.getFileSize();
+    const readLength = currentFileSize - this.lastReadPosition;
+    this.readBuffer = Buffer.alloc(readLength);
+    const bytesRead = await this.readFile(readLength);
+    this.lastReadPosition += bytesRead
     const newFileSize = await this.getFileSize();
-    if (newFileSize > this.fileSize) {
+    if (newFileSize > currentFileSize) {
       this.debug.log('File size changed during read, re-reading');
       this.handleFileRead()
     }
@@ -115,12 +105,11 @@ class LogWatcher {
     data += this.leftover; // Append any leftover data from the previous chunk
     data = data.replace(/\r/g, ''); // Remove carriage returns
 
-    this.debug.log('Data ends with a broken line?', data.charAt(data.length - 1) !== '\n');
     let lines = data.split('\n');
     // Last array item will either be the incomplete line or empty
     // We'll use that to check for incomplete lines on the next iteration
     this.leftover = lines.pop();
-    this.debug.log('New log lines:', lines);
+    this.debug.log('New log lines:', lines, '\n');
 
     return lines;
   }

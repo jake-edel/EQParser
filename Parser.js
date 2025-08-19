@@ -15,8 +15,6 @@ class Parser {
 
   readLine(line) {
     if (!line) return;
-    
-    if (this.readRawInput) console.log(line);
 
     switch (true) {
       case location.isDirection(line):
