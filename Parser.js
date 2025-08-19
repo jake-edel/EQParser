@@ -6,15 +6,11 @@ import pet from './Pet.js';
 class Parser {
   constructor({
     readRawInput = false,
-    dashboardMode = false
+    dashboardMode = false,
   } = {}
 ) {
     this.readRawInput = readRawInput; // Read each line as it comes straight from the log
     this.dashboardMode = dashboardMode; // Display a dashboard in the console
-    this.debugMode = false; 
-  }
-  debugLog() {
-    if (this.debugMode) console.log(...arguments);
   }
 
   readLine(line) {
