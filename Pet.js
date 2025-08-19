@@ -7,7 +7,8 @@ class Pet {
       'Sorry, Master..calming down.',
       'Following you, Master.',
       'Changing position, Master.',
-      'Guarding with my life..oh splendid one.'
+      'Guarding with my life..oh splendid one.',
+      'tells you, \'Attacking'
     ];
     this.petStates = {
       'following_you_master': 'following',
