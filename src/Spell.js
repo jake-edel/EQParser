@@ -7,7 +7,8 @@ class Spell {
       shadow_sight: 'The shadows fade.',
       gather_shadows: 'You gather shadows about you.',
       malignant_dead: 'At your service master',
-      augment_death: 'gleam with madness'
+      augment_death: 'gleam with madness',
+      panic_the_dead: 'has the fear of life put'
     }
     this.spellCastSignatures = [
       'You begin casting',
