@@ -1,4 +1,5 @@
 import gameState from './GameState.js';
+import Debugger from './Debugger.js'
 
 class Pet {
   constructor() {
@@ -11,12 +12,15 @@ class Pet {
       'tells you, \'Attacking'
     ];
     this.petStates = {
-      'following_you_master': 'following',
-      'at_your_service_master': 'summoned',
-      'sorry_master_calming_down': 'backed off',
-      'changing_position_master': 'sitting',
-      'guarding_with_my_life_oh_splendid_one': 'guarding'
+      'following_you_master': 'Following',
+      'at_your_service_master': 'Summoned',
+      'sorry_master_calming_down': 'Backed off',
+      'changing_position_master': 'Sitting',
+      'guarding_with_my_life_oh_splendid_one': 'Guarding',
     };
+    this.debug = new Debugger(this.constructor.name);
+
+    this.debug.enable()
   }
 
   isPetData(line) {
@@ -34,13 +38,35 @@ class Pet {
   }
 
   getPetStatus(line) {
+    this.debug.log('Raw pet line:', line);
+    if (line.includes('tells you, \'Attacking')) {
+      this.handlePetAttack(line);
+      return;
+    }
     const lineId = line.split('says ')[1]?.toLowerCase()
       .replace(/\.\./g, '_')
       .replace(/[.,']/g, '')
       .replace(/ /g, '_')
       .trim();
 
-    gameState.petStatus = this.petStates[lineId] || null;
+    // this.debug.log('Pet status ID:', lineId);
+
+    const petStatus = this.petStates[lineId] || null;
+
+    gameState.petStatus = petStatus;
+  }
+
+  handlePetAttack(line) {
+    this.debug.log('Pet is attacking:', line);
+    const attackStatus = line.split('tells you, ')[1]
+      .replace(/\.\./g, '_')
+      .replace(/[.,']/g, '')
+      .replace(' Master', '')
+      .trim();
+
+    this.debug.log('Pet attack status:', attackStatus);
+
+    gameState.petStatus = attackStatus;
   }
 
   stripTimestamp(line) {
