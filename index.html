@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQParser</title>
+    <link rel="icon" href="data:,">
+  </head>
+  <body>
+    <h1>EQParser Dashboard</h1>
+  </body>
+  <script>
+    const serverPort = 4000
+    const ws = new WebSocket(`ws://localhost:${serverPort}`);
+
+    ws.onopen = () => {
+      console.log(`WebSocket connection established with port ${serverPort}`);
+      ws.send('Hello from the client!');
+    };
+    
+    ws.onmessage = event => console.log(event.data)
+  </script>
+</html>
