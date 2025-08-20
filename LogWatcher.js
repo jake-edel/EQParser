@@ -10,6 +10,7 @@ class LogWatcher {
     this.leftover = '';
     this.parser = parser;
     this.debug = new Debugger(this.constructor.name).enable();
+    this.debounceTimer = null
   }
 
   async getFileSize() {
@@ -32,7 +33,7 @@ class LogWatcher {
     try {
       this.debug.log('Getting ready to read', readLength, 'new bytes');
       const { bytesRead } = await this.file.read(this.readBuffer, 0, readLength, this.lastReadPosition)
-      if (bytesRead <= 0) throw new Error('No data read from file. How did you manage to fuck that up')
+      // if (bytesRead <= 0) throw new Error('No data read from file. How did you manage to fuck that up')
       
       return bytesRead
     } catch (error) {
@@ -65,8 +66,14 @@ class LogWatcher {
     this.lastReadPosition = await this.getFileSize();
     this.debug.log('Log size:', this.getByteSize(this.lastReadPosition), '\n');
 
+
     fs.watch(this.filePath, eventType => {
-      if (eventType === 'change') this.onFileChangeEvent(eventType);
+      if (eventType === 'change') {
+        this.debug.log('Change event detected');
+
+        clearTimeout(this.debounceTimer);
+        this.debounceTimer = setTimeout(() => this.onFileChangeEvent(eventType), 50);
+      }
     });
   }
 
@@ -74,12 +81,6 @@ class LogWatcher {
     if (eventType !== 'change')
       throw new Error('Unexpected file event type: ' + eventType);
 
-    const fileSize = await this.getFileSize();
-
-    if (fileSize <= this.lastReadPosition)
-      throw new Error('Log file has changed but is either truncated or modified. Consider why that may be')
-
-    await this.openFile();
     await this.handleFileRead();
 
     const data = this.readBuffer.toString('utf8');
@@ -90,8 +91,11 @@ class LogWatcher {
   }
 
   async handleFileRead() {
+    await this.openFile();
+    
     const currentFileSize = await this.getFileSize();
     const readLength = currentFileSize - this.lastReadPosition;
+    if (readLength <= 0) return
     this.readBuffer = Buffer.alloc(readLength);
     const bytesRead = await this.readFile(readLength);
     this.lastReadPosition += bytesRead
