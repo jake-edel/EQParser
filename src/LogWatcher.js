@@ -33,8 +33,8 @@ class LogWatcher {
     try {
       this.debug.log('Getting ready to read', readLength, 'new bytes');
       const { bytesRead } = await this.file.read(this.readBuffer, 0, readLength, this.lastReadPosition)
-      // if (bytesRead <= 0) throw new Error('No data read from file. How did you manage to fuck that up')
-      
+      if (bytesRead <= 0) this.debug.log('No data read from file. How did you manage to fuck that up')
+
       return bytesRead
     } catch (error) {
       this.debug.log('Error reading file:', error);
@@ -51,15 +51,10 @@ class LogWatcher {
     return bytes / (1024 * 1024 * 1024);
   }
   getByteSize(bytes) {
-    if (bytes < 1024) {
-      return bytes + ' Bytes';
-    } else if (bytes < 1024 * 1024) {
-      return this.bytesToKB(bytes).toFixed(2) + ' KB';
-    } else if (bytes < 1024 * 1024 * 1024) {
-      return this.bytesToMB(bytes).toFixed(2) + ' MB';
-    } else {
-      return this.bytesToGB(bytes).toFixed(2) + ' GB';
-    }
+    if (bytes > 1024 * 1024 * 1024)  return this.bytesToGB(bytes).toFixed(2) + ' GB';
+    if (bytes > 1024 * 1024) return this.bytesToMB(bytes).toFixed(2) + ' MB';
+    if (bytes > 1024) return this.bytesToKB(bytes).toFixed(2) + ' KB';
+    return bytes + ' Bytes';
   }
 
   async startWatchingLog() {

@@ -1,11 +1,9 @@
-import LogWatcher from './LogWatcher.js';
-import Parser from './Parser.js';
+import LogWatcher from './src/LogWatcher.js';
+import Parser from './src/Parser.js';
 
-const readRawInput = process.argv[2] === 'raw';
 const dashboardMode = process.argv[2] === 'dashboard';
 
-
-const parser = new Parser({ readRawInput, dashboardMode });
+const parser = new Parser({ dashboardMode });
 const logWatcher = new LogWatcher(parser);
 await logWatcher.startWatchingLog();
 

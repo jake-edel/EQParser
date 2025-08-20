@@ -5,11 +5,9 @@ import pet from './Pet.js';
 
 class Parser {
   constructor({
-    readRawInput = false,
     dashboardMode = false,
   } = {}
 ) {
-    this.readRawInput = readRawInput; // Read each line as it comes straight from the log
     this.dashboardMode = dashboardMode; // Display a dashboard in the console
   }
 
@@ -43,7 +41,6 @@ class Parser {
   }
   
   beginParsing() {
-    if (this.readRawInput) return
     if (this.dashboardMode) setInterval(() => gameState.log(), 1000);
   }
 }
