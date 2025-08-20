@@ -7,7 +7,7 @@ class Location {
   }
 
   getCompassDirection(line) {
-    const direction = line.split(' ').pop().slice(0, -2);
+    const direction = line.split(' ').pop().slice(0, -1);
     gameState.compassDirection = direction;
     // this.debugLog('Compass Direction:', direction);
   }
