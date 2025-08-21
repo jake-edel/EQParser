@@ -11,12 +11,13 @@ class WebSocket {
       this.client = this.server.clients[0];
 
     });
-    console.log('[WebSocket] => WebSocket server started on port 4000');
   }
 
-  send(data) {
-    console.log(`[WebSocket] => Sending data: ${data}`);
-    if (this.socket) this.socket.send(data);
+  send(key, data) {
+    if (!this.socket) return
+    const payload = { [key]: data };
+    const buffer = Buffer.from(JSON.stringify(payload));
+    this.socket.send(buffer);
   }
 }
 
