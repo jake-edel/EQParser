@@ -1,7 +1,7 @@
-   import location from "../Location";
-   import spell from "../Spell";
-   import pet from '../Pet';
-   import loot from "../Loot";
+   import location from "../Location.js";
+   import spell from "../Spell.js";
+   import pet from '../Pet.js';
+   import loot from "../Loot.js";
 
    export default [
       { test: location.isDirection, handle: location.getCompassDirection },
