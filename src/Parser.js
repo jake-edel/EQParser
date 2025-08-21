@@ -26,4 +26,4 @@ class Parser {
   }
 }
 
-export default Parser;
+export default new Parser();

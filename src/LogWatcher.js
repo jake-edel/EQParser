@@ -1,13 +1,13 @@
 import fs from 'fs'
 import Debugger from './Debugger.js';
+import parser from './Parser.js';
 
 class LogWatcher {
-  constructor(parser) {
+  constructor() {
     this.filePath = 'C:\\Everquest\\Logs\\eqlog_Jakxitz_P1999Green.txt';
     this.file = null
     this.lastReadPosition = 0;
     this.leftover = '';
-    this.parser = parser;
     this.debounceTimer = null
     this.debug = new Debugger(this.constructor.name);
 
@@ -85,7 +85,7 @@ class LogWatcher {
 
     const buffer = await this.handleFileRead();
     const lines = this.formatBuffer(buffer);
-    lines.forEach(line => this.parser.readLine(line.trim()));
+    lines.forEach(line => parser.readLine(line.trim()));
 
     await this.file.close();
   }
