@@ -8,10 +8,10 @@ class LogWatcher {
     this.lastReadPosition = 0;
     this.leftover = '';
     this.parser = parser;
-    this.debug = new Debugger(this.constructor.name);
     this.debounceTimer = null
+    this.debug = new Debugger(this.constructor.name);
 
-    this.parser.dashboardMode ? this.debug.disable() : this.debug.enable();
+    // this.debug.enable()
   }
 
   async getFileSize() {

@@ -4,6 +4,7 @@ class Debugger {
   constructor(className) {
     this.enabledClasses = new Set();
     this.className = className;
+    this.isDashboardMode = process.argv[2] === 'dashboard';
   }
 
   enable() {
@@ -17,6 +18,8 @@ class Debugger {
   }
 
   log(...args) {
+    if (this.isDashboardMode) return;
+    
     if (this.enabledClasses.has(this.className)) {
       const debugString = `[${this.className}] => ${args.join(' ')}`;
       console.log(debugString);
