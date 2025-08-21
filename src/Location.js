@@ -1,6 +1,12 @@
 import gameState from "./GameState.js";
+import Debugger from "./Debugger.js";
+import WebSocket from "./WebSocket.js";
 
 class Location {
+  constructor() {
+    this.debug = new Debugger(this.constructor.name);
+    // this.debug.enable()
+  }
 
   isDirection(line) {
     return line.includes('You think you are heading');
@@ -9,18 +15,22 @@ class Location {
   getCompassDirection(line) {
     const direction = line.split(' ').pop().slice(0, -1);
     gameState.compassDirection = direction;
-    // this.debugLog('Compass Direction:', direction);
+    this.debug.log('Compass Direction:', direction);
   }
 
   isLocation(line) {
     return line.includes('Your Location is');
   }
+  formatLocationData(line) {
+    const [y, x, z] = line.replace(/\,/g, '').split(' ').slice(8);
+    return { x, y, z };
+  }
 
   getLocationData(line) {
-    // Example line: [Sat Aug 16 08:54:54 2025] Your Location is -1218.92, 827.11, 3.04
-    const [, , , , , , , , y, x, z] = line.replace(',', '').split(' ');
-    gameState.currentLocation = `X: ${x} Y: ${y} Z: ${z}`;
-    // this.debugLog('Current Location:', gameState.currentLocation);
+    const location = this.formatLocationData(line);
+    gameState.currentLocation = location;
+    WebSocket.send('location', location )
+    this.debug.log('Current Location:', gameState.currentLocation);
   }
 
   isZone(line) {

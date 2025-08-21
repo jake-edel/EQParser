@@ -1,3 +1,5 @@
+import webSocket from "./WebSocket.js";
+
 class Debugger {
   constructor(className) {
     this.enabledClasses = new Set();
@@ -16,7 +18,9 @@ class Debugger {
 
   log(...args) {
     if (this.enabledClasses.has(this.className)) {
-      console.log(`[${this.className}] =>`, ...args);
+      const debugString = `[${this.className}] => ${args.join(' ')}`;
+      console.log(debugString);
+      webSocket.send('debug', debugString);
     }
   }
 }
