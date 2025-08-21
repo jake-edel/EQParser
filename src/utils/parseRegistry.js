@@ -3,11 +3,32 @@
    import pet from '../Pet.js';
    import loot from "../Loot.js";
 
+   // Passing the methods as callback causes the method
+   // to lose the context of 'this'. Passing an arrow function
+   // preserves the context
    export default [
-      { test: location.isDirection, handle: location.getCompassDirection },
-      { test: location.isLocation, handle: location.getLocationData },
-      { test: location.isZone, handle: location.getCurrentZone },
-      { test: spell.isSpellCast, handle: spell.handleSpellCast },
-      { test: pet.isPetData, handle: pet.handlePetData },
-      { test: loot.isCoinReceive, handle: loot.handleCoinReceive },
+      {
+         condition: (line) => location.isDirection(line),
+         handler: (line) => location.getCompassDirection(line)
+      },
+      {
+         condition: (line) => location.isLocation(line),
+         handler: (line) => location.getLocationData(line)
+      },
+      {
+         condition: (line) => location.isZone(line),
+         handler: (line) => location.getCurrentZone(line)
+      },
+      {
+         condition: (line) => spell.isSpellCast(line),
+         handler: (line) => spell.handleSpellCast(line)
+      },
+      {
+         condition: (line) => pet.isPetData(line),
+         handler: (line) => pet.handlePetData(line)
+      },
+      {
+         condition: (line) => loot.isCoinReceive(line),
+         handler: (line) => loot.handleCoinReceive(line)
+      }
     ];

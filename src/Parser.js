@@ -13,9 +13,9 @@ class Parser {
   readLine(line) {
     if (!line) return;
 
-    for (const { test, handle } of parseRegistry) {
-      if (test(line)) {
-        handle(line);
+    for (const { condition, handler } of parseRegistry) {
+      if (condition(line)) {
+        handler(line);
         return;
       }
     }
