@@ -7,6 +7,14 @@
     };
     
     ws.onmessage = event => {
+      console.log(event)
+      // If we're getting a string back from the server
+      // handle it as is, no buffer to deal with
+      if (typeof event.data === 'string') {
+        console.log(event.data);
+        return
+      }
+
       event.data.text().then(text => {
         console.log(JSON.parse(text));
         const message = JSON.parse(text);
