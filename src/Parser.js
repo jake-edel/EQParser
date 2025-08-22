@@ -1,17 +1,18 @@
 import gameState from './GameState.js';
 import parseRegistry from './utils/parseRegistry.js';
+import Debugger from './Debugger.js';
 
 
 class Parser {
-  constructor({
-    dashboardMode = false,
-  } = {}
-) {
-    this.dashboardMode = dashboardMode; // Display a dashboard in the console
+  constructor() {
+    this.debug = new Debugger(this.constructor.name);
+
+    // this.debug.enable()
   }
 
   readLine(line) {
     if (!line) return;
+    this.debug.log(line);
 
     for (const { condition, handler } of parseRegistry) {
       if (condition(line)) {
