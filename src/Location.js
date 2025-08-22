@@ -1,6 +1,6 @@
 import gameState from "./GameState.js";
 import Debugger from "./Debugger.js";
-import client from "./Client.js";
+import server from "./Server.js";
 
 class Location {
   constructor() {
@@ -15,6 +15,7 @@ class Location {
   getCompassDirection(line) {
     const direction = line.split(' ').pop().slice(0, -1);
     gameState.compassDirection = direction;
+    server.send('compassDirection', direction);
     this.debug.log('Compass Direction:', direction);
   }
 
@@ -29,7 +30,7 @@ class Location {
   getLocationData(line) {
     const location = this.formatLocationData(line);
     gameState.currentLocation = location;
-    client.send('location', location )
+    server.send('location', location )
     this.debug.log('Current Location:', gameState.currentLocation);
   }
 

@@ -1,4 +1,4 @@
-import client from "./Client.js";
+import server from "./Server.js";
 
 class Debugger {
   constructor(className) {
@@ -23,7 +23,7 @@ class Debugger {
     if (this.enabledClasses.has(this.className)) {
       const debugString = `[${this.className}] => ${args.join(' ')}`;
       console.log(debugString);
-      client.send('debug', debugString);
+      server.send('debug', debugString);
     }
   }
 }

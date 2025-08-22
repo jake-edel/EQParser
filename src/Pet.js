@@ -1,5 +1,6 @@
 import gameState from './GameState.js';
 import Debugger from './Debugger.js'
+import server from './Server.js';
 
 class Pet {
   constructor() {
@@ -20,7 +21,7 @@ class Pet {
     };
     this.debug = new Debugger(this.constructor.name);
 
-    this.debug.enable()
+    // this.debug.enable()
   }
 
   isPetData(line) {
@@ -35,12 +36,15 @@ class Pet {
   getPetName(line) {
     const [ , , , , , petName] = line.split(' ');
     gameState.currentPet = petName;
+    server.send('petName', petName);
   }
 
   getPetStatus(line) {
     this.debug.log('Raw pet line:', line);
+    let petStatus = null;
     if (line.includes('tells you, \'Attacking')) {
-      this.handlePetAttack(line);
+      petStatus = this.handlePetAttack(line);
+      server.send('petStatus', petStatus);
       return;
     }
     const lineId = line.split('says ')[1]?.toLowerCase()
@@ -49,11 +53,10 @@ class Pet {
       .replace(/ /g, '_')
       .trim();
 
-    // this.debug.log('Pet status ID:', lineId);
-
-    const petStatus = this.petStates[lineId] || null;
+    petStatus = this.petStates[lineId] || null;
 
     gameState.petStatus = petStatus;
+    server.send('petStatus', petStatus);
   }
 
   handlePetAttack(line) {
@@ -66,11 +69,7 @@ class Pet {
 
     this.debug.log('Pet attack status:', attackStatus);
 
-    gameState.petStatus = attackStatus;
-  }
-
-  stripTimestamp(line) {
-    return line.replace(/^\[[A-Za-z]{3} [A-Za-z]{3} \d{2} \d{2}:\d{2}:\d{2} \d{4}\]\s*/, '').trim();
+    return attackStatus
   }
 }
 
