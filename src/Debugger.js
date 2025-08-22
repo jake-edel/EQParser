@@ -1,4 +1,4 @@
-import webSocket from "./WebSocket.js";
+import client from "./Client.js";
 
 class Debugger {
   constructor(className) {
@@ -23,7 +23,7 @@ class Debugger {
     if (this.enabledClasses.has(this.className)) {
       const debugString = `[${this.className}] => ${args.join(' ')}`;
       console.log(debugString);
-      webSocket.send('debug', debugString);
+      client.send('debug', debugString);
     }
   }
 }

@@ -1,5 +1,5 @@
     const serverPort = 4000
-    const ws = new WebSocket(`ws://localhost:${serverPort}`);
+    const ws = new WebSocket(`ws://192.168.1.79:${serverPort}`);
 
     ws.onopen = () => {
       console.log(`WebSocket connection established with port ${serverPort}`);
