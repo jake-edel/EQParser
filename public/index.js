@@ -1,5 +1,5 @@
-    const serverPort = 4000
-    const ws = new WebSocket(`ws://172.21.144.1:${serverPort}/ws`); // Desktop
+    const serverPort = 4001
+    const ws = new WebSocket(`ws://localhost:${serverPort}/ws`); // Desktop
     // const ws = new WebSocket(`ws://192.168.1.79:${serverPort}/ws`); // Toshiba Laptop
 
     ws.onclose = () => {

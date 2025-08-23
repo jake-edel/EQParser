@@ -15,7 +15,7 @@ export default {
     watch: './public',
     proxy: {
       '/ws': {
-        target: `ws://${ipHost[process.env.COMPUTERNAME]}:4000`,
+        target: `ws://${ipHost[process.env.COMPUTERNAME]}:4001`,
         ws: true,
         rewriteWsOrigin: true
       }
