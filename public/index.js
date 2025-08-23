@@ -7,13 +7,12 @@
 
     ws.onmessage = event => {
       if (typeof event.data === 'string') {
-        console.log(event.data);
+        if (event.data === 'spellInterrupt') console.log('Spell was interrupted');
         return
       }
 
       event.data.text().then(text => {
         const message = JSON.parse(text);
-        // console.log(message);
         const keys = Object.keys(message);
         keys.forEach(key => {
           if (key === 'location') handleLocation(message[key]);
