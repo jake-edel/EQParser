@@ -21,7 +21,11 @@ class Server {
     // Once a WebSocket connection is established
     // expose the socket to any consuming classes
     this.socket = socket;
+    console.log('Server: WebSocket connection established');
     this.socket.send('Server: WebSocket connection established');
+    this.socket.on('message', (message) => {
+      console.log(message.toString('utf-8'));
+    });
   }
 
   handleOnWsClose() {

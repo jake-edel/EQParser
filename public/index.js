@@ -1,9 +1,18 @@
-    const serverPort = 4001
-    const ws = new WebSocket(`ws://localhost:${serverPort}/ws`); // Desktop
-    // const ws = new WebSocket(`ws://192.168.1.79:${serverPort}/ws`); // Toshiba Laptop
+    const serverPort = 4000
+    // const ws = new WebSocket(`ws://localhost:${serverPort}/ws`); // Desktop
+    let ws = new WebSocket(`ws://192.168.1.79:${serverPort}/ws`); // Toshiba Laptop
 
     ws.onclose = () => {
-      console.log('Client sees WebSocket connection closed');
+      console.log('Client: WebSocket connection closed');
+      setTimeout(() => { // TODO: Do better, works for now
+        console.log('Client: Reconnecting...');
+        ws = new WebSocket(`ws://192.168.1.79:${serverPort}/ws`);
+      }, 1000);
+    };
+
+    ws.onopen = () => {
+      console.log('Client: WebSocket connection established');
+      ws.send('Hello from the client');
     };
 
     ws.onmessage = event => {
