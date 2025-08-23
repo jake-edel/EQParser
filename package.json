@@ -7,7 +7,7 @@
   "type": "module",
   "main": "app.js",
   "scripts": {
-    "server": "nodemon --watch src app.js",
+    "server": "nodemon --verbose --watch src app.js",
     "client": "vite --host",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
