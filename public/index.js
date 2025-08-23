@@ -41,12 +41,18 @@
     }
 
     function handleCoinLoot(coins) {
-      Object.entries(coins.received).forEach(([type, amount]) => {
-        updateElementById(`coin-${type}`, `Total ${type}: ${amount}`);
-      });
       Object.entries(coins.total).forEach(([type, amount]) => {
         updateElementById(`total-coin-${type}`, `Total ${type}: ${amount}`);
       });
+      Object.entries(coins.received).forEach(([type, amount]) => {
+        updateElementById(`coin-${type}`, `Total ${type}: ${amount}`);
+      });
+      setTimeout(() => {
+        for (const type of ['copper', 'silver', 'gold', 'platinum']) {
+          updateElementById(`coin-${type}`, `Total ${type}: 0`);
+        }
+      }, 4000);
+
     }
 
     function updateElementById(id, innerText) {
