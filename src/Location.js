@@ -41,6 +41,7 @@ class Location {
   getCurrentZone(line) {
     const zoneName = line.split('You have entered ')[1].split('.').shift();
     gameState.currentZone = zoneName;
+    server.send(zoneName, 'zone');
     // this.debugLog(' Current Zone:', gameState.currentZone);
   }
 }
