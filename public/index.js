@@ -9,6 +9,7 @@
 
       event.data.text().then(text => {
         const message = JSON.parse(text);
+        // console.log(message);
         const keys = Object.keys(message);
         keys.forEach(key => {
           if (key === 'location') handleLocation(message[key]);
@@ -17,6 +18,7 @@
           if (key === 'compassDirection') handleCompassDirection(message[key]);
           if (key === 'petName') handlePetName(message[key]);
           if (key === 'petStatus') handlePetStatus(message[key]);
+          if (key === 'coinLoot') handleCoinLoot(message[key]);
         });
       });
     }
@@ -32,6 +34,15 @@
       const innerText = `${logMessage}`;
       const element = createElement(id, innerText);
       document.getElementById('log').prepend(element);
+    }
+
+    function handleCoinLoot(coins) {
+      Object.entries(coins.received).forEach(([type, amount]) => {
+        updateElementById(`coin-${type}`, `Total ${type}: ${amount}`);
+      });
+      Object.entries(coins.total).forEach(([type, amount]) => {
+        updateElementById(`total-coin-${type}`, `Total ${type}: ${amount}`);
+      });
     }
 
     function updateElementById(id, innerText) {
