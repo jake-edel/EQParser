@@ -36,7 +36,7 @@ class Pet {
   getPetName(line) {
     const [ , , , , , petName] = line.split(' ');
     gameState.currentPet = petName;
-    server.send('petName', petName);
+    server.send(petName, 'petName');
   }
 
   getPetStatus(line) {
@@ -44,7 +44,7 @@ class Pet {
     let petStatus = null;
     if (line.includes('tells you, \'Attacking')) {
       petStatus = this.handlePetAttack(line);
-      server.send('petStatus', petStatus);
+      server.send(petStatus, 'petStatus');
       return;
     }
     const lineId = line.split('says ')[1]?.toLowerCase()
@@ -56,7 +56,7 @@ class Pet {
     petStatus = this.petStates[lineId] || null;
 
     gameState.petStatus = petStatus;
-    server.send('petStatus', petStatus);
+    server.send(petStatus, 'petStatus');
   }
 
   handlePetAttack(line) {

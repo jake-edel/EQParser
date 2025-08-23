@@ -18,8 +18,9 @@ class Server {
     wsServer.on('close', () => { this.socket.send('Server closing connection') })
   }
 
-  send(key, data) {
+  send(data, key) {
     if (!this.socket) return
+    if (!key) return this.socket.send(data);
     const payload = { [key]: data };
     const buffer = Buffer.from(JSON.stringify(payload));
     this.socket.send(buffer);

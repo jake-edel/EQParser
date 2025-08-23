@@ -15,7 +15,7 @@ class Location {
   getCompassDirection(line) {
     const direction = line.split(' ').pop().slice(0, -1);
     gameState.compassDirection = direction;
-    server.send('compassDirection', direction);
+    server.send(direction, 'compassDirection');
     this.debug.log('Compass Direction:', direction);
   }
 
@@ -30,7 +30,7 @@ class Location {
   getLocationData(line) {
     const location = this.formatLocationData(line);
     gameState.currentLocation = location;
-    server.send('location', location )
+    server.send(location, 'location');
     this.debug.log('Current Location:', gameState.currentLocation);
   }
 

@@ -30,8 +30,8 @@ class Loot {
       total: this.totalCoins,
       received: coins
     }
-    
-    server.send('coinLoot', payload)
+
+    server.send(payload, 'coinLoot')
   }
   
 }

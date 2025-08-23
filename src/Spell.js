@@ -1,4 +1,5 @@
 import gameState from "./GameState.js";
+import server from "./Server.js";
 
 class Spell {
   constructor () {
@@ -35,6 +36,7 @@ class Spell {
     if (this.isNewCast(line)) {
       const spellName = line.split('You begin casting ')[1].split('.').shift();
       gameState.currentSpell = spellName;
+      server.send(spellName, 'currentSpell');
     }
   }
 
@@ -44,6 +46,7 @@ class Spell {
 
   setSpellInterrupted() {
     gameState.currentSpell = 'INTERRUPTED!';
+    server.send('spellInterrupt')
     setTimeout(() => gameState.currentSpell = null, 2000);
   }
 
@@ -52,6 +55,7 @@ class Spell {
   }
   setSpellFizzle() {
     gameState.currentSpell = 'FIZZLE!';
+    server.send('spellFizzle')
     setTimeout(() => gameState.currentSpell = null, 2000);
   }
 
@@ -68,7 +72,7 @@ class Spell {
 
     if (this.isFizzle(line)) return this.setSpellFizzle()
 
-    if(this.isSpellComplete()) return this.setSpellComplete() 
+    if(this.isSpellComplete()) server.send('spellComplete')
 
     const spellId = gameState.currentSpell?.toLowerCase().replace(/ /g, '_');
     const spellSignature = this.spellSignatures[spellId];
