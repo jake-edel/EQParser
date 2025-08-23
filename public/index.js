@@ -1,6 +1,10 @@
     const serverPort = 4000
     const ws = new WebSocket(`ws://192.168.1.79:${serverPort}/ws`);
 
+    ws.onclose = () => {
+      console.log('Client sees WebSocket connection closed');
+    };
+
     ws.onmessage = event => {
       if (typeof event.data === 'string') {
         console.log(event.data);

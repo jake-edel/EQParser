@@ -14,6 +14,8 @@ class Server {
     // Once a WebSocket connection is established
     // expose the socket to any consuming classes
     wsServer.on('connection', socket => { this.socket = socket });
+
+    wsServer.on('close', () => { this.socket.send('Server closing connection') })
   }
 
   send(key, data) {
