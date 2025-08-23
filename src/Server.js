@@ -1,18 +1,11 @@
-import express from 'express'
 import http from 'http';
 import { WebSocketServer } from 'ws';
 
 class Server {
   constructor() {
-    // Create an http server to listen to requests
-    // and use as the basis for the WebSocket and Express servers
-    const app = express();
-    const httpServer = http.createServer(app);
+    const httpServer = http.createServer();
     const wsServer = new WebSocketServer({ server: httpServer });
     
-    // Configure the Express server to serve up the front end
-    // from the 'public' directory
-    app.use(express.static('public'));
     httpServer.listen(4000, '0.0.0.0', () => {
       console.log('HTTP server listening on port 4000');
     });
