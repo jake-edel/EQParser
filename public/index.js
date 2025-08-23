@@ -1,5 +1,6 @@
     const serverPort = 4000
-    const ws = new WebSocket(`ws://192.168.1.79:${serverPort}/ws`);
+    const ws = new WebSocket(`ws://172.21.144.1:${serverPort}/ws`); // Desktop
+    // const ws = new WebSocket(`ws://192.168.1.79:${serverPort}/ws`); // Toshiba Laptop
 
     ws.onclose = () => {
       console.log('Client sees WebSocket connection closed');
@@ -7,6 +8,7 @@
 
     ws.onmessage = event => {
       if (typeof event.data === 'string') {
+        console.log(event.data)
         if (event.data === 'spellInterrupt') console.log('Spell was interrupted');
         return
       }

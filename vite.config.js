@@ -1,9 +1,9 @@
 /** @type {import('vite').UserConfig} */
 
-console.log(import.meta.env)
 process.env.BROWSER = 'chrome'
 const ipHost = {
-  'DESKTOP-888IED3': '192.168.1.79'
+  'DESKTOP-888IED3': '192.168.1.79', // Laptop
+  'DESKTOP-C1K7U0D': '172.21.144.1' // Desktop
 }
 
 export default {
