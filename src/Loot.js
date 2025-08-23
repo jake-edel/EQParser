@@ -1,8 +1,9 @@
 import Debugger from './Debugger.js';
+import server from './Server.js';
 class Loot {
   constructor() {
     this.debug = new Debugger(this.constructor.name);
-    this.totalCash = {
+    this.totalCoins = {
       platinum: 0,
       gold: 0,
       silver: 0,
@@ -17,23 +18,20 @@ class Loot {
   }
 
   handleCoinReceive(line) {
-    line = line
-      .replace(',', '')
-      .replace('You receive ', '')
-      .replace(' as your split.', '')
+    const coinsReceived = line.match(/(\d+) (platinum|gold|silver|copper)/g) || [];
+    const coins = {};
+    for (const coin of coinsReceived) {
+      const [amount, type] = coin.split(' ')
+      coins[type] = parseInt(amount, 10);
+      this.totalCoins[type] += parseInt(amount, 10);
+    }
 
-    const platinum = line.match(/(\d+) platinum/) || [];
-    const gold = line.match(/(\d+) gold/) || [];
-    const silver = line.match(/(\d+) silver/) || [];
-    const copper = line.match(/(\d+) copper/) || [];
-
-    this.debug.log({ platinum, gold, silver, copper })
-
-    // const [_, amount, type] = line.match(/(\d+) (platinum|gold|silver|copper)/) || [];
-    // if (amount && type) {
-    //   this.totalCash[type] += parseInt(amount, 10);
-    //   this.debug.log(`Updated total cash: ${JSON.stringify(this.totalCash)}`);
-    // }
+    const payload = {
+      total: this.totalCoins,
+      received: coins
+    }
+    
+    server.send('coinLoot', payload)
   }
   
 }
