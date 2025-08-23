@@ -1,5 +1,5 @@
     const serverPort = 4000
-    const ws = new WebSocket(`ws://192.168.1.79:${serverPort}`);
+    const ws = new WebSocket(`ws://192.168.1.79:${serverPort}/ws`);
 
     ws.onmessage = event => {
       if (typeof event.data === 'string') {
@@ -13,6 +13,7 @@
         keys.forEach(key => {
           if (key === 'location') handleLocation(message[key]);
           if (key === 'debug') handleDebug(message[key]);
+          if (key === 'log') handleLog(message[key]);
           if (key === 'compassDirection') handleCompassDirection(message[key]);
           if (key === 'petName') handlePetName(message[key]);
           if (key === 'petStatus') handlePetStatus(message[key]);
@@ -23,7 +24,18 @@
       const id = 'debug';
       const innerText = `${debugMessage}`;
       const element = createElement(id, innerText);
-      document.getElementById('dashboard').prepend(element);
+      document.getElementById('debug').prepend(element);
+    }
+
+    function handleLog(logMessage) {
+      const id = 'log';
+      const innerText = `${logMessage}`;
+      const element = createElement(id, innerText);
+      document.getElementById('log').prepend(element);
+    }
+
+    function updateElementById(id, innerText) {
+      document.getElementById(id).innerText = innerText;
     }
 
     function handleLocation(location) {
@@ -32,15 +44,15 @@
     }
 
     function handleCompassDirection(direction) {
-      document.getElementById('compassDirection').innerText = direction;
+      updateElementById('compassDirection', direction);
     }
 
     function handlePetName(petName) {
-      document.getElementById('petName').innerText = petName;
+      updateElementById('petName', petName);
     }
 
     function handlePetStatus(petStatus) {
-      document.getElementById('petStatus').innerText = petStatus;
+      updateElementById('petStatus', petStatus);
     }
 
     function createElement(id, innerText) {

@@ -13,7 +13,7 @@ class Parser {
 
   readLine(line) {
     if (!line) return;
-    // server.send('debug', this.stripTimestamp(line));
+    server.send('log', this.stripTimestamp(line));
 
     for (const { condition, handler } of parseRegistry) {
       if (condition(line)) {
