@@ -13,17 +13,27 @@ class Loot {
   }
 
   isCoinReceive(line) {
-    const isCoinReceive = line.includes('You receive');
-    if (isCoinReceive) this.debug.log('Coin receive detected');
-    return isCoinReceive;
+    return line.includes('You receive') && line.includes('as your split');
   }
 
   handleCoinReceive(line) {
-    const [_, amount, type] = line.match(/You receive (\d+) (platinum|gold|silver|copper)/) || [];
-    if (amount && type) {
-      this.totalCash[type] += parseInt(amount, 10);
-      this.debug.log(`Updated total cash: ${JSON.stringify(this.totalCash)}`);
-    }
+    line = line
+      .replace(',', '')
+      .replace('You receive ', '')
+      .replace(' as your split.', '')
+
+    const platinum = line.match(/(\d+) platinum/) || [];
+    const gold = line.match(/(\d+) gold/) || [];
+    const silver = line.match(/(\d+) silver/) || [];
+    const copper = line.match(/(\d+) copper/) || [];
+
+    this.debug.log({ platinum, gold, silver, copper })
+
+    // const [_, amount, type] = line.match(/(\d+) (platinum|gold|silver|copper)/) || [];
+    // if (amount && type) {
+    //   this.totalCash[type] += parseInt(amount, 10);
+    //   this.debug.log(`Updated total cash: ${JSON.stringify(this.totalCash)}`);
+    // }
   }
   
 }
