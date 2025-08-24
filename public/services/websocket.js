@@ -2,23 +2,40 @@
     const serverPort = 4000
     const socketAddress = `ws://${host}:${serverPort}/ws`;
 
+    let ws;
     function createWebSocket() {
-      const ws = new WebSocket(socketAddress);
-      ws.onclose = () => retryWebSocketReconnect();
+      ws = new WebSocket(socketAddress);
       ws.onopen = () => handleWsOpen();
-      ws.onmessage = event => handleWsMessage(event);
       return ws;
     }
 
+    console.log('Begin polling for WebSocket Connection')
+    handleWebSocketRetry()
 
-    function retryWebSocketReconnect () {
-      console.log('Client: WebSocket connection closed. Attempting to reconnect...');
-      createWebSocket();
+    function attachWsHandlers (ws) {
+      ws.onclose = () => handleOnWsConnectionClose();
+      ws.onmessage = event => handleWsMessage(event);
     }
 
+    function handleOnWsConnectionClose() {
+      console.log('WebSocket connection closed');
+      handleWebSocketRetry();
+    }
+
+    function handleWebSocketRetry () {
+      const interval = setInterval(() => {
+        if (ws?.readyState === WebSocket.OPEN) {
+          clearInterval(interval);
+          attachWsHandlers(ws);
+          return;
+        }
+      ws = createWebSocket();
+        console.log('Attempting to connect...')
+      }, 2000);
+    }
 
     function handleWsOpen() {
-      console.log('Client: WebSocket connection established');
+      console.log('WebSocket connection established');
     }
 
     function handleWsMessage(event) {
@@ -45,4 +62,3 @@
       });
     }
 
-    createWebSocket()
