@@ -5,6 +5,12 @@
   --color-copper: #CD7F32;
 }
 
+#app {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
 html {
   background: black;
   color: white;
@@ -16,10 +22,11 @@ html {
   background: #333333;
   border-radius: 8px;
   height: fit-content;
-  h2 {
-    margin: 0 0 8px 0;
-    color: black;
-  }
+}
+
+.card h2 {
+  margin: 0 0 8px 0;
+  color: black;
 }
 
 .chat-container {

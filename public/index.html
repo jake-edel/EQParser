@@ -9,50 +9,52 @@
     <script src="index.js"></script>
   </head>
   <body>
-    <h1 style="text-align: center;">EQParser Dashboard</h1>
-    <div style="display: flex; gap: 16px; margin-bottom: 16px;">
-      <div class="card">
-        <h2>Location</h2>
-        <div>
-          Zone:<span id="zone"></span>
+    <div id="app">
+      <h1 style="text-align: center;">EQParser Dashboard</h1>
+      <div style="display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap;">
+        <div class="card">
+          <h2>Location</h2>
+          <div>
+            Zone:<span id="zone"></span>
+          </div>
+          <div>
+            <span id="location"></span>
+          </div>
+          <div>
+            Direction:<span id="compassDirection"></span>
+          </div>
         </div>
-        <div>
-          Location:<span id="location"></span>
+        <div class="card">
+          <h2>Pet</h2>
+          <div>
+            Name:<span id="petName"></span>
+          </div>
+          <div>
+            Status:<span id="petStatus"></span>
+          </div>
         </div>
-        <div>
-          Direction:<span id="compassDirection"></span>
+       <div class="card">
+          <h2>Coins</h2>
+          <div >
+            <!-- <div id="coin-platinum">Platinum: 0</div>
+            <div id="coin-gold">Gold: 0</div>
+            <div id="coin-silver">Silver: 0</div>
+            <div id="coin-copper">Copper: 0</div> -->
+            <div id="total-coin-platinum">platinum: 0</div>
+            <div id="total-coin-gold">gold: 0</div>
+            <div id="total-coin-silver">silver: 0</div>
+            <div id="total-coin-copper">copper: 0</div>
+          </div>
         </div>
       </div>
-      <div class="card">
-        <h2>Pet Information</h2>
-        <div>
-          Name:<span id="petName"></span>
-        </div>
-        <div>
-          Status:<span id="petStatus"></span>
-        </div>
+      <div class="card" style="margin-bottom: 16px;">
+        <h2>Debug</h2>
+        <div id="debug" class="chat-container"></div>
       </div>
-     <div class="card">
-        <h2>Coins</h2>
-        <div >
-          <!-- <div id="coin-platinum">Platinum: 0</div>
-          <div id="coin-gold">Gold: 0</div>
-          <div id="coin-silver">Silver: 0</div>
-          <div id="coin-copper">Copper: 0</div> -->
-          <div id="total-coin-platinum">platinum: 0</div>
-          <div id="total-coin-gold">gold: 0</div>
-          <div id="total-coin-silver">silver: 0</div>
-          <div id="total-coin-copper">copper: 0</div>
-        </div>
+      <div class="card" style="margin-bottom: 16px;">
+        <h2>Log</h2>
+        <div id="log" class="chat-container"></div>
       </div>
-    </div>
-    <div class="card" style="margin-bottom: 16px;">
-      <h2>Debug</h2>
-      <div id="debug" class="chat-container"></div>
-    </div>
-    <div class="card" style="margin-bottom: 16px;">
-      <h2>Log</h2>
-      <div id="log" class="chat-container"></div>
     </div>
   </body>
 </html>
