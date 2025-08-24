@@ -1,3 +1,6 @@
 import LogWatcher from './src/LogWatcher.js';
+import server from './src/Server.js';
 
-await new LogWatcher().startWatchingLog();
+server.start();
+
+new LogWatcher().startWatchingLog();

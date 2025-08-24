@@ -4,33 +4,30 @@ import { WebSocketServer } from 'ws';
 class Server {
   constructor() {
     this.httpServer = http.createServer();
-    this.socket = null;
+    this.wsServer = null
+  }
 
+  start() {
     this.createWebSocketServer();
     this.startHttpServer();
   }
 
   createWebSocketServer() {
-    const wsServer = new WebSocketServer({ server: this.httpServer });
+    this.wsServer = new WebSocketServer({ server: this.httpServer });
 
-    wsServer.on('connection', (socket) => this.handleOnWsConnection(socket));
-    wsServer.on('close', () => this.handleOnWsClose());
+    this.wsServer.on('connection', (socket) => this.handleOnWsConnection(socket));
+    this.wsServer.on('close', () => this.handleOnWsClose());
   }
 
   handleOnWsConnection(socket) {
-    // Once a WebSocket connection is established
-    // expose the socket to any consuming classes
-    this.socket = socket;
-    console.log('Server: WebSocket connection established');
-    this.socket.send('Server: WebSocket connection established');
-    this.socket.on('message', (message) => {
+    socket.send('Server says "Welcome to the server"');
+    socket.on('message', (message) => {
       console.log(message.toString('utf-8'));
     });
   }
 
   handleOnWsClose() {
-    this.socket.send('Server closing connection');
-    this.socket = null;
+    this.send('Server closing connection');
   }
 
   startHttpServer() {
@@ -40,11 +37,14 @@ class Server {
   }
 
   send(data, key) {
-    if (!this.socket) return
-    if (!key) return this.socket.send(data);
-    const payload = { [key]: data };
-    const buffer = Buffer.from(JSON.stringify(payload));
-    this.socket.send(buffer);
+    if (key) {
+      const payload = { [key]: data };
+      data = Buffer.from(JSON.stringify(payload));
+    }
+    this.wsServer.clients.forEach(client => {
+      if (client.readyState === client.OPEN) client.send(data);
+    });
+    
   }
 }
 
