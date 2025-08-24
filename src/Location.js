@@ -1,19 +1,22 @@
 import gameState from "./GameState.js";
 import Debugger from "./Debugger.js";
 import server from "./Server.js";
+import stripTimestamp from "./utils/stripTimestamp.js";
 
 class Location {
   constructor() {
+    this.senseHeading = /^you think you are heading (\w+)\.$/i
     this.debug = new Debugger(this.constructor.name);
-    // this.debug.enable()
+    this.debug.enable()
   }
 
   isDirection(line) {
-    return line.includes('You think you are heading');
+    return this.senseHeading.test(stripTimestamp(line));
   }
 
   getCompassDirection(line) {
-    const direction = line.split(' ').pop().slice(0, -1);
+    line = stripTimestamp(line);
+    const direction = line.match(this.senseHeading)[1];
     gameState.compassDirection = direction;
     server.send(direction, 'compassDirection');
     this.debug.log('Compass Direction:', direction);
