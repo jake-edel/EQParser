@@ -1,0 +1,48 @@
+:root {
+  --color-platinum: #e5e4e2;
+  --color-gold: #ffd700;
+  --color-silver: #c0c0c0;
+  --color-copper: #CD7F32;
+}
+
+html {
+  background: black;
+  color: white;
+}
+
+.card {
+  border: 1px solid #646464;
+  padding: 16px;
+  background: #333333;
+  border-radius: 8px;
+  height: fit-content;
+  h2 {
+    margin: 0 0 8px 0;
+    color: black;
+  }
+}
+
+.chat-container {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+#coin-platinum,
+#total-coin-platinum {
+  color: var(--color-platinum);
+}
+
+#coin-gold,
+#total-coin-gold {
+  color: var(--color-gold);
+}
+
+#coin-silver,
+#total-coin-silver {
+  color: var(--color-silver);
+}
+
+#coin-copper,
+#total-coin-copper {
+  color: var(--color-copper);
+}

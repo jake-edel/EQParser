@@ -1,12 +1,13 @@
+    const host = '192.168.1.79'
     const serverPort = 4000
-    // const ws = new WebSocket(`ws://localhost:${serverPort}/ws`); // Desktop
-    let ws = new WebSocket(`ws://192.168.1.79:${serverPort}/ws`); // Toshiba Laptop
+    const socketAddress = `ws://${host}:${serverPort}/ws`;
+    let ws = new WebSocket(socketAddress);
 
     ws.onclose = () => {
       console.log('Client: WebSocket connection closed');
       setTimeout(() => { // TODO: Do better, works for now
         console.log('Client: Reconnecting...');
-        ws = new WebSocket(`ws://192.168.1.79:${serverPort}/ws`);
+        ws = new WebSocket(socketAddress);
       }, 1000);
     };
 
@@ -24,30 +25,40 @@
 
       event.data.text().then(text => {
         const message = JSON.parse(text);
+        console.log(message);
         const keys = Object.keys(message);
         keys.forEach(key => {
           if (key === 'location') handleLocation(message[key]);
           if (key === 'debug') handleDebug(message[key]);
-          if (key === 'log') handleLog(message[key]);
+          if (key === 'log') handleRawLog(message[key]);
           if (key === 'compassDirection') handleCompassDirection(message[key]);
           if (key === 'petName') handlePetName(message[key]);
           if (key === 'petStatus') handlePetStatus(message[key]);
           if (key === 'coinLoot') handleCoinLoot(message[key]);
+          if (key === 'zone') handleZoneChange(message[key]);
         });
       });
     }
-    function handleDebug(debugMessage) {
-      const id = 'debug';
-      const innerText = `${debugMessage}`;
-      const element = createElement(id, innerText);
-      document.getElementById('debug').prepend(element);
+
+    function createElement(id, innerText) {
+      const element = document.createElement('div');
+      element.id = id;
+      element.innerText = innerText;
+      return element;
     }
 
-    function handleLog(logMessage) {
-      const id = 'log';
-      const innerText = `${logMessage}`;
+    function handleTextLog(id, message) {
+      const innerText = `${message}`;
       const element = createElement(id, innerText);
-      document.getElementById('log').prepend(element);
+      document.getElementById(id).prepend(element);
+    };
+
+    function handleDebug(debugMessage) {
+      handleTextLog('debug', debugMessage);
+    }
+
+    function handleRawLog(logMessage) {
+      handleTextLog('log', logMessage);
     }
 
     function handleCoinLoot(coins) {
@@ -62,7 +73,6 @@
           updateElementById(`coin-${type}`, `Total ${type}: 0`);
         }
       }, 4000);
-
     }
 
     function updateElementById(id, innerText) {
@@ -86,9 +96,6 @@
       updateElementById('petStatus', petStatus);
     }
 
-    function createElement(id, innerText) {
-      const element = document.createElement('div');
-      element.id = id;
-      element.innerText = innerText;
-      return element;
+    function handleZoneChange(zoneName) {
+      updateElementById('zone', zoneName);
     }
