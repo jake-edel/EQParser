@@ -1,7 +1,7 @@
 import parseRegistry from './utils/parseRegistry.js';
 import Debugger from './Debugger.js';
 import server from './Server.js';
-
+import stripTimestamp from './utils/stripTimestamp.js';
 
 class Parser {
   constructor() {
@@ -11,7 +11,7 @@ class Parser {
 
   readLine(line) {
     if (!line) return;
-    server.send(this.stripTimestamp(line), 'log');
+    server.send(stripTimestamp(line), 'log');
 
     for (const { condition, handler } of parseRegistry) {
       if (condition(line)) {
@@ -19,10 +19,6 @@ class Parser {
         return;
       }
     }
-  }
-
-  stripTimestamp(line) {
-    return line.replace(/^\[[A-Za-z]{3} [A-Za-z]{3} \d{2} \d{2}:\d{2}:\d{2} \d{4}\]\s*/, '').trim();
   }
 }
 
