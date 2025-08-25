@@ -2,6 +2,7 @@
    import spell from "../Spell.js";
    import pet from '../Pet.js';
    import loot from "../Loot.js";
+   import camping from "../Camping.js";
 
    // Passing the methods as callback causes the method
    // to lose the context of 'this'. Passing an arrow function
@@ -30,5 +31,9 @@
       {
          condition: (line) => loot.isCoinReceive(line),
          handler: (line) => loot.handleCoinReceive(line)
+      },
+      {
+         condition: (line) => camping.isCampingMessage(line),
+         handler: (line) => camping.handleMakeCamp(line)
       }
     ];
