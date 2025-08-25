@@ -7,7 +7,7 @@
     <link rel="icon" href="data:,">
     <link rel="stylesheet" href="styles.css">
     <script src="index.js"></script>
-    <script src="services/websocket.js"></script>
+    <script src="app.js" type="module"></script>
   </head>
   <body>
     <div id="app">
@@ -16,13 +16,13 @@
         <div class="card">
           <h2>Location</h2>
           <div>
-            Zone:<span id="zone"></span>
+            Zone:<span id="zone">{{ zone }}</span>
           </div>
           <div>
-            <span id="location"></span>
+            <span id="location">{{ location }}</span>
           </div>
           <div>
-            Direction:<span id="compassDirection"></span>
+            Direction:<span id="compassDirection">{{ compassDirection }}</span>
           </div>
         </div>
         <div class="card">
@@ -37,10 +37,10 @@
        <div class="card">
           <h2>Coins</h2>
           <div >
-            <!-- <div id="coin-platinum">Platinum: 0</div>
+            <div id="coin-platinum">Platinum: 0</div>
             <div id="coin-gold">Gold: 0</div>
             <div id="coin-silver">Silver: 0</div>
-            <div id="coin-copper">Copper: 0</div> -->
+            <div id="coin-copper">Copper: 0</div>
             <div id="total-coin-platinum">platinum: 0</div>
             <div id="total-coin-gold">gold: 0</div>
             <div id="total-coin-silver">silver: 0</div>
@@ -53,8 +53,20 @@
         <div id="debug" class="chat-container"></div>
       </div>
       <div class="card" style="margin-bottom: 16px;">
-        <h2>Log</h2>
-        <div id="log" class="chat-container"></div>
+        <div style="display: flex; gap: 8px;">
+          <h2>Log</h2>
+          <button @click="reverseLog">Reverse</button>
+          <button @click="clearLog">Clear</button>
+        </div>
+        <div id="log" class="chat-container">
+          <p
+            v-for="(message, index) in log"
+            style="margin: 0;"
+            :key="message + index"
+          >
+            {{ message }}
+          </p>
+        </div>
       </div>
     </div>
   </body>

@@ -7,12 +7,12 @@ const ipHost = {
 }
 
 export default {
-  root: './public',
+  root: './client',
   base: '/dashboard',
   server: {
     port: 3000,
     open: '/dashboard',
-    watch: './public',
+    watch: './client',
     proxy: {
       '/ws': {
         target: `ws://${ipHost[process.env.COMPUTERNAME]}:4000`,
