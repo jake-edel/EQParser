@@ -11,10 +11,12 @@ Intended features:
 - Chat / spell notifications
 
 Todos:
-- Update logic for websocket reconnects
-- Support multiple simultaneous clients
+- ~~Update logic for websocket reconnects~~
+- ~~Support multiple simultaneous clients~~
 - More robust string matching via regex
 - regex matching groups
 - Spell + buff timers
 - Filtered chat groups
 - Camping notifications
+- handle /who
+- Vue / TS
