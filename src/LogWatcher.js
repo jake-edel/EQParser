@@ -34,7 +34,7 @@ class LogWatcher {
     try {
       this.debug.log('Getting ready to read', readLength, 'new bytes');
       const { buffer, bytesRead } = await this.file.read(Buffer.alloc(readLength), 0, readLength, this.lastReadPosition)
-      if (bytesRead <= 0) this.debug.log('No data read from file. How did you manage to fuck that up')
+      if (bytesRead <= 0) this.debug.log('No data read from file')
       this.lastReadPosition += bytesRead;
 
       return buffer
