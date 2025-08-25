@@ -21,7 +21,8 @@ class Debugger {
     if (this.isDashboardMode) return;
     
     if (this.enabledClasses.has(this.className)) {
-      const debugString = `[${this.className}] => ` + args.join(' ');
+      const classId = this.className ? `[${this.className}] => ` : '';
+      const debugString = classId + args.join(' ');
       console.log(debugString);
       server.send(debugString, 'debug');
     }
