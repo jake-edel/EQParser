@@ -7,23 +7,23 @@ export default function useWebSocket(listeners) {
   const serverPort = 4000;
   const socketAddress = `ws://${host}:${serverPort}/ws`;
   
-  let ws;
+  let websocket;
   function handleWebSocketRetry() {
     const interval = setInterval(() => {
-      if (ws?.readyState === WebSocket.OPEN) {
+      if (websocket?.readyState === WebSocket.OPEN) {
         clearInterval(interval);
-        attachWsHandlers(ws);
+        attachWsHandlers(websocket);
         return;
       }
-      ws = createWebSocket();
+      websocket = createWebSocket();
       console.log('Attempting to connect...');
     }, 2000);
   }
 
   function createWebSocket() {
-    ws = new WebSocket(socketAddress);
-    ws.onopen = () => console.log('WebSocket connection established');
-    return ws;
+    websocket = new WebSocket(socketAddress);
+    websocket.onopen = () => console.log('WebSocket connection established');
+    return websocket;
   }
   
   function startWebSocketService() {
@@ -32,29 +32,30 @@ export default function useWebSocket(listeners) {
   }
   
   socketListeners.push(...listeners)
-  function attachWsHandlers(ws) {
-    ws.onclose = () => onWebSocketClose();
-    ws.onmessage = async (event) => {
-
-      if (typeof event.data === 'string') {
-        console.log('Received message:', event.data);
-        return;
-      }
-
-      const data = JSON.parse(await event.data.text());
-      socketListeners.forEach((listener) => {
-        Object.keys(data).forEach(key => {
-          const message = data[key]
-          if (key === listener.key) listener.handler(message)
-        });
-      });
-    };
+  function attachWsHandlers(websocket) {
+    websocket.onclose = () => onWebSocketClose();
+    websocket.onmessage = (event) => onWebSocketMessage(event);
   }
 
   const onWebSocketClose = () => {
     console.log('WebSocket connection closed');
     handleWebSocketRetry();
   }
+
+  async function onWebSocketMessage(event) {
+    if (typeof event.data === 'string') {
+      console.log('Received message:', event.data);
+      return;
+    }
+
+    const data = JSON.parse(await event.data.text());
+    socketListeners.forEach((listener) => {
+      Object.keys(data).forEach(key => {
+        const message = data[key]
+        if (key === listener.key) listener.handler(message)
+      });
+    });
+  };
 
   return {
     startWebSocketService
