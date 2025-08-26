@@ -8,7 +8,7 @@ const LogLine = {
 
 createApp({
   setup() {
-    const location = ref({ x: 0, y: 0 });
+    const location = ref({ y: 0, x: 0 });
     const compassDirection = ref('');
     const petName = ref('');
     const petStatus = ref('');
@@ -24,9 +24,20 @@ createApp({
         : log.value.push(message);
     }
 
+    const handleCoordinates = (coordinates) => {
+      const { y, x } = coordinates;
+      location.value = { x, y };
+    }
+
     const socketListeners = [
       { key: 'log', handler: handleLogMessage },
-      { key: 'compassDirection', handler: (message) => { compassDirection.value = message; } }
+      { key: 'compassDirection', handler: (message) => { compassDirection.value = message; } },
+      { key: 'location', handler: handleCoordinates },
+      { key: 'zone', handler: (message) => { zone.value = message; } },
+      { key: 'debug', handler: (message) => { debugMessages.value.push(message); } },
+      { key: 'petName', handler: (message) => { petName.value = message; } },
+      { key: 'petStatus', handler: (message) => { petStatus.value = message; } },
+      { key: 'coinLoot', handler: (message) => { coinLoot.value = message; } }
     ];
 
     const { startWebSocketService } = useWebSocket(socketListeners);
@@ -63,7 +74,7 @@ createApp({
           Zone: <span id="zone">{{ zone }}</span>
         </div>
         <div>
-          <span id="location">{{ location }}</span>
+          <span id="location">Y: {{ location.y }}, X: {{ location.x }}</span>
         </div>
         <div>
           Direction: <span id="compassDirection">{{ compassDirection }}</span>
@@ -72,10 +83,10 @@ createApp({
       <div class="card">
         <h2>Pet</h2>
         <div>
-          Name: <span id="petName"></span>
+          Name: <span>{{ petName }}</span>
         </div>
         <div>
-          Status: <span id="petStatus"></span>
+          Status: <span>{{ petStatus }}</span>
         </div>
       </div>
       <div class="card">
@@ -94,7 +105,14 @@ createApp({
     </div>
     <div class="card" style="margin-bottom: 16px;">
       <h2>Debug</h2>
-      <div id="debug" class="chat-container"></div>
+      <div class="chat-container">
+        <LogLine
+          v-for="(message, index) in debugMessages"
+          style="margin: 0;"
+          :key="message + index"
+          :message="message"
+        />
+      </div>
     </div>
     <div class="card" style="margin-bottom: 16px;">
       <div style="display: flex; gap: 8px;">
@@ -102,7 +120,7 @@ createApp({
         <button @click="reverseLog">Reverse</button>
         <button @click="clearLog">Clear</button>
       </div>
-      <div id="log" class="chat-container">
+      <div class="chat-container">
         <LogLine
           v-for="(message, index) in log"
           style="margin: 0;"
