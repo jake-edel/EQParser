@@ -8,7 +8,6 @@ const ipHost = {
 
 export default {
   root: './client',
-  base: '/dashboard',
   server: {
     port: 3000,
     open: '/dashboard',
