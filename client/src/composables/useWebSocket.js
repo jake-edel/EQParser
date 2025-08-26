@@ -49,6 +49,7 @@ export default function useWebSocket(listeners) {
     }
 
     const data = JSON.parse(await event.data.text());
+    console.log(data);
     socketListeners.forEach((listener) => {
       Object.keys(data).forEach(key => {
         const message = data[key]

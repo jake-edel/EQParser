@@ -1,8 +1,8 @@
-   import location from "../Location.js";
-   import spell from "../Spell.js";
-   import pet from '../Pet.js';
-   import loot from "../Loot.js";
-   import camping from "../Camping.js";
+   import location from "../parser/Location.js";
+   import spell from "../parser/Spell.js";
+   import pet from '../parser/Pet.js';
+   import loot from "../parser/Loot.js";
+   import camping from "../parser/Camping.js";
 
    // Passing the methods as callback causes the method
    // to lose the context of 'this'. Passing an arrow function

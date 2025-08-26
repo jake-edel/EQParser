@@ -1,5 +1,5 @@
 import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
-import useWebSocket from './composables/useWebSocket.js'
+import useWebSocket from './src/composables/useWebSocket.js'
 
 const LogLine = {
   template: `<p>{{ message }}</p>`,
@@ -30,7 +30,7 @@ createApp({
     ];
 
     const { startWebSocketService } = useWebSocket(socketListeners);
-    
+
     startWebSocketService();
 
     const reverseLog = () => {

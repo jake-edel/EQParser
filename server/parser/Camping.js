@@ -1,6 +1,6 @@
 import Debugger from "./Debugger.js";
 import server from "./Server.js";
-import stripTimestamp from "./utils/stripTimestamp.js";
+import stripTimestamp from "../utils/stripTimestamp.js";
 
 class Camping {
   constructor() {
