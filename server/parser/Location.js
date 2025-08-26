@@ -7,7 +7,7 @@ class Location {
   constructor() {
     this.senseHeading = /^you think you are heading (\w+)\.$/i
     this.debug = new Debugger(this.constructor.name);
-    this.debug.enable()
+    // this.debug.enable()
   }
 
   isDirection(line) {
@@ -45,7 +45,7 @@ class Location {
     const zoneName = line.split('You have entered ')[1].split('.').shift();
     gameState.currentZone = zoneName;
     server.send(zoneName, 'zone');
-    // this.debugLog(' Current Zone:', gameState.currentZone);
+    this.debugLog(' Current Zone:', gameState.currentZone);
   }
 }
 
