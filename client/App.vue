@@ -46,26 +46,13 @@
       />
     </div>
   </div>
-  <div class="card" style="margin-bottom: 16px;">
-    <div style="display: flex; gap: 8px;">
-      <h2>Log</h2>
-      <button @click="reverseLog">Reverse</button>
-      <button @click="clearLog">Clear</button>
-    </div>
-    <div class="chat-container">
-      <LogLine
-        v-for="(message, index) in log"
-        style="margin: 0;"
-        :key="message + index"
-        :message
-      />
-    </div>
-  </div>
+  <ChatBox />
 </template>
 
 <script setup>
 import useWebSocket from './src/composables/useWebSocket.js'
 import { ref } from 'vue';
+import ChatBox from './src/components/ChatBox.vue';
 import LogLine from './src/components/LogLine.vue';
 
 const location = ref({ y: 0, x: 0 });
@@ -74,15 +61,7 @@ const petName = ref('');
 const petStatus = ref('');
 const zone = ref('');
 const debugMessages = ref([]);
-const log = ref([]);
 const coinLoot = ref({ total: {}, received: {} });
-const logIsReversed = ref(false);
-
-const handleLogMessage = (message) => {
-  logIsReversed.value
-    ? log.value.unshift(message)
-    : log.value.push(message);
-}
 
 const handleCoordinates = (coordinates) => {
   const { y, x } = coordinates;
@@ -90,7 +69,6 @@ const handleCoordinates = (coordinates) => {
 }
 
 const socketListeners = [
-  { key: 'log', handler: handleLogMessage },
   { key: 'compassDirection', handler: (message) => { compassDirection.value = message; } },
   { key: 'location', handler: handleCoordinates },
   { key: 'zone', handler: (message) => { zone.value = message; } },
@@ -101,16 +79,5 @@ const socketListeners = [
 ];
 
 const { startWebSocketService } = useWebSocket(socketListeners);
-
 startWebSocketService();
-
-const reverseLog = () => {
-  log.value = log.value.slice().reverse();
-  logIsReversed.value = !logIsReversed.value;
-}
-
-const clearLog = () => {
-  log.value.length = 0;
-}
-
 </script>
