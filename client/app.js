@@ -1,7 +1,6 @@
 import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
 import useWebSocket from './composables/useWebSocket.js'
 
-
 createApp({
   setup() {
     const location = ref({ x: 0, y: 0 });
@@ -14,20 +13,12 @@ createApp({
     const coinLoot = ref({ total: {}, received: {} });
     const logIsReversed = ref(false);
 
-    const handleWebSocketMessage = async (event) => {
-      if (typeof event.data === 'string') {
-        console.log("Received message:", event.data);
-        return;
-      }
+    const socketListeners = [
+      { key: 'log', handler: handleLogMessage },
+      { key: 'compassDirection', handler: (message) => { compassDirection.value = message; } }
+    ];
 
-      const data = JSON.parse(await event.data.text());
-      Object.keys(data).forEach((key) => {
-        const message = data[key]
-        if (key === 'log') handleLogMessage(message)
-      });
-    }
-
-    const { startWebSocketService } = useWebSocket({ handleWebSocketMessage });
+    const { startWebSocketService } = useWebSocket(socketListeners);
 
     startWebSocketService();
     

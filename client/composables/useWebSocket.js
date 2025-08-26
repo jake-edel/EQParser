@@ -1,5 +1,9 @@
-export default function useWebSocket({ handleWebSocketMessage }) {
-  const host = "192.168.1.79";
+import { reactive } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+const socketListeners = reactive([])
+export default function useWebSocket(listeners) {
+  // const host = "192.168.1.79";
+  const host = "192.168.1.72";
   const serverPort = 4000;
   const socketAddress = `ws://${host}:${serverPort}/ws`;
   
@@ -16,7 +20,7 @@ export default function useWebSocket({ handleWebSocketMessage }) {
       console.log("Attempting to connect...");
     }, 2000);
   }
-  
+
   function createWebSocket() {
     ws = new WebSocket(socketAddress);
     ws.onopen = () => console.log("WebSocket connection established");
@@ -28,9 +32,24 @@ export default function useWebSocket({ handleWebSocketMessage }) {
     handleWebSocketRetry();
   }
   
+  socketListeners.push(...listeners)
   function attachWsHandlers(ws) {
     ws.onclose = () => onWebSocketClose();
-    ws.onmessage = (event) => handleWebSocketMessage(event);
+    ws.onmessage = async (event) => {
+
+      if (typeof event.data === 'string') {
+        console.log("Received message:", event.data);
+        return;
+      }
+
+      const data = JSON.parse(await event.data.text());
+      socketListeners.forEach((listener) => {
+        Object.keys(data).forEach(key => {
+          const message = data[key]
+          if (key === listener.key) listener.handler(message)
+        });
+      });
+    };
   }
 
   const onWebSocketClose = () => {
