@@ -3,6 +3,13 @@ import { reactive } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
 const socketListeners = reactive({})
 
 export default function useWebSocket(listeners) {
+  listeners.forEach(listener => {
+    Object.entries(listener).forEach(([key, handler]) => {
+      if (!socketListeners[key]) { socketListeners[key] = [] };
+      socketListeners[key].push(handler);
+    })
+  })
+
   const host = '192.168.1.79';
   // const host = '192.168.1.72';
   const serverPort = 4000;
@@ -32,12 +39,16 @@ export default function useWebSocket(listeners) {
     websocket.onmessage = (event) => onWebSocketMessage(event);
   }
 
-    const onWebSocketClose = () => {
+  const onWebSocketClose = () => {
     console.log('WebSocket connection closed');
     handleWebSocketRetry();
   }
 
-  listeners.forEach(listener => socketListeners[listener.key] = listener.handler)
+  function startWebSocketService() {
+    console.log('Begin polling for WebSocket Connection');
+    handleWebSocketRetry();
+  }
+
   async function onWebSocketMessage(event) {
     if (typeof event.data === 'string') {
       console.log('Received message:', event.data);
@@ -45,17 +56,12 @@ export default function useWebSocket(listeners) {
     }
 
     const data = JSON.parse(await event.data.text());
-    console.log(data);
+
     Object.keys(data).forEach(key => {
       const message = data[key]
-      socketListeners[key]?.(message)
+      socketListeners[key]?.forEach(handler => handler(message))
     });
   };
-
-  function startWebSocketService() {
-    console.log('Begin polling for WebSocket Connection');
-    handleWebSocketRetry();
-  }
 
   return {
     startWebSocketService
