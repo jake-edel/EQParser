@@ -27,6 +27,8 @@ export default function useWebSocket(listeners = []) {
         attachWsHandlers(websocket);
         return;
       }
+      // Close previous connection before attempting another
+      if (websocket) websocket.close()
       websocket = createWebSocket();
       console.log('Attempting to connect...');
     }, 2000);
@@ -54,7 +56,7 @@ export default function useWebSocket(listeners = []) {
     }
 
     const data = JSON.parse(await event.data.text());
-
+    console.log(data);
     Object.keys(data).forEach(key => {
       const message = data[key]
       socketListeners[key]?.forEach(handler => handler(message))
