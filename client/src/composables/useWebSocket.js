@@ -1,9 +1,7 @@
 import { reactive } from 'vue'
 
-  const host = '192.168.1.79';
-  // const host = '192.168.1.72';
-  const serverPort = 4000;
-  const socketAddress = `ws://${host}:${serverPort}/ws`;
+const serverPort = 4000;
+const socketAddress = `ws://${import.meta.env.VITE_HOST_IP}:${serverPort}/ws`;
 
 const socketListeners = reactive({})
 
