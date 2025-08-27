@@ -1,5 +1,5 @@
 import gameState from './GameState.js';
-import Debugger from './Debugger.js'
+import Debugger from './Debugger.ts'
 import server from './Server.js';
 
 class Pet {

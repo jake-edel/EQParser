@@ -1,10 +1,12 @@
 import server from "./Server.js";
 
 class Debugger {
-  constructor(className) {
+  enabledClasses: Set<string>
+  className: string
+
+  constructor(className: string) {
     this.enabledClasses = new Set();
     this.className = className;
-    this.isDashboardMode = process.argv[2] === 'dashboard';
   }
 
   enable() {
@@ -12,9 +14,7 @@ class Debugger {
     return this;
   }
 
-  log(...args) {
-    if (this.isDashboardMode) return;
-    
+  log(...args) {    
     if (this.enabledClasses.has(this.className)) {
       const classId = this.className ? `[${this.className}] => ` : '';
       const debugString = classId + args.join(' ');

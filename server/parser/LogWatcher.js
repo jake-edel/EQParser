@@ -1,5 +1,5 @@
 import fs from 'fs'
-import Debugger from './Debugger.js';
+import Debugger from './Debugger.ts';
 import parser from './Parser.js';
 
 class LogWatcher {
