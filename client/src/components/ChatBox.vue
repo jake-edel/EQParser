@@ -1,7 +1,7 @@
 <template>
   <div class="card" style="margin-bottom: 16px;">
     <div style="display: flex; gap: 8px;">
-      <h2>Log</h2>
+      <h2>{{ props.type.toUpperCase() }}</h2>
       <button @click="reverseLog">Reverse</button>
       <button @click="clearLog">Clear</button>
     </div>
@@ -21,6 +21,12 @@ import { ref } from 'vue';
 import useWebSocket from '../composables/useWebSocket';
 import LogLine from './LogLine.vue';
 
+const props = defineProps({
+  type: {
+    type: String,
+  }
+});
+
 const log = ref([]);
 const logIsReversed = ref(false);
 
@@ -28,7 +34,7 @@ const handleLogMessage = (message) => {
   logIsReversed.value ? log.value.unshift(message) : log.value.push(message);
 }
 
-useWebSocket([{ 'log': handleLogMessage }]);
+useWebSocket([{ [props.type]: handleLogMessage }]);
 
 const reverseLog = () => {
   log.value = log.value.slice().reverse();

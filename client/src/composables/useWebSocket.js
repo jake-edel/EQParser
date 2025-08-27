@@ -1,19 +1,19 @@
 import { reactive } from 'vue'
 
+  const host = '192.168.1.79';
+  // const host = '192.168.1.72';
+  const serverPort = 4000;
+  const socketAddress = `ws://${host}:${serverPort}/ws`;
+
 const socketListeners = reactive({})
 
-export default function useWebSocket(listeners) {
+export default function useWebSocket(listeners = []) {
   listeners.forEach(listener => {
     Object.entries(listener).forEach(([key, handler]) => {
       if (!socketListeners[key]) { socketListeners[key] = [] };
       socketListeners[key].push(handler);
     })
   })
-
-  const host = '192.168.1.79';
-  // const host = '192.168.1.72';
-  const serverPort = 4000;
-  const socketAddress = `ws://${host}:${serverPort}/ws`;
 
   let websocket;
   function createWebSocket() {
