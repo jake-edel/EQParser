@@ -69,13 +69,13 @@ const handleCoordinates = (coordinates) => {
 }
 
 const socketListeners = [
-  { key: 'compassDirection', handler: (message) => { compassDirection.value = message; } },
-  { key: 'location', handler: handleCoordinates },
-  { key: 'zone', handler: (message) => { zone.value = message; } },
-  { key: 'debug', handler: (message) => { debugMessages.value.push(message); } },
-  { key: 'petName', handler: (message) => { petName.value = message; } },
-  { key: 'petStatus', handler: (message) => { petStatus.value = message; } },
-  { key: 'coinLoot', handler: (message) => { coinLoot.value = message; } }
+  { 'compassDirection': (message) => { compassDirection.value = message; } },
+  { 'location': handleCoordinates },
+  { 'zone': (message) => { zone.value = message; } },
+  { 'debug': (message) => { debugMessages.value.push(message); } },
+  { 'petName': (message) => { petName.value = message; } },
+  { 'petStatus': (message) => { petStatus.value = message; } },
+  { 'coinLoot': (message) => { coinLoot.value = message; } }
 ];
 
 const { startWebSocketService } = useWebSocket(socketListeners);

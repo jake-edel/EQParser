@@ -1,6 +1,6 @@
 import { reactive } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
 
-const socketListeners = reactive([])
+const socketListeners = reactive({})
 
 export default function useWebSocket(listeners) {
   const host = '192.168.1.79';
@@ -37,7 +37,7 @@ export default function useWebSocket(listeners) {
     handleWebSocketRetry();
   }
 
-  socketListeners.push(...listeners)
+  listeners.forEach(listener => socketListeners[listener.key] = listener.handler)
   async function onWebSocketMessage(event) {
     if (typeof event.data === 'string') {
       console.log('Received message:', event.data);
@@ -46,11 +46,9 @@ export default function useWebSocket(listeners) {
 
     const data = JSON.parse(await event.data.text());
     console.log(data);
-    socketListeners.forEach((listener) => {
-      Object.keys(data).forEach(key => {
-        const message = data[key]
-        if (key === listener.key) listener.handler(message)
-      });
+    Object.keys(data).forEach(key => {
+      const message = data[key]
+      socketListeners[key]?.(message)
     });
   };
 

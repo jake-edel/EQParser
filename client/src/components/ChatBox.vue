@@ -28,7 +28,7 @@ const handleLogMessage = (message) => {
   logIsReversed.value ? log.value.unshift(message) : log.value.push(message);
 }
 
-useWebSocket([{ key: 'log', handler: handleLogMessage }]);
+useWebSocket([{ 'log': handleLogMessage }]);
 
 const reverseLog = () => {
   log.value = log.value.slice().reverse();
