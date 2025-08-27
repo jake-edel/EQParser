@@ -12,11 +12,6 @@ class Debugger {
     return this;
   }
 
-  disable() {
-    this.enabledClasses.delete(this.className);
-    return this;
-  }
-
   log(...args) {
     if (this.isDashboardMode) return;
     
