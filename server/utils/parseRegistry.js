@@ -2,7 +2,7 @@
    import spell from "../parser/Spell.js";
    import pet from '../parser/Pet.js';
    import loot from "../parser/Loot.js";
-   import camping from "../parser/Camping.js";
+   import camping from "../parser/Camping.ts";
 
    // Passing the methods as callback causes the method
    // to lose the context of 'this'. Passing an arrow function

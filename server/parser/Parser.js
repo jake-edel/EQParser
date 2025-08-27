@@ -1,6 +1,6 @@
 import parseRegistry from '../utils/parseRegistry.js';
 import server from './Server.js';
-import stripTimestamp from '../utils/stripTimestamp.js';
+import stripTimestamp from '../utils/stripTimestamp.ts';
 
 class Parser {
   readLine(line) {

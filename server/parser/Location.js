@@ -1,7 +1,7 @@
 import gameState from "./GameState.js";
 import Debugger from "./Debugger.ts";
 import server from "./Server.js";
-import stripTimestamp from "../utils/stripTimestamp.js";
+import stripTimestamp from "../utils/stripTimestamp.ts";
 
 class Location {
   constructor() {

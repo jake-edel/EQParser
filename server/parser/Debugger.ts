@@ -1,11 +1,10 @@
 import server from "./Server.js";
 
 class Debugger {
-  enabledClasses: Set<string>
+  enabledClasses = new Set<string>()
   className: string
 
   constructor(className: string) {
-    this.enabledClasses = new Set();
     this.className = className;
   }
 
