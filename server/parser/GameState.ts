@@ -1,12 +1,12 @@
+import type { Coordinates } from "../types/types";
+
 class GameState {
-  constructor() {
-    this.currentLocation = null;
-    this.compassDirection = null;
-    this.currentZone = null;
-    this.currentSpell = null;
-    this.currentPet = null;
-    this.petStatus = null
-  }
+  currentLocation: Coordinates | null = null
+  compassDirection: string | null = null
+  currentZone: string | null = null
+  currentSpell: string | null = null
+  currentPet: string | null = null
+  petStatus: string | null = null
 
   log() {
     console.clear();

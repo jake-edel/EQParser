@@ -1,10 +1,10 @@
-import gameState from './GameState.js';
+import gameState from './GameState.ts';
 import Debugger from './Debugger.ts'
-import server from './Server.js';
+import server from './Server.ts';
 
 class Pet {
-  constructor() {
-    this.petSignatures = [
+  debug: Debugger = new Debugger(this.constructor.name).enable()
+  petSignatures: Array<string> = [
       'At your service master.',
       'Sorry, Master..calming down.',
       'Following you, Master.',
@@ -12,16 +12,12 @@ class Pet {
       'Guarding with my life..oh splendid one.',
       'tells you, \'Attacking'
     ];
-    this.petStates = {
-      'following_you_master': 'Following',
-      'at_your_service_master': 'Summoned',
-      'sorry_master_calming_down': 'Backed off',
-      'changing_position_master': 'Sitting',
-      'guarding_with_my_life_oh_splendid_one': 'Guarding',
-    };
-    this.debug = new Debugger(this.constructor.name);
-
-    // this.debug.enable()
+  petStates = {
+    'following_you_master': 'Following',
+    'at_your_service_master': 'Summoned',
+    'sorry_master_calming_down': 'Backed off',
+    'changing_position_master': 'Sitting',
+    'guarding_with_my_life_oh_splendid_one': 'Guarding',
   }
 
   isPetData(line) {

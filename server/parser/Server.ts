@@ -1,47 +1,46 @@
-import http from 'http';
+import http from 'node:http';
 import { WebSocketServer } from 'ws';
+import type { WebSocket } from 'ws';
 
 class Server {
-  constructor() {
-    this.httpServer = http.createServer();
-    this.wsServer = null
-  }
+  httpServer: http.Server = http.createServer();
+  wsServer: WebSocketServer | null = null;
 
-  start() {
+  start(): void {
     this.createWebSocketServer();
     this.startHttpServer();
   }
 
-  createWebSocketServer() {
+  createWebSocketServer(): void {
     this.wsServer = new WebSocketServer({ server: this.httpServer });
 
-    this.wsServer.on('connection', (socket) => this.handleOnWsConnection(socket));
+    this.wsServer.on('connection', (socket: WebSocket) => this.handleOnWsConnection(socket));
     this.wsServer.on('close', () => this.handleOnWsClose());
   }
 
-  handleOnWsConnection(socket) {
+  handleOnWsConnection(socket: WebSocket): void {
     socket.send('Server says "Welcome to the server"');
-    socket.on('message', (message) => {
-      console.log(message.toString('utf-8'));
+    socket.on('message', (message: WebSocket) => {
+      console.log(message.toString());
     });
   }
 
-  handleOnWsClose() {
+  handleOnWsClose(): void {
     this.send('Server closing connection');
   }
 
-  startHttpServer() {
+  startHttpServer(): void {
     this.httpServer.listen(4000, '0.0.0.0', () => {
       console.log('HTTP server listening on port 4000');
     });
   }
 
-  send(data, key) {
+  send(data: any, key?: string): void {
     if (key) {
       const payload = { [key]: data };
       data = Buffer.from(JSON.stringify(payload));
     }
-    this.wsServer.clients.forEach(client => {
+    this.wsServer?.clients?.forEach(client => {
       if (client.readyState === client.OPEN) client.send(data);
     });
     

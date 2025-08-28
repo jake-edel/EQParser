@@ -1,5 +1,5 @@
 import Debugger from "./Debugger.ts";
-import server from "./Server.js";
+import server from "./Server.ts";
 import stripTimestamp from "../utils/stripTimestamp.ts";
 
 class Camping {

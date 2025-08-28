@@ -1,4 +1,4 @@
-import server from "./Server.js";
+import server from "./Server.ts";
 
 class Debugger {
   enabledClasses = new Set<string>()

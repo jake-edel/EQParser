@@ -1,5 +1,5 @@
-import parseRegistry from '../utils/parseRegistry.js';
-import server from './Server.js';
+import parseRegistry from '../utils/parseRegistry.ts';
+import server from './Server.ts';
 import stripTimestamp from '../utils/stripTimestamp.ts';
 
 class Parser {
