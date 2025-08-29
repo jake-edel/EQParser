@@ -2,11 +2,13 @@ import gameState from "./GameState.ts";
 import Debugger from "./Debugger.ts";
 import server from "./Server.ts";
 import stripTimestamp from "../utils/stripTimestamp.ts";
+import logFile from '../parser/LogFile.ts'
 import type { Coordinates } from '../types/types.d.ts'
 
 class Location {
   senseHeadingPattern = /^you think you are heading (\w+)\.$/i;
-  debug = new Debugger(this.constructor.name);
+  zonePattern = /you have entered (\D+)\./i
+  debug = new Debugger(this.constructor.name)
 
   isDirection(line: string): boolean {
     return this.senseHeadingPattern.test(stripTimestamp(line));
@@ -44,14 +46,44 @@ class Location {
   }
 
   isZone(line: string): boolean {
-    return line.includes('You have entered');
+    return this.zonePattern.test(line)
   }
 
   getCurrentZone(line: string): void {
-    const zoneName = line.split('You have entered ')[1].split('.').shift();
+    const match = this.zonePattern.exec(line)
+    if (!match) throw new Error()
+    const zoneName = match[1];
     gameState.currentZone = zoneName || '';
     server.send(zoneName, 'zone');
     this.debug.log(' Current Zone:', gameState.currentZone);
+  }
+
+  // Looks backwards through the log for a pattern matching a zone message
+  // The first instance of this will be the current zone of the character
+  async searchForCurrentZone() {
+    await logFile.open()
+    let data;
+    let currentPosition;
+    const readLength = 1024
+    const fileSize = await logFile.size()
+    currentPosition = fileSize - readLength
+    
+    while (!this.zonePattern.test(data)) {
+      const { buffer, bytesRead } = await logFile.read(currentPosition, readLength)
+      data = buffer.toString()
+      const newlineLocation = data.indexOf('\n')
+      currentPosition -= (bytesRead + newlineLocation)
+      if (currentPosition <= 0) break
+    }
+    const match = this.zonePattern.exec(data)
+    if (match) {
+      const zoneName = match[1]
+      this.debug.log('Current zone: ', zoneName)
+      server.send(zoneName, 'zone');
+      gameState.currentZone = zoneName
+    }
+
+    await logFile.close()
   }
 }
 
