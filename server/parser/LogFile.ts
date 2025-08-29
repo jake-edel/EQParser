@@ -20,6 +20,10 @@ class LogFile {
     this.debug.log('Closing log file')
     await this.file?.close()
   }
+
+  async read(position, length) {
+    return fileService.readFile(this.file, length, position)
+  }
 }
 
 export default new LogFile()

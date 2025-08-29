@@ -1,7 +1,6 @@
 import fs from 'fs'
 import Debugger from './Debugger.ts';
 import parser from './Parser.ts';
-import fileService from './FileService.ts'
 import logFile from './LogFile.ts';
 import getByteSize from '../utils/fileSize.ts';
 
@@ -53,7 +52,7 @@ class LogWatcher {
     if (!readLength) return Buffer.alloc(0)
 
     let buffers: Buffer[] = [];
-    const { buffer, bytesRead } = await fileService.readFile(logFile.file, readLength, this.lastReadPosition);
+    const { buffer, bytesRead } = await logFile.read(this.lastReadPosition, readLength);
     this.lastReadPosition += bytesRead
     buffers.push(buffer);
 
@@ -68,7 +67,7 @@ class LogWatcher {
       readLength = newFileSize - this.lastReadPosition;
       if (readLength <= 0) break
 
-      let { buffer, bytesRead } = await fileService.readFile(logFile.file, readLength, this.lastReadPosition);
+      let { buffer, bytesRead } = await logFile.read(this.lastReadPosition, readLength);
       this.lastReadPosition += bytesRead
       buffers.push(buffer);
 
