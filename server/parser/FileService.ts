@@ -2,7 +2,7 @@ import fs from 'fs'
 import Debugger from './Debugger.ts'
 
 class FileService {
-  debug = new Debugger(this.constructor.name).enable()
+  debug = new Debugger(this.constructor.name)
 
   async getFileSize(filePath): Promise<number> {
     try {

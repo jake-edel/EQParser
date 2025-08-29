@@ -8,7 +8,7 @@ class LogWatcher {
   lastReadPosition = 0
   leftover = ''
   debounceTimer: NodeJS.Timeout
-  debug = new Debugger(this.constructor.name).enable()
+  debug = new Debugger(this.constructor.name)
 
   async startWatchingLog() {
     // Before we begin our watch, get our initial file size
