@@ -5,8 +5,8 @@ import stripTimestamp from "../utils/stripTimestamp.ts";
 import type { Coordinates } from '../types/types.d.ts'
 
 class Location {
-  senseHeadingPattern: RegExp = /^you think you are heading (\w+)\.$/i;
-  debug: Debugger = new Debugger(this.constructor.name);
+  senseHeadingPattern = /^you think you are heading (\w+)\.$/i;
+  debug = new Debugger(this.constructor.name);
 
   isDirection(line: string): boolean {
     return this.senseHeadingPattern.test(stripTimestamp(line));

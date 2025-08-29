@@ -6,10 +6,10 @@ import logFile from './LogFile.ts';
 import getByteSize from '../utils/fileSize.ts';
 
 class LogWatcher {
-  lastReadPosition: number = 0
-  leftover: string = ''
+  lastReadPosition = 0
+  leftover = ''
   debounceTimer: NodeJS.Timeout
-  debug: Debugger = new Debugger(this.constructor.name).enable()
+  debug = new Debugger(this.constructor.name).enable()
 
   async startWatchingLog() {
     // Before we begin our watch, get our initial file size

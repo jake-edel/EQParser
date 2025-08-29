@@ -2,8 +2,8 @@ import Debugger from './Debugger.ts';
 import server from './Server.ts';
 import type { CoinQuantity } from '../types/types';
 class Loot {
-  debug: Debugger = new Debugger(this.constructor.name).enable()
-  coinReceiveRegExp: RegExp = /You receive (\d+) (platinum|gold|silver|copper)/g
+  debug = new Debugger(this.constructor.name).enable()
+  coinReceiveRegExp = /You receive (\d+) (platinum|gold|silver|copper)/g
   totalCoins: CoinQuantity = {
       platinum: 0,
       gold: 0,
