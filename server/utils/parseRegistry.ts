@@ -3,6 +3,8 @@
    import pet from '../parser/Pet.ts';
    import loot from "../parser/Loot.ts";
    import camping from "../parser/Camping.ts";
+   import chat from "../parser/Chat.ts"
+   import server from "../parser/Server.ts";
 
    // Passing the methods as callback causes the method
    // to lose the context of 'this'. Passing an arrow function
@@ -35,5 +37,13 @@
       {
          condition: (line: string) => camping.isCampingMessage(line),
          handler: (line: string) => camping.handleMakeCamp(line)
+      },
+      {
+         condition: (line: string) => chat.isAuction(line),
+         handler: (line: string) => chat.auctionHandler(line)
+      },
+      {
+         condition: () => true,
+         handler: (line: string) => server.send(line, 'log')
       }
     ];

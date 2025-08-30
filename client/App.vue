@@ -6,6 +6,7 @@
   </div>
   <ChatBox :type="'debug'"/>
   <ChatBox :type="'log'"/>
+  <ChatBox :type="'auction'"/>
 </template>
 
 <script setup>
