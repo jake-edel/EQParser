@@ -1,6 +1,6 @@
-import Debugger from './Debugger.ts';
-import gameState from './GameState.ts';
-import type { CoinQuantity } from '../types/types';
+import Debugger from '../Debugger.ts';
+import gameState from '../GameState.ts';
+import type { CoinQuantity } from '../../types/types';
 class Loot {
   debug = new Debugger(this.constructor.name).enable()
   coinReceiveRegExp = /You receive (\d+) (platinum|gold|silver|copper)+./g

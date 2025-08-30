@@ -1,9 +1,9 @@
-   import location from "../parser/Location.ts";
-   import spell from "../parser/Spell.ts";
-   import pet from '../parser/Pet.ts';
-   import loot from "../parser/Loot.ts";
-   import camping from "../parser/Camping.ts";
-   import chat from "../parser/Chat.ts"
+   import location from "../parser/modules/Location.ts";
+   import spell from "../parser/modules/Spell.ts";
+   import pet from '../parser/modules/Pet.ts';
+   import loot from "../parser/modules/Loot.ts";
+   import camping from "../parser/modules/Camping.ts";
+   import chat from "../parser/modules/Chat.ts"
    import server from "../parser/Server.ts";
 
    // Passing the methods as callback causes the method

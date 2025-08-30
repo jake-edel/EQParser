@@ -1,5 +1,5 @@
-import Debugger from "./Debugger.ts";
-import gameState from "./GameState.ts";
+import Debugger from "../Debugger.ts";
+import gameState from "../GameState.ts";
 
 class Camping {
   debug = new Debugger(this.constructor.name).enable();

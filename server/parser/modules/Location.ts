@@ -1,7 +1,7 @@
-import gameState from "./GameState.ts";
-import Debugger from "./Debugger.ts";
-import logFile from '../parser/LogFile.ts'
-import type { Coordinates } from '../types/types.d.ts'
+import gameState from "../GameState.ts";
+import Debugger from "../Debugger.ts";
+import logFile from '../files/LogFile.ts'
+import type { Coordinates } from '../../types/types.d.ts'
 
 class Location {
   senseHeadingPattern = /^you think you are heading (\w+)\.$/i;

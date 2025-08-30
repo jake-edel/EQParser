@@ -1,7 +1,7 @@
 import fs from 'fs'
 import Debugger from './Debugger.ts';
 import parser from './Parser.ts';
-import logFile from './LogFile.ts';
+import logFile from './files/LogFile.ts';
 import getByteSize from '../utils/fileSize.ts';
 
 class LogWatcher {

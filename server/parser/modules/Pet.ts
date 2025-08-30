@@ -1,5 +1,5 @@
-import gameState from './GameState.ts';
-import Debugger from './Debugger.ts'
+import gameState from '../GameState.ts';
+import Debugger from '../Debugger.ts'
 
 class Pet {
   debug: Debugger = new Debugger(this.constructor.name).enable()

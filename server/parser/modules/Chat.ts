@@ -1,5 +1,5 @@
-import server from "./Server.ts"
-import Debugger from "./Debugger.ts"
+import server from "../Server.ts"
+import Debugger from "../Debugger.ts"
 
 class Chat {
   auctionPattern = /^(\w+) auctions, .+/i
