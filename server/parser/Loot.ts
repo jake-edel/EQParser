@@ -1,5 +1,5 @@
 import Debugger from './Debugger.ts';
-import server from './Server.ts';
+import gameState from './GameState.ts';
 import type { CoinQuantity } from '../types/types';
 class Loot {
   debug = new Debugger(this.constructor.name).enable()
@@ -31,7 +31,7 @@ class Loot {
       received: coins
     }
 
-    server.send(payload, 'coinLoot')
+    gameState.set('coinLoot', payload)
   }
   
 }

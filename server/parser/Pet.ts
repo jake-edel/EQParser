@@ -1,6 +1,5 @@
 import gameState from './GameState.ts';
 import Debugger from './Debugger.ts'
-import server from './Server.ts';
 
 class Pet {
   debug: Debugger = new Debugger(this.constructor.name).enable()
@@ -30,17 +29,17 @@ class Pet {
   }
 
   getPetName(line) {
+    // TODO: Not this, use regexp
     const [ , , , , , petName] = line.split(' ');
-    gameState.currentPet = petName;
-    server.send(petName, 'petName');
+    gameState.set('petName', petName)
   }
 
   getPetStatus(line) {
     this.debug.log('Raw pet line:', line);
-    let petStatus = null;
+    let petStatus = '';
     if (line.includes('tells you, \'Attacking')) {
       petStatus = this.handlePetAttack(line);
-      server.send(petStatus, 'petStatus');
+      gameState.set('petStatus', petStatus)
       return;
     }
     const lineId = line.split('says ')[1]?.toLowerCase()
@@ -49,13 +48,11 @@ class Pet {
       .replace(/ /g, '_')
       .trim();
 
-    petStatus = this.petStates[lineId] || null;
-
-    gameState.petStatus = petStatus;
-    server.send(petStatus, 'petStatus');
+    petStatus = this.petStates[lineId] || '';
+    if (petStatus) gameState.set('petStatus', petStatus)
   }
 
-  handlePetAttack(line) {
+  handlePetAttack(line): string {
     this.debug.log('Pet is attacking:', line);
     const attackStatus = line.split('tells you, ')[1]
       .replace(/\.\./g, '_')
@@ -65,7 +62,7 @@ class Pet {
 
     this.debug.log('Pet attack status:', attackStatus);
 
-    return attackStatus
+    return attackStatus || ''
   }
 }
 

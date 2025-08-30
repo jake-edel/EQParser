@@ -1,24 +1,44 @@
+import server from "./Server.ts";
+import Debugger from "./Debugger.ts";
 import type { Coordinates } from "../types/types";
 
 class GameState {
-  currentLocation: Coordinates | null = null
-  compassDirection: string | null = null
-  currentZone: string | null = null
-  currentSpell: string | null = null
-  currentPet: string | null = null
-  petStatus: string | null = null
+  location: Coordinates = { x: 0, y: 0, z: 0 }
+  compassDirection = ''
+  zone = ''
+  currentSpell = ''
+  petName = ''
+  petStatus = ''
+  camping = ''
+  debug = new Debugger(this.constructor.name)
+
+  // constructor() {
+  //   setInterval(() => {
+  //     console.clear()
+  //     this.log()
+  //   }, 500)
+  // }
+
+
+  set(property: string, value: string | object) {
+    this.debug.log('Setting game state:', property, value)
+    if (!this[property]) throw new Error('Invalid key passed: ' + property)
+    this[property] = value
+    server.send(value, property)
+  }
 
   log() {
-    console.clear();
-    const dashBoardString = `
-      Location: ${this.currentLocation || ''}
-      Compass Direction: ${this.compassDirection || ''}
-      Zone: ${this.currentZone || ''}
-      Spell: ${this.currentSpell || ''}
-      Pet Name: ${this.currentPet || ''}
-      Pet Status: ${this.petStatus || ''}
-    `;
-    console.log(dashBoardString);
+    const { x, y, z } = this.location
+    const location = `X:${x} Y: ${y} Z:${z} `
+    const state = `
+      Location: ${location}
+      Compass direction: ${this.compassDirection}
+      Zone: ${this.zone}
+      Spell: ${this.currentSpell}
+      Pet name: ${this.petName}
+      Camping: ${this.camping}
+    `
+    console.log(state)
   }
 }
 

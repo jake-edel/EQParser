@@ -38,8 +38,7 @@ class Spell {
   setCurrentSpell(line: string): void {
     if (this.isNewCast(line)) {
       const spellName = line.split('You begin casting ')[1].split('.').shift();
-      gameState.currentSpell = spellName || '';
-      server.send(spellName, 'currentSpell');
+      gameState.set('currentSpell', spellName || '')
     }
   }
 
@@ -48,18 +47,16 @@ class Spell {
   }
 
   setSpellInterrupted(): void {
-    gameState.currentSpell = 'INTERRUPTED!';
-    server.send('spellInterrupt')
-    setTimeout(() => gameState.currentSpell = null, 2000);
+    gameState.set('currentSpell', 'INTERRUPTED')
+    setTimeout(() => gameState.set('currentSpell', ''), 2000);
   }
 
   isFizzle(line: string): boolean {
     return line?.includes('Your spell fizzles!');
   }
   setSpellFizzle(): void {
-    gameState.currentSpell = 'FIZZLE!';
-    server.send('spellFizzle')
-    setTimeout(() => gameState.currentSpell = null, 2000);
+    gameState.set('currentSpell', 'FIZZLE')
+    setTimeout(() => gameState.set('currentSpell', ''), 2000);
   }
 
   isSpellComplete(line: string): boolean {
@@ -70,17 +67,14 @@ class Spell {
 
   handleSpellCast(line: string): void {
     if (this.isNewCast(line)) return this.setCurrentSpell(line)
-
     if (this.isInterrupted(line)) return this.setSpellInterrupted()
-
     if (this.isFizzle(line)) return this.setSpellFizzle()
-
-    if(this.isSpellComplete(line)) server.send('spellComplete')
+    if(this.isSpellComplete(line)) gameState.set('currentSpell', 'spellComplete')
 
     const spellId = gameState.currentSpell?.toLowerCase().replace(/ /g, '_') || '';
     const spellSignature = this.spellSignatures[spellId];
     if (!spellSignature) this.debug.log('UNKNOWN SPELL:', gameState.currentSpell);
-    if (spellId && line?.includes(spellSignature)) gameState.currentSpell = null;
+    if (spellId && line?.includes(spellSignature)) gameState.set('currentSpell', '');
   }
 }
 

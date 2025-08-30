@@ -20,9 +20,8 @@ class Location {
     if (!match) return;
 
     const direction = match[1];
-    gameState.compassDirection = direction;
-    server.send(direction, 'compassDirection');
     this.debug.log('Compass Direction:', direction);
+    gameState.set('compassDirection', direction)
   }
 
   isLocation(line: string): boolean {
@@ -40,9 +39,8 @@ class Location {
 
   getLocationData(line: string): void {
     const location = this.formatLocationData(line);
-    gameState.currentLocation = location;
-    server.send(location, 'location');
-    this.debug.log('Current Location:', gameState.currentLocation);
+    this.debug.log('Current Location:', location);
+    gameState.set('location', location)
   }
 
   isZone(line: string): boolean {
@@ -53,15 +51,15 @@ class Location {
     const match = this.zonePattern.exec(line)
     if (!match) throw new Error()
     const zoneName = match[1];
-    gameState.currentZone = zoneName || '';
-    server.send(zoneName, 'zone');
-    this.debug.log(' Current Zone:', gameState.currentZone);
+    gameState.set('zone', zoneName)
+    this.debug.log(' Current Zone:', gameState.zone);
   }
 
   // Looks backwards through the log for a pattern matching a zone message
   // The first instance of this will be the current zone of the character
   async searchForCurrentZone() {
     await logFile.open()
+
     let data;
     let currentPosition;
     const readLength = 1024
@@ -79,8 +77,7 @@ class Location {
     if (match) {
       const zoneName = match[1]
       this.debug.log('Current zone: ', zoneName)
-      server.send(zoneName, 'zone');
-      gameState.currentZone = zoneName
+      gameState.set('zone', zoneName)
     }
 
     await logFile.close()

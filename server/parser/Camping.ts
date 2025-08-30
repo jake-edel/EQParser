@@ -1,5 +1,6 @@
 import Debugger from "./Debugger.ts";
 import server from "./Server.ts";
+import gameState from "./GameState.ts";
 import stripTimestamp from "../utils/stripTimestamp.ts";
 
 class Camping {
@@ -10,7 +11,7 @@ class Camping {
     line = stripTimestamp(line);
 
     if (this.isAbandonCamp(line)) {
-      server.send('abandon', 'camping');
+      gameState.set('camping', 'abandon')
       return;
     }
 
@@ -19,7 +20,7 @@ class Camping {
       if (!match) return;
 
       const secondsToCamp = match[1];
-      server.send(secondsToCamp, 'camping')
+      gameState.set('camping', secondsToCamp)
     }
   }
 
