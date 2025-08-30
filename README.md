@@ -1,7 +1,7 @@
 # EQ Log Parser
 ### A log parser and dashboard for EQ in-game data
 
-#### The Log Parser (Server) - Node + Typescript (planned)
+#### The Log Parser (Server) - Node + Typescript
 The [LogWatcher](./server/parser/LogWatcher.js) sets up a file watcher on the EQ log file, which fires an event each time the log is written to. The line is then read and passed to the [Parser](./server/parser/Parser.js), which registers a number of handlers inside [parseRegistry.js](./server/utils/parseRegistry.js). This registry sets up conditions to determine how a given line should be handled. The line is then sent to a module to be formatted. Finally, the application starts a websocket server, which will emit these log events to the client.
 
 #### The Dashboard (Client) - Vue + Typescript (planned)
@@ -26,7 +26,7 @@ Todos:
 - Camping notifications
 - handle /who
 - persistent storage of character data (/who - name level class race)
-- search log for current zone
+- ~~search log for current zone~~
 - make UI nice
 - backend stores model of game state and can be requested by front end (app load/reload)
 - Typescript
