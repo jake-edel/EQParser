@@ -1,7 +1,7 @@
 import fs from 'fs'
 import Debugger from './Debugger.ts';
 import parser from './Parser.ts';
-import logFile from './LogFile.ts';
+import LogFile from './LogFile.ts';
 import getByteSize from '../utils/fileSize.ts';
 
 class LogWatcher {
@@ -9,18 +9,20 @@ class LogWatcher {
   leftover = ''
   debounceTimer: NodeJS.Timeout
   debug = new Debugger(this.constructor.name)
+  logFilePath = 'C:\\Everquest\\Logs\\eqlog_Jakxitz_P1999Green.txt'
+  logFile = new LogFile(this.logFilePath)
 
   async startWatchingLog() {
     // Before we begin our watch, get our initial file size
     // which will tell us where to being watching,
     // and how much to read when we detect a new write
-    const fileSize = await logFile.size();
+    const fileSize = await this.logFile.size();
     if (fileSize) { this.lastReadPosition = fileSize }
     
     this.debug.log('Log size:', getByteSize(this.lastReadPosition), '\n');
 
     // Watch for change events emitted from the log file
-    fs.watch(logFile.path, eventType => {
+    fs.watch(this.logFile.path, eventType => {
       if (eventType === 'change') {
         this.debug.log('Change event detected');
         
@@ -34,25 +36,25 @@ class LogWatcher {
   }
 
   async onFileChangeEvent() {
-    await logFile.open()
+    await this.logFile.open()
 
     const buffer = await this.handleFileRead();
     const lines = this.formatBuffer(buffer);
     lines.forEach(line => parser.readLine(line.trim()));
 
-    await logFile.close()
+    await this.logFile.close()
   }
 
   async handleFileRead() {
     // Compare the size of the file to its last known size,
     // to determine how much needs to be read
-    let currentFileSize = await logFile.size()
+    let currentFileSize = await this.logFile.size()
 
     let readLength = currentFileSize - this.lastReadPosition;
     if (!readLength) return Buffer.alloc(0)
 
     let buffers: Buffer[] = [];
-    const { buffer, bytesRead } = await logFile.read(this.lastReadPosition, readLength);
+    const { buffer, bytesRead } = await this.logFile.read(this.lastReadPosition, readLength);
     this.lastReadPosition += bytesRead
     buffers.push(buffer);
 
@@ -60,19 +62,19 @@ class LogWatcher {
     // If it has changed, we will enter a loop where we continually check the file size
     // and read the new data until we no longer detect a difference in file size
     // from before the read vs after
-    let newFileSize = await logFile.size();
+    let newFileSize = await this.logFile.size();
 
     while (newFileSize > currentFileSize) {
       this.debug.log('File size changed during read');
       readLength = newFileSize - this.lastReadPosition;
       if (readLength <= 0) break
 
-      let { buffer, bytesRead } = await logFile.read(this.lastReadPosition, readLength);
+      let { buffer, bytesRead } = await this.logFile.read(this.lastReadPosition, readLength);
       this.lastReadPosition += bytesRead
       buffers.push(buffer);
 
       currentFileSize = newFileSize;
-      newFileSize = await logFile.size() || 0;
+      newFileSize = await this.logFile.size() || 0;
     }
     
     // Concatenate all buffers

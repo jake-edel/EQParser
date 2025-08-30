@@ -7,6 +7,10 @@ class LogFile {
   file: fs.promises.FileHandle
   debug = new Debugger(this.constructor.name)
 
+  constructor(path) {
+    this.path = path
+  }
+
   async open() {
     this.debug.log('Opening log file')
     this.file = await fileService.openFile(this.path)
@@ -24,6 +28,15 @@ class LogFile {
   async read(position, length) {
     return fileService.readFile(this.file, length, position)
   }
+
+  async readAll() {
+    await this.open()
+    const length = await this.size()
+    const { buffer } = await this.read(0, length)
+    await this.close()
+
+    return buffer.toString()
+  }
 }
 
-export default new LogFile()
+export default LogFile
