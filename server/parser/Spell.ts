@@ -1,5 +1,4 @@
 import gameState from "./GameState.ts";
-import server from "./Server.ts";
 import Debugger from "./Debugger.ts";
 
 class Spell {

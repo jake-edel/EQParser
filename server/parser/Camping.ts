@@ -1,5 +1,4 @@
 import Debugger from "./Debugger.ts";
-import server from "./Server.ts";
 import gameState from "./GameState.ts";
 import stripTimestamp from "../utils/stripTimestamp.ts";
 

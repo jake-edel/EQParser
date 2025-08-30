@@ -1,6 +1,5 @@
 import gameState from "./GameState.ts";
 import Debugger from "./Debugger.ts";
-import server from "./Server.ts";
 import stripTimestamp from "../utils/stripTimestamp.ts";
 import logFile from '../parser/LogFile.ts'
 import type { Coordinates } from '../types/types.d.ts'
