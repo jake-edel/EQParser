@@ -1,15 +1,13 @@
 import parseRegistry from '../utils/parseRegistry.ts';
-import server from './Server.ts';
-import stripTimestamp from '../utils/stripTimestamp.ts';
+import LogLine from './LogLine.ts';
 
 class Parser {
   readLine(line) {
-    if (!line) return;
-    server.send(stripTimestamp(line), 'log');
+    const { text } = new LogLine(line)
 
     for (const { condition, handler } of parseRegistry) {
-      if (condition(line)) {
-        handler(line);
+      if (condition(text)) {
+        handler(text);
         return;
       }
     }

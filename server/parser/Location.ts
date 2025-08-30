@@ -1,20 +1,18 @@
 import gameState from "./GameState.ts";
 import Debugger from "./Debugger.ts";
-import stripTimestamp from "../utils/stripTimestamp.ts";
 import logFile from '../parser/LogFile.ts'
 import type { Coordinates } from '../types/types.d.ts'
 
 class Location {
   senseHeadingPattern = /^you think you are heading (\w+)\.$/i;
-  zonePattern = /you have entered (\D+)\./i
+  zonePattern = /you have entered (\w+)\./i
   debug = new Debugger(this.constructor.name)
 
   isDirection(line: string): boolean {
-    return this.senseHeadingPattern.test(stripTimestamp(line));
+    return this.senseHeadingPattern.test(line);
   }
 
   getCompassDirection(line: string): void {
-    line = stripTimestamp(line);
     const match = this.senseHeadingPattern.exec(line)
     if (!match) return;
 

@@ -1,13 +1,11 @@
 import Debugger from "./Debugger.ts";
 import gameState from "./GameState.ts";
-import stripTimestamp from "../utils/stripTimestamp.ts";
 
 class Camping {
   debug = new Debugger(this.constructor.name).enable();
   campingPattern: RegExp = /^it will take (?:you )?about (\d+) (?:more )?seconds to prepare your camp\.$/i;;
 
   handleMakeCamp(line: string): void {
-    line = stripTimestamp(line);
 
     if (this.isAbandonCamp(line)) {
       gameState.set('camping', 'abandon')
@@ -28,11 +26,10 @@ class Camping {
   }
 
   isPreparingToCamp(line: string): boolean {
-    return this.campingPattern.test(stripTimestamp(line));
+    return this.campingPattern.test(line);
   }
 
   isCampingMessage(line: string): boolean {
-    line = stripTimestamp(line);
     return this.isPreparingToCamp(line) || this.isAbandonCamp(line);
   }
 }
