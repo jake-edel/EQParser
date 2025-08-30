@@ -3,7 +3,7 @@ import gameState from './GameState.ts';
 import type { CoinQuantity } from '../types/types';
 class Loot {
   debug = new Debugger(this.constructor.name).enable()
-  coinReceiveRegExp = /You receive (\d+) (platinum|gold|silver|copper)/g
+  coinReceiveRegExp = /You receive (\d+) (platinum|gold|silver|copper)+./g
   totalCoins: CoinQuantity = {
       platinum: 0,
       gold: 0,
@@ -12,7 +12,6 @@ class Loot {
   }
 
   isCoinReceive(line: string): boolean {
-    // TODO: FIX THIS
     return this.coinReceiveRegExp.test(line)
   }
 

@@ -1,9 +1,10 @@
 import server from "./Server.ts";
 import Debugger from "./Debugger.ts";
-import type { Coordinates } from "../types/types";
+import type { Coordinates, CoinQuantity } from "../types/types";
 
 class GameState {
   location: Coordinates = { x: 0, y: 0, z: 0 }
+  coinLoot: CoinQuantity = { platinum: 0, gold: 0, silver: 0, copper: 0 }
   compassDirection = ''
   zone = ''
   currentSpell = ''
