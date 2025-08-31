@@ -2,7 +2,7 @@ import fs from 'fs'
 import Debugger from '../Debugger.ts'
 
 class File {
-  private readonly path: string
+  readonly path: string
   private file: fs.promises.FileHandle
   private readonly debug = new Debugger(this.constructor.name)
 
