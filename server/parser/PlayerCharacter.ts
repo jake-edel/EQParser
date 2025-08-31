@@ -1,5 +1,5 @@
-import Character from "./Character";
-import characterFile from "./files/CharacterFile";
+import Character from "./Character.ts";
+import characterFile from "./files/CharacterFile.ts";
 
 class PlayerCharacter extends Character {
     async get() {
