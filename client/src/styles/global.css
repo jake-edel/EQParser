@@ -3,17 +3,24 @@
   --color-gold: #ffd700;
   --color-silver: #c0c0c0;
   --color-copper: #CD7F32;
+    background: black;
+    color: white;
+}
+
+.flex {
+  display: flex;
+  gap: 4px;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
 }
 
 #app {
   max-width: 800px;
   margin: 0 auto;
   padding: 16px;
-}
-
-html {
-  background: black;
-  color: white;
 }
 
 .card {
