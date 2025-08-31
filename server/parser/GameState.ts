@@ -15,10 +15,20 @@ class GameState {
   playerCharacter = playerCharacter
   debug = new Debugger(this.constructor.name).enable()
 
+  constructor() {
+    server.connectionHandlers.push(this.onClientConnect)
+  }
+
   set(property: string, value: string | object) {
     if (typeof this[property] === 'undefined') throw new Error('Invalid key passed: ' + property)
     this[property] = value
     server.send(value, property)
+  }
+
+  async onClientConnect(socket: WebSocket) {
+    const payload = { playerCharacter: playerCharacter.data() };
+    const data = Buffer.from(JSON.stringify(payload));
+    socket.send(data)
   }
 
   log() {
