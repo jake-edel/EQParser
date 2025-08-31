@@ -6,8 +6,8 @@ import type { Coordinates } from '../../types/types.d.ts'
 class Location {
   senseHeadingPattern = /^you think you are heading (\w+)\.$/i;
   locationPattern = /^your location is (-?\d+.\d+), (-?\d+.\d+), (-?\d+.\d+)$/i
-  zonePattern = /you have entered (\w+)\./i
-  debug = new Debugger(this.constructor.name)
+  zonePattern = /.*you have entered ([\w|\s]+).*/si
+  debug = new Debugger(this.constructor.name).enable()
 
   isDirection(line: string): boolean {
     return this.senseHeadingPattern.test(line);
@@ -64,10 +64,10 @@ class Location {
     currentPosition = fileSize - readLength
     
     while (!this.zonePattern.test(data)) {
-      const { buffer, bytesRead } = await logFile.read(currentPosition, readLength)
+      const { buffer } = await logFile.read(currentPosition, readLength)
       data = buffer.toString()
       const newlineLocation = data.indexOf('\n')
-      currentPosition -= (bytesRead + newlineLocation)
+      currentPosition -= (readLength + newlineLocation)
       if (currentPosition <= 0) break
     }
     const match = this.zonePattern.exec(data)
