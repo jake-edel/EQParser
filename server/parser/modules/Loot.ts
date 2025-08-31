@@ -2,9 +2,9 @@ import Debugger from '../Debugger.ts';
 import gameState from '../GameState.ts';
 import type { CoinQuantity } from '../../types/types';
 class Loot {
-  private readonly  debug = new Debugger(this.constructor.name).enable()
+  private readonly  debug = new Debugger(this.constructor.name)
   private readonly coinReceiveRegExp = /You receive (\d+) (platinum|gold|silver|copper)+./g
-  private totalCoins: CoinQuantity = {
+  private readonly totalCoins: CoinQuantity = {
       platinum: 0,
       gold: 0,
       silver: 0,

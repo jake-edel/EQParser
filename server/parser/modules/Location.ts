@@ -7,7 +7,7 @@ class Location {
   private readonly senseHeadingPattern = /^you think you are heading (\w+)\.$/i;
   private readonly locationPattern = /^your location is (-?\d+.\d+), (-?\d+.\d+), (-?\d+.\d+)$/i
   private readonly zonePattern = /.*you have entered ([\w|\s]+).*/si
-  private readonly debug = new Debugger(this.constructor.name).enable()
+  private readonly debug = new Debugger(this.constructor.name)
 
   isDirection(line: string): boolean {
     return this.senseHeadingPattern.test(line);
