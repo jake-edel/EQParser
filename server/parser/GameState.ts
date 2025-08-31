@@ -25,8 +25,8 @@ class GameState {
     server.send(value, property)
   }
 
-  async onClientConnect(socket: WebSocket) {
-    const payload = { playerCharacter: playerCharacter.data() };
+  onClientConnect(socket: WebSocket) {
+    const payload = { playerCharacter: playerCharacter.info() };
     const data = Buffer.from(JSON.stringify(payload));
     socket.send(data)
   }

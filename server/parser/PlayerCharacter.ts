@@ -11,6 +11,15 @@ class PlayerCharacter extends Character {
 
       return this
     }
+
+    info() {
+      return {
+        charName: this.name,
+        level: this.level,
+        race: this.race,
+        charClass: this.charClass
+      }
+    }
 }
 
 export default await new PlayerCharacter().get()
