@@ -3,7 +3,10 @@ import { WebSocketServer } from 'ws';
 import type { WebSocket } from 'ws';
 
 class Server {
-  httpServer: http.Server = http.createServer();
+  httpServer: http.Server = http.createServer((req, res) => {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify('gameState'));
+  });
   wsServer: WebSocketServer | null = null;
 
   start(): void {
