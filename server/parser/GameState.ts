@@ -1,4 +1,5 @@
 import server from "./Server.ts";
+import playerCharacter from './PlayerCharacter.ts'
 import Debugger from "./Debugger.ts";
 import type { Coordinates, CoinQuantity } from "../types/types";
 
@@ -11,19 +12,11 @@ class GameState {
   petName = ''
   petStatus = ''
   camping = ''
-  debug = new Debugger(this.constructor.name)
-
-  // constructor() {
-  //   setInterval(() => {
-  //     console.clear()
-  //     this.log()
-  //   }, 500)
-  // }
-
+  playerCharacter = playerCharacter
+  debug = new Debugger(this.constructor.name).enable()
 
   set(property: string, value: string | object) {
-    this.debug.log('Setting game state:', property, value)
-    if (!this[property]) throw new Error('Invalid key passed: ' + property)
+    if (typeof this[property] === 'undefined') throw new Error('Invalid key passed: ' + property)
     this[property] = value
     server.send(value, property)
   }
