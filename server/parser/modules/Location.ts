@@ -5,6 +5,7 @@ import type { Coordinates } from '../../types/types.d.ts'
 
 class Location {
   senseHeadingPattern = /^you think you are heading (\w+)\.$/i;
+  locationPattern = /^your location is (-?\d+.\d+), (-?\d+.\d+), (-?\d+.\d+)$/i
   zonePattern = /you have entered (\w+)\./i
   debug = new Debugger(this.constructor.name)
 
@@ -26,11 +27,10 @@ class Location {
   }
 
   formatLocationData(line: string): Coordinates {
-    const [y, x, z] = line
-      .replace(/,/g, '')
-      .split(' ')
-      .slice(8)
-      .map(num => parseFloat(num));
+    const match = this.locationPattern.exec(line)
+    let x, y, z
+    if (match) [y, x, z] = match.slice(1, 4).map(num => parseFloat(num))
+
     return { x, y, z };
   }
 
