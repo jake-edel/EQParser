@@ -2,8 +2,8 @@ import gameState from '../GameState.ts';
 import Debugger from '../Debugger.ts'
 
 class Pet {
-  debug: Debugger = new Debugger(this.constructor.name).enable()
-  petSignatures: Array<string> = [
+  private readonly debug: Debugger = new Debugger(this.constructor.name).enable()
+  private readonly petSignatures: Array<string> = [
       'At your service master.',
       'Sorry, Master..calming down.',
       'Following you, Master.',
@@ -11,7 +11,7 @@ class Pet {
       'Guarding with my life..oh splendid one.',
       'tells you, \'Attacking'
     ];
-  petStates = {
+  private readonly petStates = {
     'following_you_master': 'Following',
     'at_your_service_master': 'Summoned',
     'sorry_master_calming_down': 'Backed off',

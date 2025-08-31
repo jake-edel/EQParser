@@ -4,10 +4,10 @@ import logFile from '../files/LogFile.ts'
 import type { Coordinates } from '../../types/types.d.ts'
 
 class Location {
-  senseHeadingPattern = /^you think you are heading (\w+)\.$/i;
-  locationPattern = /^your location is (-?\d+.\d+), (-?\d+.\d+), (-?\d+.\d+)$/i
-  zonePattern = /.*you have entered ([\w|\s]+).*/si
-  debug = new Debugger(this.constructor.name).enable()
+  private readonly senseHeadingPattern = /^you think you are heading (\w+)\.$/i;
+  private readonly locationPattern = /^your location is (-?\d+.\d+), (-?\d+.\d+), (-?\d+.\d+)$/i
+  private readonly zonePattern = /.*you have entered ([\w|\s]+).*/si
+  private readonly debug = new Debugger(this.constructor.name).enable()
 
   isDirection(line: string): boolean {
     return this.senseHeadingPattern.test(line);

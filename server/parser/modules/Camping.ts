@@ -2,8 +2,8 @@ import Debugger from "../Debugger.ts";
 import gameState from "../GameState.ts";
 
 class Camping {
-  debug = new Debugger(this.constructor.name).enable();
-  campingPattern: RegExp = /^it will take (?:you )?about (\d+) (?:more )?seconds to prepare your camp\.$/i;;
+  private readonly debug = new Debugger(this.constructor.name).enable();
+  private readonly campingPattern: RegExp = /^it will take (?:you )?about (\d+) (?:more )?seconds to prepare your camp\.$/i;;
 
   handleMakeCamp(line: string): void {
 

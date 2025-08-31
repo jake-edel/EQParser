@@ -1,8 +1,8 @@
 import server from "./Server.ts";
 
 class Debugger {
-  enabledClasses = new Set<string>()
-  className: string
+  private readonly enabledClasses = new Set<string>()
+  private readonly className: string
 
   constructor(className: string) {
     this.className = className;

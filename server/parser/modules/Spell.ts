@@ -2,10 +2,10 @@ import gameState from "../GameState.ts";
 import Debugger from "../Debugger.ts";
 
 class Spell {
-  debug: Debugger = new Debugger(this.constructor.name).enable()
-  currentSpellId: string = ''
-  currentSpellName: string = ''
-  spellSignatures = {
+  private readonly debug: Debugger = new Debugger(this.constructor.name).enable()
+  private currentSpellId: string = ''
+  private currentSpellName: string = ''
+  private readonly spellSignatures = {
     deadeye: 'Your vision shifts.',
     shadow_sight: 'The shadows fade.',
     gather_shadows: 'You gather shadows about you.',
@@ -13,7 +13,7 @@ class Spell {
     augment_death: 'gleam with madness',
     panic_the_dead: 'has the fear of life put'
   }
-  spellCastMessages: Array<string> = [
+  private readonly spellCastMessages: Array<string> = [
       'You begin casting',
       'Your spell is interrupted',
       'Your spell fizzles!',
