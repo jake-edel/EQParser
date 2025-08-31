@@ -2,6 +2,8 @@
 class LogLine {
   timestamp = ''
   text = ''
+  // TODO: THIS IS STRIPPING CHAR LEVEL FROM /WHO FIX IT
+  // ALSO IMPLEMENT /WHO
   linePattern = /^(\[.*\]) (.+)$/;
 
   constructor(line: string) {

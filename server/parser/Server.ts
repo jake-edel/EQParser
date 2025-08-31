@@ -8,6 +8,7 @@ class Server {
       res.end(JSON.stringify('gameState'));
   });
   wsServer: WebSocketServer | null = null;
+  connectionHandlers: Function[] = []
 
   start(): void {
     this.createWebSocketServer();
@@ -23,6 +24,8 @@ class Server {
 
   handleOnWsConnection(socket: WebSocket): void {
     socket.send('Server says "Welcome to the server"');
+    console.log('Client connection established')
+    this.connectionHandlers.forEach(fnc => fnc(socket))
     socket.on('message', (message: WebSocket) => {
       console.log(message.toString());
     });
