@@ -1,25 +1,20 @@
 import gameState from "../GameState.ts";
 import Debugger from "../Debugger.ts";
-import spells from "../../data/spells.ts";
+import { spells, defaultSpell } from "../../data/spells.ts";
 
 class Spell {
   private readonly debug: Debugger = new Debugger(this.constructor.name).enable()
-  private currentSpellId: string = ''
-  private currentSpell: string = ''
+  private currentSpell = defaultSpell
+  private currentSpellId = ''
   private readonly castingPattern = /^You begin casting (.*)\.$/i
-  private readonly spellSignatures = {
-    deadeye: 'Your vision shifts.',
-    shadow_sight: 'The shadows fade.',
-    gather_shadows: 'You gather shadows about you.',
-    malignant_dead: 'At your service master',
-    augment_death: 'gleam with madness',
-    panic_the_dead: 'has the fear of life put'
-  }
-  private readonly spellCastMessages: Array<string> = [
+  private readonly interruptPattern = /^Your spell is interrupted\.$/i
+  private readonly fizzlePattern = /^Your spell fizzles!$/i
+  private readonly spellSignatures: string[] = Object.keys(spells).map(spell => spells[spell].signature)
+  private readonly spellCastMessages = [
       'You begin casting',
       'Your spell is interrupted',
       'Your spell fizzles!',
-      ...(Object.keys(spells).map(spell => spells[spell].signature))
+      ...(this.spellSignatures)
     ]
   
   toSpellId(spellName) {
@@ -27,61 +22,68 @@ class Spell {
   }
 
   isSpellCast(line: string): boolean {
-    const match = this.castingPattern.exec(line)
-    let spellName;
-    if (match) { spellName = match[1]}
-    const spellId = spellName
-    this.currentSpell = spells[spellId]
-
-    const isSpellCast = this.spellCastMessages.some(signature => line?.includes(signature))
-
-    return isSpellCast
+    return this.spellCastMessages.some(signature => (
+      line.includes(signature)
+    ))
   }
 
   isNewCast(line: string): boolean {
     return this.castingPattern.test(line)
   }
 
-  setCurrentSpell(line: string): void {
-    if (this.isNewCast(line)) {
-      const spellName = line.split('You begin casting ')[1].split('.').shift();
-      gameState.set('currentSpell', spellName || '')
-    }
+  isFizzle(line: string): boolean {
+    return this.fizzlePattern.test(line);
   }
 
   isInterrupted(line: string): boolean {
-    return line?.includes('Your spell is interrupted');
+    return this.interruptPattern.test(line);
+  }
+
+  isSpellLanded(line: string): boolean {
+    const spellSignature = this.spellSignatures[this.currentSpellId];
+    return line.includes(spellSignature);
+  }
+
+  resetSpell(): void {
+    this.currentSpell = defaultSpell
+    this.currentSpellId = ''
+  }
+
+  setCurrentSpell(line: string): void {
+    this.currentSpell = defaultSpell
+    this.currentSpellId = ''
+
+    let spellName;
+    const match = this.castingPattern.exec(line)
+    if (match) { spellName = match[1]}
+
+    this.currentSpellId = this.toSpellId(spellName)
+    this.currentSpell = spells[this.currentSpellId]
+    if (this.isNewCast(line)) gameState.set('spellCast', this.currentSpell)
   }
 
   setSpellInterrupted(): void {
-    gameState.set('currentSpell', 'INTERRUPTED')
-    setTimeout(() => gameState.set('currentSpell', ''), 2000);
+    this.resetSpell()
+    gameState.set('spellInterrupt', this.currentSpell)
   }
 
-  isFizzle(line: string): boolean {
-    return line?.includes('Your spell fizzles!');
-  }
   setSpellFizzle(): void {
-    gameState.set('currentSpell', 'FIZZLE')
-    setTimeout(() => gameState.set('currentSpell', ''), 2000);
+    this.resetSpell()
+    gameState.set('spellFizzle', this.currentSpell)
   }
 
-  isSpellComplete(line: string): boolean {
-    const spellId = gameState.currentSpell?.toLowerCase().replace(/ /g, '_') || '';
-    const spellSignature = this.spellSignatures[spellId];
-    return (spellId && line?.includes(spellSignature)) || true;
+  handleSpellLanded(): void {
+    this.resetSpell()
+    this.debug.log('Spell landed:', this.currentSpell.name)
+    gameState.set('spellLanded', this.currentSpell)
+    this.currentSpell = defaultSpell
   }
 
   handleSpellCast(line: string): void {
     if (this.isNewCast(line)) return this.setCurrentSpell(line)
     if (this.isInterrupted(line)) return this.setSpellInterrupted()
     if (this.isFizzle(line)) return this.setSpellFizzle()
-    if(this.isSpellComplete(line)) gameState.set('currentSpell', 'spellComplete')
-
-    const spellId = gameState.currentSpell?.toLowerCase().replace(/ /g, '_') || '';
-    const spellSignature = this.spellSignatures[spellId];
-    if (!spellSignature) this.debug.log('UNKNOWN SPELL:', gameState.currentSpell);
-    if (spellId && line?.includes(spellSignature)) gameState.set('currentSpell', '');
+    if (this.isSpellLanded(line)) return this.handleSpellLanded()
   }
 }
 
