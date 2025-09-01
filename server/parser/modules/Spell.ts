@@ -1,10 +1,12 @@
 import gameState from "../GameState.ts";
 import Debugger from "../Debugger.ts";
+import spells from "../../data/spells.ts";
 
 class Spell {
   private readonly debug: Debugger = new Debugger(this.constructor.name).enable()
   private currentSpellId: string = ''
-  private currentSpellName: string = ''
+  private currentSpell: string = ''
+  private readonly castingPattern = /^You begin casting (.*)\.$/i
   private readonly spellSignatures = {
     deadeye: 'Your vision shifts.',
     shadow_sight: 'The shadows fade.',
@@ -17,21 +19,27 @@ class Spell {
       'You begin casting',
       'Your spell is interrupted',
       'Your spell fizzles!',
-      this.spellSignatures[this.currentSpellId]
+      ...(Object.keys(spells).map(spell => spells[spell].signature))
     ]
-
+  
+  toSpellId(spellName) {
+    return spellName.toLowerCase().replace(/ /g, '_');
+  }
 
   isSpellCast(line: string): boolean {
-    const currentSpellId = this.currentSpellName?.toLowerCase().replace(/ /g, '_');
+    const match = this.castingPattern.exec(line)
+    let spellName;
+    if (match) { spellName = match[1]}
+    const spellId = spellName
+    this.currentSpell = spells[spellId]
 
     const isSpellCast = this.spellCastMessages.some(signature => line?.includes(signature))
-    || line?.includes(this.spellSignatures[currentSpellId]);
 
     return isSpellCast
   }
 
   isNewCast(line: string): boolean {
-    return line?.includes('You begin casting');
+    return this.castingPattern.test(line)
   }
 
   setCurrentSpell(line: string): void {
