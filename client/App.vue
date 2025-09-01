@@ -4,10 +4,8 @@
     <Compass />
     <CoinCounter />
   </div>
-  <PetStatus />
-  <ChatBox :type="'debug'"/>
-  <ChatBox :type="'log'"/>
-  <ChatBox :type="'auction'"/>
+  <ChatBox />
+
 </template>
 
 <script setup>
