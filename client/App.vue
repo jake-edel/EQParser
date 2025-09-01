@@ -12,7 +12,6 @@
 import useWebSocket from './src/composables/useWebSocket.js'
 import CharacterInfo from './src/components/CharacterInfo.vue'
 import ChatBox from './src/components/ChatBox.vue';
-import PetStatus from './src/components/PetStatus.vue';
 import CoinCounter from './src/components/CoinCounter.vue';
 import Compass from './src/components/Compass.vue';
 
