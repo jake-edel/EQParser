@@ -1,22 +1,26 @@
 <template>
-  <div class="card">
-    <h2>Coins</h2>
-    <div>
-      <div id="coin-platinum">Platinum: {{ coinLoot.received.platinum }}</div>
-      <div id="coin-gold">Gold: {{ coinLoot.received.gold }}</div>
-      <div id="coin-silver">Silver: {{ coinLoot.received.silver }}</div>
-      <div id="coin-copper">Copper: {{ coinLoot.received.copper }}</div>
-      <div id="total-coin-platinum">platinum: {{ coinLoot.total.platinum }}</div>
-      <div id="total-coin-gold">gold: {{ coinLoot.total.gold }}</div>
-      <div id="total-coin-silver">silver: {{ coinLoot.total.silver }}</div>
-      <div id="total-coin-copper">copper: {{ coinLoot.total.copper }}</div>
+  <div class="flex-col" style="align-items: end; gap: 0px">
+    <div
+      v-for="coin in coins"
+      :key="coin"
+      :id="`total-coin-${coin}`"
+      class="flex items-center"
+    >
+      <div>{{ coinLoot.total[coin] }}</div>
+      <div
+        class="coin"
+        :style="{ backgroundColor: `var(--color-${coin})` }"
+      />
     </div>
+
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import useWebSocket from '../composables/useWebSocket';
+
+const coins = ['platinum', 'gold', 'silver', 'copper']
 
 const coinLoot = ref({ total: {}, received: {}});
 
@@ -26,3 +30,13 @@ const socketListeners = [
 
 useWebSocket(socketListeners);
 </script>
+
+<style scoped>
+  .coin {
+    height:12px;
+    width: 12px;
+    background-color: var(--color-platinum);
+    border-radius: 50%;
+    border: 1px solid #646464
+  }
+</style>
