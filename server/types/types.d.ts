@@ -18,3 +18,18 @@ export interface PetStates {
   'changing_position_master': string
   'guarding_with_my_life_oh_splendid_one': string
 }
+
+type DurationRange = [
+  {
+    level: number,
+    duration: number
+  }
+]
+
+export type Spell = {
+  name: string
+  id: string
+  signature: string
+  type: string
+  duration: number | DurationRange
+}
