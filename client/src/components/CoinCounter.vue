@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-col" style="align-items: end; justify-content: space-between;">
+  <div class="flex-col" style="align-items: end; gap: 4px">
     <div
       v-for="coin in coins"
       :key="coin"
