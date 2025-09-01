@@ -27,5 +27,6 @@ startWebSocketService();
   margin-bottom: 16px;
   display: flex;
   justify-content: space-between;
+  height: 80px
 }
 </style>
