@@ -25,9 +25,12 @@ class GameState {
   }
 
   set(event: string, value: string | object | Spell) {
-    if (typeof this[event] === 'undefined') throw new Error('Invalid key passed: ' + event)
-    if (this.isSpell(value)) this.currentSpells.push(value)
-    this[event] = value
+    // if (typeof this[event] === 'undefined') throw new Error('Invalid key passed: ' + event)
+    if (this.isSpell(value)) {
+      this.currentSpells.push(value)
+    } else {
+      this[event] = value
+    }
     server.send(value, event)
   }
 
@@ -39,13 +42,14 @@ class GameState {
     this.currentSpells = this.currentSpells.filter(currentSpell => currentSpell.id !== id)
   }
 
-  handleSpell(event: string, spell: Spell) {
-    if (event === 'spellCast') this.currentSpells.push(spell)
-    if (event === 'spellInterrupt' || event === 'spellFizzle') this.clearSpell(spell.id)
-    if (event === 'spellLanded') {
-      spell.duration ? console.log('setSpellTimeout') : this.clearSpell(spell.id)
-    }
-  }
+  // TODO: refine spell state  tracking
+  // handleSpell(event: string, spell: Spell) {
+  //   if (event === 'spellCast') this.currentSpells.push(spell)
+  //   if (event === 'spellInterrupt' || event === 'spellFizzle') this.clearSpell(spell.id)
+  //   if (event === 'spellLanded') {
+  //     spell.duration ? console.log('setSpellTimeout') : this.clearSpell(spell.id)
+  //   }
+  // }
 
   log() {
     const { x, y, z } = this.location
