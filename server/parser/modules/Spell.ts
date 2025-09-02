@@ -59,6 +59,8 @@ class Spell {
 
     this.currentSpellId = this.toSpellId(spellName)
     this.currentSpell = spells[this.currentSpellId]
+    if (!this.currentSpell) return this.debug.log('Unknown spell:', spellName)
+    this.currentSpell.instanceId = crypto.randomUUID()
     if (this.isNewCast(line)) gameState.set('spellCast', this.currentSpell)
   }
 
