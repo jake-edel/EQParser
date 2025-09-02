@@ -3,7 +3,7 @@ import Debugger from '../Debugger.ts'
 
 class File {
   readonly path: string
-  private file: fs.promises.FileHandle
+  protected file: fs.promises.FileHandle
   private readonly debug = new Debugger(this.constructor.name)
 
   constructor(path) {
@@ -19,15 +19,13 @@ class File {
     return 0
   }
 
-  async open(): Promise<fs.promises.FileHandle> {
+  async open(permissions = 'r'): Promise<void> {
     this.debug.log('Opening log file')
     try {
-      this.file = await fs.promises.open(this.path, 'r')
-      return this.file;
+      this.file = await fs.promises.open(this.path, permissions)
     } catch (error) {
       this.debug.log('Error opening file:', error);
     }
-    throw new Error('Unable to read file at' + this.path)
   }
 
   async read(position: number, readLength: number): Promise<fs.promises.FileReadResult<Buffer<ArrayBuffer>>> {
