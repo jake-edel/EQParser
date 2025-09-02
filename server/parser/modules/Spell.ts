@@ -1,5 +1,6 @@
 import gameState from "../GameState.ts";
 import Debugger from "../Debugger.ts";
+import crypto from 'node:crypto'
 import { spells, defaultSpell } from "../../data/spells.ts";
 
 class Spell {
@@ -9,7 +10,7 @@ class Spell {
   private readonly castingPattern = /^You begin casting (.*)\.$/i
   private readonly interruptPattern = /^Your spell is interrupted\.$/i
   private readonly fizzlePattern = /^Your spell fizzles!$/i
-  private readonly spellSignatures: string[] = Object.keys(spells).map(spell => spells[spell].signature)
+  private readonly spellSignatures: string[] = Object.keys(spells).map(spell => spells[spell].onSpellLand)
   private readonly spellCastMessages = [
       'You begin casting',
       'Your spell is interrupted',
@@ -40,7 +41,8 @@ class Spell {
   }
 
   isSpellLanded(line: string): boolean {
-    const spellSignature = this.spellSignatures[this.currentSpellId];
+    const spellSignature = spells[this.currentSpellId].onSpellLand;
+    this.debug.log(`${this.currentSpellId} signature:`, spellSignature)
     return line.includes(spellSignature);
   }
 
@@ -75,10 +77,9 @@ class Spell {
   }
 
   handleSpellLanded(): void {
-    this.resetSpell()
     this.debug.log('Spell landed:', this.currentSpell.name)
     gameState.set('spellLanded', this.currentSpell)
-    this.currentSpell = defaultSpell
+    this.resetSpell()
   }
 
   handleSpellCast(line: string): void {
