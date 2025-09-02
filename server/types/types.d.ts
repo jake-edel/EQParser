@@ -29,7 +29,9 @@ type DurationRange = [
 export type Spell = {
   name: string
   id: string
-  signature: string
+  onSpellLand: string
+  onWearOff: string | undefined
   type: string
-  duration: number | DurationRange
+  duration: number | DurationRange,
+  instanceId: string
 }
