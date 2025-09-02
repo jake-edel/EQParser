@@ -17,7 +17,7 @@
       <LogLine
         v-for="(message, index) in chats[currentChat]"
         style="margin: 0;"
-        :key="uuid()"
+        :key="message + index"
         :message
       />
     </div>
@@ -29,32 +29,32 @@ import { reactive, ref } from 'vue';
 import useWebSocket from '../composables/useWebSocket';
 import LogLine from './LogLine.vue';
 
-const uuid = () => crypto.randomUUID()
 const chatTypes = ['debug', 'log', 'auction']
-const currentChat = ref('')
+
 const chats = reactive({})
+const currentChat = ref('debug')
 const chatIsReversed = ref(false);
 
 function handleChatMessage(type, message) {
   if (chats[type]) {
     chatIsReversed.value 
-      ? chats[currentChat].value.unshift(message) 
-      : chats[currentChat].value.push(message);
+      ? chats[type].unshift(message) 
+      : chats[type].push(message);
   } else {
     chats[type] = [message]
   }
 }
 
 const socketListeners = chatTypes.map((type) => ({
-  type: (message) => handleChatMessage(type, message)
+  [type]: (message) => handleChatMessage(type, message)
 }))
 
 useWebSocket(socketListeners);
 
 const reverseLog = () => {
-  chats[currentChat].value = chats[currentChat].value.slice().reverse();
+  chats[currentChat] = chats[currentChat].slice().reverse();
   chatIsReversed.value = !chatIsReversed.value;
 }
 
-const clearLog = () => chats[currentChat].value.length = 0;
+const clearLog = () => chats[currentChat].length = 0;
 </script>
