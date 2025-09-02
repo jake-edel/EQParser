@@ -1,4 +1,5 @@
 import server from "./Server.ts";
+import debugFile from "./files/DebugFile.ts"
 
 class Debugger {
   private readonly enabledClasses = new Set<string>()
@@ -20,6 +21,10 @@ class Debugger {
       console.log(debugString);
       server.send(debugString, 'debug');
     }
+  }
+
+  write(...args: string[]) {
+    debugFile.write(args.join(' '))
   }
 }
 

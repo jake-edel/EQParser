@@ -52,8 +52,7 @@ class Spell {
   }
 
   setCurrentSpell(line: string): void {
-    this.currentSpell = defaultSpell
-    this.currentSpellId = ''
+    this.resetSpell()
 
     let spellName;
     const match = this.castingPattern.exec(line)
@@ -61,7 +60,7 @@ class Spell {
 
     this.currentSpellId = this.toSpellId(spellName)
     this.currentSpell = spells[this.currentSpellId]
-    if (!this.currentSpell) return this.debug.log('Unknown spell:', spellName)
+    if (!this.currentSpell) return this.debug.write('Unknown spell:', spellName)
     this.currentSpell.instanceId = crypto.randomUUID()
     if (this.isNewCast(line)) gameState.set('spellCast', this.currentSpell)
   }
