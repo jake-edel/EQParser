@@ -30,26 +30,27 @@ class Pet {
 
   getPetName(line) {
     // TODO: Not this, use regexp
-    const [ , , , , , petName] = line.split(' ');
-    gameState.set('petName', petName)
+    // This whole module is bugged
+    // const [ , , , , , petName] = line.split(' ');
+    // gameState.set('petName', petName)
   }
 
   getPetStatus(line) {
-    this.debug.log('Raw pet line:', line);
-    let petStatus = '';
-    if (line.includes('tells you, \'Attacking')) {
-      petStatus = this.handlePetAttack(line);
-      gameState.set('petStatus', petStatus)
-      return;
-    }
-    const lineId = line.split('says ')[1]?.toLowerCase()
-      .replace(/\.\./g, '_')
-      .replace(/[.,']/g, '')
-      .replace(/ /g, '_')
-      .trim();
+    // this.debug.log('Raw pet line:', line);
+    // let petStatus = '';
+    // if (line.includes('tells you, \'Attacking')) {
+    //   petStatus = this.handlePetAttack(line);
+    //   gameState.set('petStatus', petStatus)
+    //   return;
+    // }
+    // const lineId = line.split('says ')[1]?.toLowerCase()
+    //   .replace(/\.\./g, '_')
+    //   .replace(/[.,']/g, '')
+    //   .replace(/ /g, '_')
+    //   .trim();
 
-    petStatus = this.petStates[lineId] || '';
-    if (petStatus) gameState.set('petStatus', petStatus)
+    // petStatus = this.petStates[lineId] || '';
+    // if (petStatus) gameState.set('petStatus', petStatus)
   }
 
   handlePetAttack(line): string {
