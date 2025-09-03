@@ -19,12 +19,12 @@ export interface PetStates {
   'guarding_with_my_life_oh_splendid_one': string
 }
 
-type DurationRange = [
-  {
+type SpellDuration = {
     level: number,
     duration: number
   }
-]
+
+type DurationRange = SpellDuration[]
 
 export type Spell = {
   name: string
@@ -33,5 +33,6 @@ export type Spell = {
   onWearOff: string | undefined
   type: string
   duration: number | DurationRange,
-  instanceId: string
+  instanceId: string,
+  icon: string
 }

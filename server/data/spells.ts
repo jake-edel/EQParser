@@ -1,3 +1,17 @@
+import playerCharacter from "../parser/PlayerCharacter"
+import { DurationRange } from "../types/types"
+
+const characterLevel = playerCharacter.info().level
+
+function calculateDurationRange(range: DurationRange): number {
+  const [minLevel, maxLevel] = range
+  if (characterLevel < minLevel.level) return 0
+  if (characterLevel >= maxLevel.level) return maxLevel.duration
+  if (characterLevel === minLevel.level) return minLevel.duration
+  const minutesPerLevel = maxLevel.duration / maxLevel.level
+  return parseInt((characterLevel * minutesPerLevel).toFixed(2))
+}
+
 export const defaultSpell = {
     name: '',
     id: '',
@@ -14,7 +28,8 @@ export const spells = {
     id: 'malignant_dead',
     onSpellLand: 'At your service master',
     castTime: 14,
-    type: 'pet'
+    type: 'pet',
+    icon: 'lich'
   },
   spirit_of_wolf: {
     name: 'Spirit of Wolf',
@@ -29,7 +44,8 @@ export const spells = {
     id: 'deadeye',
     onSpellLand: 'Your vision shifts.',
     type: 'buff',
-    duration: 24
+    duration: 24,
+    icon: 'eye'
   },
   shadow_sight: {
     name: 'Shadow Sight',
@@ -37,7 +53,8 @@ export const spells = {
     onSpellLand: 'The shadows fade.',
     onWearOff: 'Your shadow sight fades.',
     type: 'buff',
-    duration: 27
+    duration: 27,
+    icon: 'eye'
   },
   gather_shadows: {
     name: 'Gather Shadows',
@@ -46,45 +63,92 @@ export const spells = {
     castTime: 5,
     wearOff: 'Your shadows fade',
     type: 'buff',
-    duration: 20
+    duration: 20,
+    icon: 'eye'
     
   },
   augment_death: {
     name: 'Augment Death',
     id: 'augment_death',
     onSpellLand: 'gleam with madness',
-    // duration: [
-    //   {
-    //     level: 39,
-    //     duration: 12.7
-    //   },
-    //   {
-    //     level: 47,
-    //     duration: 15
-    //   }
-    // ]
-    duration: 12.7
+    duration: calculateDurationRange([
+      {
+        level: 39,
+        duration: 12.7
+      },
+      {
+        level: 47,
+        duration: 15
+      }
+    ])
   },
   panic_the_dead: {
     name: 'Panic the dead',
     id: 'panic_the_dead',
     onSpellLand: 'has the fear of life put',
     castTime: 2,
-    duration: 0.9
+    duration: 0.9,
+    icon: 'lich'
   },
   call_of_bones: {
     name: 'Call of Bones',
     id: 'call_of_bones',
     onSpellLand: 'You feel the skin peel from your bones.',
     castTime: 0,
-    duration: 11 // 11:12 base + 18sec/level above 34
+    // 11:12 base + 18sec/level above 34
+    duration: 11.2 + (characterLevel > 34 ? (characterLevel - 34) * .3 : 0),
+    icon: 'lich'
   },
   vampiric_curse: {
     name: 'Vampiric Curse',
     id: 'vampiric_curse',
     onSpellLand: 'pales.',
     castTime: 0,
-    duration: 0.9
+    duration: 0.9,
+    icon: 'lich'
   },
+  chilling_embrace: {
+    name: 'Chilling Embrace',
+    id: 'chilling_embrace',
+    onSpellLand: 'wracked by chilling poison.',
+    duration: 1.6,
+    icon: 'poison'
+  },
+  scourge: {
+    name: 'Scourge',
+    id: 'scourge',
+    onSpellLand: 'sweats and shivers, looking feverish.',
+    duration: 2.1,
+    icon: 'skull_disease'
+  },
+  venomOfTheSnake: {
+    name: 'Venom of the Snake',
+    id: 'venom_of_the_snake',
+    onSpellLand: 'has been poisoned.',
+    duration: 1.2,
+    icon: 'poison'
+  },
+  greaterShielding: {
+    name: 'Greater shielding',
+    id: 'greater_shielding',
+    onSpellLand: 'You feel armored.',
+    duration: 54,
+    icon: 'shield'
+  },
+  steelskin: {
+    name: 'Steelskin',
+    id: 'steelskin',
+    onSpellLand: 'Your skin becomes like steel',
+    onWearOff: 'Your skin returns to normal',
+    duration: 72,
+    icon: 'shield'
+  },
+  invoke_fear: {
+    name: 'Invoke Fear',
+    id: 'invoke_fear',
+    onSpellLand: 'looks very afraid.',
+    duration: 0.7,
+    icon: 'lich'
+  }
   
 }
