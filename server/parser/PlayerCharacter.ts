@@ -5,7 +5,7 @@ class PlayerCharacter extends Character {
     async get() {
       const { charName, level, race, charClass } = await characterFile.getCharacterInfo()
       this.name = charName
-      this.level = level
+      this.level = parseInt(level)
       this.race = race
       this.charClass = charClass
 

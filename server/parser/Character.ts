@@ -1,6 +1,6 @@
 class Character {
   name = ''
-  level = ''
+  level = 1
   race = ''
   charClass = ''
 }
