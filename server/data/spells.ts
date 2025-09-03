@@ -1,5 +1,5 @@
-import playerCharacter from "../parser/PlayerCharacter"
-import { DurationRange } from "../types/types"
+import playerCharacter from "../parser/PlayerCharacter.ts"
+import type { DurationRange } from "../types/types.d.ts"
 
 const characterLevel = playerCharacter.info().level
 
