@@ -1,0 +1,34 @@
+<template>
+  <ul>
+    <li> 1. Inn with Thimble and Needle Molds, Large Sewing Kit, Food and Alcohol
+    </li>
+    <li> 2. Empty Huts
+    </li>
+    <li> 3. Fishing Village selling <a href="https://wiki.project1999.com/Alchemy" target="_blank" title="Alchemy"
+        class="mw-redirect">Alchemy</a> Supplies
+    </li>
+    <li> 4. Buried Pyramid (the "platform"; is a wizard spire)
+    </li>
+    <li> 5. Dervish Camp with <a href="https://wiki.project1999.com/Dorn_B%60Dynn" target="_blank" title="Dorn B`Dynn">Dorn B`Dynn</a> -
+      "Derv Camp One"
+    </li>
+    <li> 6. Haunted Ruins
+    </li>
+    <li> 7. Dervish Camp - "Derv Camp Two"
+    </li>
+    <li> 8. Ruins
+    </li>
+    <li> 9. Temple
+    </li>
+    <li> 10. Dervish Camp - "Derv Camp Three"
+    </li>
+    <li> 11. Pillar
+    </li>
+    <li> 12. Pillar
+    </li>
+    <li> 13. Ruins
+    </li>
+    <li> 14. Dock - Raft to Velious zones to Iceclad Ocean
+    </li>
+  </ul>
+</template>
