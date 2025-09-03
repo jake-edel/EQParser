@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <div>Spells</div>
-    <div v-for="spell in activeSpells">{{ spell.name }} {{ spell.timeRemaining }}</div>
+  <div class="flex-col">
+    <div v-for="spell in activeSpells" class="flex items-center">
+      <img :src="'../../assets/icons/eye.png'" alt="spell icon"/>
+      {{ spell.name }} {{ spell.timeRemaining }}
+    </div>
   </div>
 </template>
 
@@ -9,7 +11,7 @@
 import { ref, reactive } from 'vue';
 import useWebSocket from '../composables/useWebSocket';
 
-let activeSpells = reactive([])
+let activeSpells = reactive([{name: 'test', timeRemaining: 1234}, {name: 'test', timeRemaining: 5678}])
 
 const timer = ref(0)
 const clearSpell = (spell) => {
@@ -21,21 +23,19 @@ const clearSpell = (spell) => {
 function setSpellTimeout(spell) {
   timer.value = spell.duration * 60
   console.log('setting timeout for', timer.value, 'seconds for spell', spell.name)
-  // spell.timeout = setTimeout(clearSpell, timer.value * 1000)
   spell.timeRemaining = ref(timer.value)
-  spell.interval = setInterval(() => {
+  spell.intervalId = setInterval(() => {
     spell.timeRemaining.value--
-    if (spell.timeRemaining.value === 0) {
+    if (spell.timeRemaining.value <= 0) {
       clearSpell(spell)
-      clearInterval(spell.interval)
+      clearInterval(spell.intervalId)
     }
   }, 1000)
-  activeSpells.push(spell)
 }
 
 function spellHandler(spell) {
-  console.log('spell handler - handling spells since 2025')
   setSpellTimeout(spell)
+  activeSpells.push(spell)
 }
 
 useWebSocket([{ spellLanded: spellHandler }])
