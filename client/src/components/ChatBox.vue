@@ -1,11 +1,16 @@
 <template>
   <div class="card" style="margin-bottom: 16px;">
     <div style="display: flex; gap: 8px;">
-      <h2>{{ currentChat }}</h2>
       <button
         v-for="type in chatTypes"
         :key="type"
         type="button"
+        :style="{
+          backgroundColor: type === currentChat ? 'blue' : 'white',
+          width: '64px',
+          height: '24px',
+          borderRadius: '8px'
+          }"
         @click="() => currentChat = type"
       >
         {{ type }}
