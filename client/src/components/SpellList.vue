@@ -11,7 +11,7 @@
 import { ref, reactive } from 'vue';
 import useWebSocket from '../composables/useWebSocket';
 
-let activeSpells = reactive([{name: 'test', timeRemaining: 1234}, {name: 'test', timeRemaining: 5678}])
+let activeSpells = reactive([])
 
 const timer = ref(0)
 const clearSpell = (spell) => {
