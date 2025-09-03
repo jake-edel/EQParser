@@ -1,10 +1,10 @@
 import fs from 'fs'
-import Debugger from '../Debugger.ts'
+// import Debugger from '../Debugger.ts'
 
 class File {
   readonly path: string
   protected file: fs.promises.FileHandle
-  private readonly debug = new Debugger(this.constructor.name)
+  // private readonly debug = new Debugger(this.constructor.name)
 
   constructor(path) {
     this.path = path
@@ -14,30 +14,28 @@ class File {
     try {
       return (await fs.promises.stat(this.path)).size;
     } catch (error) {
-      this.debug.log('Error getting log size:', error);
+      console.error('Error getting log size:', error);
     }
     return 0
   }
 
   async open(permissions = 'r'): Promise<void> {
-    this.debug.log('Opening log file')
     try {
       this.file = await fs.promises.open(this.path, permissions)
     } catch (error) {
-      this.debug.log('Error opening file:', error);
+      console.error('Error opening file:', error);
     }
   }
 
   async read(position: number, readLength: number): Promise<fs.promises.FileReadResult<Buffer<ArrayBuffer>>> {
     try {
-      this.debug.log('Getting ready to read', readLength, 'new bytes');
       const result = await this.file.read(Buffer.alloc(readLength), 0, readLength, position)
     
-      if (result.bytesRead <= 0) this.debug.log('No data read from file')
+      if (result.bytesRead <= 0) console.error('No data read from file')
 
       return result
     } catch (error) {
-      this.debug.log('Error reading file:', error);
+      console.error('Error reading file:', error);
     }
 
     return { buffer: Buffer.alloc(0), bytesRead: 0 }
@@ -53,7 +51,6 @@ class File {
   }
 
   async close() {
-    this.debug.log('Closing log file')
     await this.file?.close()
   }
 
