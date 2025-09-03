@@ -1,22 +1,30 @@
 <template>
   <div class="flex-col items-center">
     <a :href="formatWikiLink()" target="_blank">{{ zone }}</a>
+    <p style="text-align: center; margin: 0; font-size: x-small">N</p>
     <div class="compass-grid">
-      <div
-        v-for="direction in directions" :key="direction"
-        :style="{
-          color: `${currentDirection === direction.key ? 'green': 'white'}`,
-          textAlign: 'center',
-          border: `solid 1px ${currentDirection === direction.key ? 'green': 'white'}`,
-          borderRadius: '50%',
-          padding: '2px',
-          margin: '2px'
+      <div v-for="direction, index in directions" :key="direction">
+        <div v-if="index === 4" />
+        <div v-else
+          class="flex items-center"
+          :style="{
+            color: `${currentDirection === direction.key ? 'green': 'white'}`,
+            rotate: `${direction.rotation}deg`,
+            height: '10px',
+            width: '10px',
+            padding: '2px',
+            margin: '2px'
         }"
-      >
-        {{ direction.label }}
+        >
+          <svg viewBox="0 0 100 100" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+            <polygon points="50,0 100,100 0,100" :fill="currentDirection === direction.key ? 'green': 'white'" stroke="black" stroke-width="1"/>
+          </svg>
+        </div>
       </div>
     </div>
-    {{ location.x }} | {{ location.y }}
+    <div style="font-size: small;">
+      X: {{ location.x }} | Y: {{ location.y }}
+    </div>
   </div>
 </template>
 
@@ -25,15 +33,15 @@ import { ref } from 'vue';
 import useWebSocket from '../composables/useWebSocket';
 
 const directions = [
-  {key: 'northwest', label: 'NW'},
-  {key: 'north', label: 'N'},
-  {key: 'northeast', label: 'NE'},
-  {key: 'west', label: 'W'},
-  {key: '', label: ''},
-  {key: 'east', label: 'E'},
-  {key: 'southwest', label: 'SW'},
-  {key: 'south', label: 'S'},
-  {key: 'southeast', label: 'SE'}
+  {rotation: 315 },
+  {rotation: 0},
+  {rotation: 45},
+  {rotation: 270},
+  {},
+  {rotation: 90},
+  {rotation: 225 },
+  {rotation:  180},
+  {rotation: 135}
 ]
 
 const currentDirection = ref('')
