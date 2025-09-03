@@ -37,7 +37,7 @@ import LogLine from './LogLine.vue';
 const chatTypes = ['debug', 'log', 'auction']
 
 const chats = reactive({})
-const currentChat = ref('debug')
+const currentChat = ref('log')
 const chatIsReversed = ref(false);
 
 function handleChatMessage(type, message) {
