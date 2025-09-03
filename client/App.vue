@@ -5,8 +5,8 @@
     <CoinCounter />
   </div>
   <SpellList />
+  <ZoneMap />
   <ChatBox />
-
 </template>
 
 <script setup>
@@ -16,6 +16,7 @@ import Compass from './src/components/Compass.vue';
 import CoinCounter from './src/components/CoinCounter.vue';
 import SpellList from './src/components/SpellList.vue';
 import ChatBox from './src/components/ChatBox.vue';
+import ZoneMap from './src/components/ZoneMap.vue';
 
 const { startWebSocketService } = useWebSocket();
 startWebSocketService();
