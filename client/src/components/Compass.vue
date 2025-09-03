@@ -1,6 +1,6 @@
 <template>
   <div class="flex-col items-center">
-    {{ zonee }}
+    <a :href="formatWikiLink()" target="_blank">{{ zone }}</a>
     <div class="compass-grid">
       <div
         v-for="direction in directions" :key="direction"
@@ -37,9 +37,8 @@ const directions = [
 ]
 
 const currentDirection = ref('')
-
 const location = ref({ y: 0, x: 0 });
-const zonee = ref('');
+const zone = ref('');
 
 const handleCoordinates = (coordinates) => {
   const { y, x } = coordinates;
@@ -48,10 +47,15 @@ const handleCoordinates = (coordinates) => {
 
 const socketHandlers = [
   { location: handleCoordinates },
-  { zone: (newZone) => { zonee.value = newZone; } },
+  { zone: (newZone) => { zone.value = newZone; } },
   { compassDirection: (direction) => { currentDirection.value = direction.toLowerCase() } }
 ]
 useWebSocket(socketHandlers)
+
+const formatWikiLink = () => {
+  const currentZone = zone.value.replace(' ', '_')
+  return `https://wiki.project1999.com/${currentZone}`
+}
 
 </script>
 
