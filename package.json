@@ -8,7 +8,7 @@
   "main": "app.js",
   "scripts": {
     "server": "nodemon --verbose --watch server ./server/app.ts",
-    "client": "vite --host",
+    "client": "vite --config client/vite.config.js --host",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
