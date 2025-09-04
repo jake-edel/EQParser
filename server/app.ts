@@ -3,4 +3,4 @@ import server from './parser/Server.ts';
 
 server.start();
 
-new LogWatcher().startWatchingLog();
+await new LogWatcher().startWatchingLog();
