@@ -5,23 +5,25 @@ import type { Coordinates, CoinQuantity, Spell } from "../types/types";
 
 class GameState {
   location: Coordinates = { x: 0, y: 0, z: 0 }
-  coinLoot: CoinQuantity = { platinum: 0, gold: 0, silver: 0, copper: 0 }
+  coinLoot: CoinQuantity = { 
+   total: {platinum: 0, gold: 0, silver: 0, copper: 0},
+   received: {platinum: 0, gold: 0, silver: 0, copper: 0}
+  }
   compassDirection = ''
   zone = ''
   currentSpells: Spell[] = []
   petName = ''
   petStatus = ''
   camping = ''
-  playerCharacter = playerCharacter
+  playerCharacter = playerCharacter.info()
   debug = new Debugger(this.constructor.name).enable()
 
   constructor() {
-    server.connectionHandlers.push(this.onClientConnect)
-  }
-  onClientConnect(socket: WebSocket) {
-    const payload = { playerCharacter: playerCharacter.info() };
-    const data = Buffer.from(JSON.stringify(payload));
-    socket.send(data)
+    server.connectionHandlers.push(
+      () => server.send(this.playerCharacter, 'playerCharacter'),
+      () => server.send(this.coinLoot, 'coinLoot'),
+      () => server.send(this.location, 'location')
+    )
   }
 
   set(event: string, value: string | object | Spell) {
