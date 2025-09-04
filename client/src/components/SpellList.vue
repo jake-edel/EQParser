@@ -1,7 +1,7 @@
 <template>
   <div class="flex-col">
     <div v-for="spell in activeSpells" class="flex items-center">
-      <img :src="'../../assets/icons/eye.png'" alt="spell icon"/>
+      <img :src="`../../assets/icons/${spell.icon}.png`" alt="spell icon"/>
       {{ spell.name }} {{ spell.timeRemaining }}
     </div>
   </div>
@@ -16,7 +16,7 @@ let activeSpells = reactive([])
 const timer = ref(0)
 const clearSpell = (spell) => {
   activeSpells = reactive(activeSpells.filter(activeSpell => (
-    activeSpell.instanceId === spell.id
+    activeSpell.instanceId !== spell.id
   )))
 }
 
