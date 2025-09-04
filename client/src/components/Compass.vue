@@ -1,6 +1,5 @@
 <template>
   <div class="flex-col items-center">
-    <a :href="formatWikiLink()" target="_blank">{{ zone }}</a>
     <p style="text-align: center; margin: 0; font-size: x-small">N</p>
     <div class="compass-grid">
       <div v-for="direction, index in directions" :key="direction">
@@ -57,13 +56,8 @@ const socketHandlers = [
   { zone: (newZone) => { zone.value = newZone; } },
   { compassDirection: (direction) => { currentDirection.value = direction.toLowerCase() } }
 ]
+
 useWebSocket(socketHandlers)
-
-const formatWikiLink = () => {
-  const currentZone = zone.value.replace(' ', '_')
-  return `https://wiki.project1999.com/${currentZone}`
-}
-
 </script>
 
 <style scoped>

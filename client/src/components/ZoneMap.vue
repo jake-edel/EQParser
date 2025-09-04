@@ -1,5 +1,6 @@
 <template>
   <div class="card flex-col items-center">
+    <a :href="formatWikiLink()" target="_blank">{{ zone }}</a>
     <img
       :src="zoneMap"
       alt="map of zone"
@@ -18,6 +19,11 @@ import { ref, computed } from 'vue'
 
 const zone = ref('')
 useWebSocket([{zone: (newZone) => zone.value = newZone}])
+
+const formatWikiLink = () => {
+  const currentZone = zone.value.replace(' ', '_')
+  return `https://wiki.project1999.com/${currentZone}`
+}
 
 const zoneId = computed(() => zone.value.replace(/ /g, '_').toLowerCase())
 const zoneContent = {
