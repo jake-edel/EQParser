@@ -5,10 +5,18 @@ export interface Coordinates {
 }
 
 export interface CoinQuantity {
-  platinum: number,
-  gold: number,
-  silver: number,
-  copper: number
+  total: {
+    platinum: number,
+    gold: number,
+    silver: number,
+    copper: number
+  },
+  received: {
+    platinum: number,
+    gold: number,
+    silver: number,
+    copper: number
+  }
 }
 
 export interface PetStates {
