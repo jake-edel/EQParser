@@ -32,15 +32,15 @@ import { ref } from 'vue';
 import useWebSocket from '../composables/useWebSocket';
 
 const directions = [
-  { rotation: 315 },
-  { rotation: 0 },
-  { rotation: 45 },
-  { rotation: 270 },
+  { key: 'northwest', rotation: 315 },
+  { key: 'north', rotation: 0 },
+  { key: 'northeast', rotation: 45 },
+  { key: 'west', rotation: 270 },
   {},
-  { rotation: 90 },
-  { rotation: 225 },
-  { rotation: 180 },
-  { rotation: 135 }
+  { key: 'east', rotation: 90 },
+  { key: 'southwest', rotation: 225 },
+  { key: 'south', rotation: 180 },
+  { key: 'southeast', rotation: 135 }
 ]
 
 const currentDirection = ref('')
