@@ -37,7 +37,8 @@ export const spells = {
     castTime: 0,
     onSpellLand: 'You feel the spirit of wolf enter you.',
     type: 'buff',
-    duration: 40
+    duration: 40,
+    icon: 'boot'
   },
   deadeye: {
     name: 'Deadeye',
@@ -80,7 +81,8 @@ export const spells = {
         level: 47,
         duration: 15
       }
-    ])
+    ]),
+    icon: 'lich'
   },
   panic_the_dead: {
     name: 'Panic the dead',
@@ -119,6 +121,13 @@ export const spells = {
     id: 'dooming_darkness',
     onSpellLand: 'is engulfed in darkness.',
     duration: 1.6,
+    icon: 'lich'
+  },
+  engulfing_darkness: {
+    name: 'Engulfing Darkness',
+    id: 'engulfing_darkness',
+    onSpellLand: 'is engulfed in darkness.',
+    duration: 1.1,
     icon: 'lich'
   },
   scourge: {
