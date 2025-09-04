@@ -96,7 +96,7 @@ export const spells = {
     onSpellLand: 'You feel the skin peel from your bones.',
     castTime: 0,
     // 11:12 base + 18sec/level above 34
-    duration: 11.2 + (characterLevel > 34 ? (characterLevel - 34) * .3 : 0),
+    duration: parseInt((11.2 + (characterLevel > 34 ? (characterLevel - 34) * .3 : 0)).toFixed()),
     icon: 'lich'
   },
   vampiric_curse: {
@@ -113,6 +113,13 @@ export const spells = {
     onSpellLand: 'wracked by chilling poison.',
     duration: 1.6,
     icon: 'poison'
+  },
+  dooming_darkness: {
+    name: 'Dooming Darkness',
+    id: 'dooming_darkness',
+    onSpellLand: 'is engulfed in darkness.',
+    duration: 1.6,
+    icon: 'lich'
   },
   scourge: {
     name: 'Scourge',
