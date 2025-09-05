@@ -1,0 +1,857 @@
+[
+  {
+    "id": "the_arena",
+    "url": "https://wiki.project1999.com/The_Arena",
+    "images": [
+      "https://wiki.project1999.com/images/Map_arena.jpg"
+    ]
+  },
+  {
+    "id": "beholder's_maze",
+    "url": "https://wiki.project1999.com/Beholder%27s_Maze",
+    "images": [
+      "https://wiki.project1999.com/images/Map_gxorbb.jpg"
+    ]
+  },
+  {
+    "id": "east_commonlands",
+    "url": "https://wiki.project1999.com/East_Commonlands",
+    "images": [
+      "https://wiki.project1999.com/images/Map_eastcommons.jpg"
+    ]
+  },
+  {
+    "id": "eastern_plains_of_karana",
+    "url": "https://wiki.project1999.com/Eastern_Plains_of_Karana",
+    "images": [
+      "https://wiki.project1999.com/images/Map_ekarana.jpg"
+    ]
+  },
+  {
+    "id": "everfrost_peaks",
+    "url": "https://wiki.project1999.com/Everfrost_Peaks",
+    "images": [
+      "https://wiki.project1999.com/images/Map_everfrost.jpg",
+      "https://wiki.project1999.com/images/Map_everfrostcaves.jpg"
+    ]
+  },
+  {
+    "id": "highpass_hold",
+    "url": "https://wiki.project1999.com/Highpass_Hold",
+    "images": [
+      "https://wiki.project1999.com/images/Map_hhpass.jpg",
+      "https://wiki.project1999.com/images/Loc-Accurate_Highpass_Hold.jpg"
+    ]
+  },
+  {
+    "id": "innothule_swamp",
+    "url": "https://wiki.project1999.com/Innothule_Swamp",
+    "images": [
+      "https://wiki.project1999.com/images/Map_innothule.jpg"
+    ]
+  },
+  {
+    "id": "kithicor_forest",
+    "url": "https://wiki.project1999.com/Kithicor_Forest",
+    "images": [
+      "https://wiki.project1999.com/images/Map_kithicor.jpg"
+    ]
+  },
+  {
+    "id": "lake_rathetear",
+    "url": "https://wiki.project1999.com/Lake_Rathetear",
+    "images": [
+      "https://wiki.project1999.com/images/Map_lakerathetear.jpg"
+    ]
+  },
+  {
+    "id": "lavastorm_mountains",
+    "url": "https://wiki.project1999.com/Lavastorm_Mountains",
+    "images": [
+      "https://wiki.project1999.com/images/Map_lavastorm.jpg"
+    ]
+  },
+  {
+    "id": "misty_thicket",
+    "url": "https://wiki.project1999.com/Misty_Thicket",
+    "images": [
+      "https://wiki.project1999.com/images/Map_mistythicket.jpg"
+    ]
+  },
+  {
+    "id": "nektulos_forest",
+    "url": "https://wiki.project1999.com/Nektulos_Forest",
+    "images": [
+      "https://wiki.project1999.com/images/Map_nektulos.jpg"
+    ]
+  },
+  {
+    "id": "northern_desert_of_ro",
+    "url": "https://wiki.project1999.com/Northern_Desert_of_Ro",
+    "images": [
+      "https://wiki.project1999.com/images/Map_northro.jpg"
+    ]
+  },
+  {
+    "id": "northern_plains_of_karana",
+    "url": "https://wiki.project1999.com/Northern_Plains_of_Karana",
+    "images": [
+      "https://wiki.project1999.com/images/Map_nkarana.jpg"
+    ]
+  },
+  {
+    "id": "oasis_of_marr",
+    "url": "https://wiki.project1999.com/Oasis_of_Marr",
+    "images": [
+      "https://wiki.project1999.com/images/Map_oasisofmarr.jpg"
+    ]
+  },
+  {
+    "id": "ocean_of_tears",
+    "url": "https://wiki.project1999.com/Ocean_of_Tears",
+    "images": [
+      "https://wiki.project1999.com/images/Map_OOT.gif"
+    ]
+  },
+  {
+    "id": "qeynos_hills",
+    "url": "https://wiki.project1999.com/Qeynos_Hills",
+    "images": [
+      "https://wiki.project1999.com/images/Qeynoshills.jpg"
+    ]
+  },
+  {
+    "id": "rathe_mountains",
+    "url": "https://wiki.project1999.com/Rathe_Mountains",
+    "images": [
+      "https://wiki.project1999.com/images/Zone_rathemtns.jpg"
+    ]
+  },
+  {
+    "id": "southern_desert_of_ro",
+    "url": "https://wiki.project1999.com/Southern_Desert_of_Ro",
+    "images": [
+      "https://wiki.project1999.com/images/Zone_southro.jpg"
+    ]
+  },
+  {
+    "id": "southern_karana",
+    "url": "https://wiki.project1999.com/Southern_Karana",
+    "images": [
+      "https://wiki.project1999.com/images/Zone_southkarana.jpg"
+    ]
+  },
+  {
+    "id": "the_feerrott",
+    "url": "https://wiki.project1999.com/The_Feerrott",
+    "images": [
+      "https://wiki.project1999.com/images/Map_feerrott.jpg"
+    ]
+  },
+  {
+    "id": "west_commonlands",
+    "url": "https://wiki.project1999.com/West_Commonlands",
+    "images": [
+      "https://wiki.project1999.com/images/Zone_westcommons.jpg"
+    ]
+  },
+  {
+    "id": "western_plains_of_karana",
+    "url": "https://wiki.project1999.com/Western_Plains_of_Karana",
+    "images": [
+      "https://wiki.project1999.com/images/Zone_westkarana.jpg"
+    ]
+  },
+  {
+    "id": "grobb",
+    "url": "https://wiki.project1999.com/Grobb",
+    "images": [
+      "https://wiki.project1999.com/images/Grobb.jpg"
+    ]
+  },
+  {
+    "id": "halas",
+    "url": "https://wiki.project1999.com/Halas",
+    "images": [
+      "https://wiki.project1999.com/images/Zone_halas.jpg"
+    ]
+  },
+  {
+    "id": "neriak",
+    "url": "https://wiki.project1999.com/Neriak",
+    "images": [
+      "https://wiki.project1999.com/images/Neriakforeign.jpg",
+      "https://wiki.project1999.com/images/Neriakthirdgate.jpg"
+    ]
+  },
+  {
+    "id": "freeport",
+    "url": "https://wiki.project1999.com/Freeport",
+    "images": [
+      "https://wiki.project1999.com/images/Nfreeport_loc.jpg",
+      "https://wiki.project1999.com/images/Wfreeport2.jpg",
+      "https://wiki.project1999.com/images/Wfptunnels.jpg",
+      "https://wiki.project1999.com/images/Efreeport.jpg",
+      "https://wiki.project1999.com/images/Efptunnels.jpg",
+      "https://wiki.project1999.com/images/Docks_EFP.jpg"
+    ]
+  },
+  {
+    "id": "qeynos",
+    "url": "https://wiki.project1999.com/Qeynos",
+    "images": [
+      "https://wiki.project1999.com/images/Zone_nqeynos.jpg",
+      "https://wiki.project1999.com/images/Zone_sqeynos.jpg"
+    ]
+  },
+  {
+    "id": "oggok",
+    "url": "https://wiki.project1999.com/Oggok",
+    "images": [
+      "https://wiki.project1999.com/images/Oggok.jpg"
+    ]
+  },
+  {
+    "id": "rivervale",
+    "url": "https://wiki.project1999.com/Rivervale",
+    "images": [
+      "https://wiki.project1999.com/images/Rivervale.jpg"
+    ]
+  },
+  {
+    "id": "surefall_glade",
+    "url": "https://wiki.project1999.com/Surefall_Glade",
+    "images": [
+      "https://wiki.project1999.com/images/Surefallglade.jpg"
+    ]
+  },
+  {
+    "id": "befallen",
+    "url": "https://wiki.project1999.com/Befallen",
+    "images": [
+      "https://wiki.project1999.com/images/Befallen12.jpg",
+      "https://wiki.project1999.com/images/Befallen3.jpg"
+    ]
+  },
+  {
+    "id": "blackburrow",
+    "url": "https://wiki.project1999.com/Blackburrow",
+    "images": [
+      "https://wiki.project1999.com/images/Zone_blackburrow1.jpg",
+      "https://wiki.project1999.com/images/Zone_blackburrow2.jpg",
+      "https://wiki.project1999.com/images/Zone_blackburrow3.jpg"
+    ]
+  },
+  {
+    "id": "cazic_thule",
+    "url": "https://wiki.project1999.com/Cazic_Thule",
+    "images": [
+      "https://wiki.project1999.com/images/Ct.jpg",
+      "https://wiki.project1999.com/images/Ctlower.jpg",
+      "https://wiki.project1999.com/images/Ctcydetail.jpg",
+      "https://wiki.project1999.com/images/Ctmaze.jpg"
+    ]
+  },
+  {
+    "id": "runnyeye_citadel",
+    "url": "https://wiki.project1999.com/Runnyeye_Citadel",
+    "images": [
+      "https://wiki.project1999.com/images/Runnyeye1.jpg",
+      "https://wiki.project1999.com/images/Runnyeye2.jpg",
+      "https://wiki.project1999.com/images/Runnyeye3.jpg",
+      "https://wiki.project1999.com/images/Runnyeye4.jpg"
+    ]
+  },
+  {
+    "id": "high_keep",
+    "url": "https://wiki.project1999.com/High_Keep",
+    "images": []
+  },
+  {
+    "id": "lower_guk",
+    "url": "https://wiki.project1999.com/Lower_Guk",
+    "images": [
+      "https://wiki.project1999.com/images/Lguklive.jpg",
+      "https://wiki.project1999.com/images/Lgukdead.jpg",
+      "https://wiki.project1999.com/images/Lower_guk_map1.jpg",
+      "https://wiki.project1999.com/images/Lower_guk_map2.jpg",
+      "https://wiki.project1999.com/images/Lower_guk_map3.jpg",
+      "https://wiki.project1999.com/images/Lower_guk_map4.jpg"
+    ]
+  },
+  {
+    "id": "nagafen's_lair",
+    "url": "https://wiki.project1999.com/Nagafen%27s_Lair",
+    "images": [
+      "https://wiki.project1999.com/images/Nagafenslair.jpg",
+      "https://wiki.project1999.com/images/Map_nagafens_lair_2.jpg"
+    ]
+  },
+  {
+    "id": "najena",
+    "url": "https://wiki.project1999.com/Najena",
+    "images": [
+      "https://wiki.project1999.com/images/Najenamap.jpg"
+    ]
+  },
+  {
+    "id": "permafrost",
+    "url": "https://wiki.project1999.com/Permafrost",
+    "images": [
+      "https://wiki.project1999.com/images/Zone_permafrost.jpg"
+    ]
+  },
+  {
+    "id": "qeynos_aqueducts",
+    "url": "https://wiki.project1999.com/Qeynos_Aqueducts",
+    "images": [
+      "https://wiki.project1999.com/images/QeynosCats1.jpg",
+      "https://wiki.project1999.com/images/QeynosCats2.jpg"
+    ]
+  },
+  {
+    "id": "solusek's_eye",
+    "url": "https://wiki.project1999.com/Solusek%27s_Eye",
+    "images": [
+      "https://wiki.project1999.com/images/Solusekseye.jpg",
+      "https://wiki.project1999.com/images/Gnome_castle_sola.jpg"
+    ]
+  },
+  {
+    "id": "splitpaw_lair",
+    "url": "https://wiki.project1999.com/Splitpaw_Lair",
+    "images": [
+      "https://wiki.project1999.com/images/Splitpaw_Map.png"
+    ]
+  },
+  {
+    "id": "the_temple_of_solusek_ro",
+    "url": "https://wiki.project1999.com/The_Temple_of_Solusek_Ro",
+    "images": [
+      "https://wiki.project1999.com/images/Templesro1.jpg",
+      "https://wiki.project1999.com/images/Templesro2.jpg"
+    ]
+  },
+  {
+    "id": "upper_guk",
+    "url": "https://wiki.project1999.com/Upper_Guk",
+    "images": [
+      "https://wiki.project1999.com/images/Upperguk.jpg",
+      "https://wiki.project1999.com/images/Upperguk3.jpg"
+    ]
+  },
+  {
+    "id": "erudin",
+    "url": "https://wiki.project1999.com/Erudin",
+    "images": [
+      "https://wiki.project1999.com/images/Erudin.jpg",
+      "https://wiki.project1999.com/images/Erudindocks.jpg"
+    ]
+  },
+  {
+    "id": "paineel",
+    "url": "https://wiki.project1999.com/Paineel",
+    "images": [
+      "https://wiki.project1999.com/images/Paineelin.jpg",
+      "https://wiki.project1999.com/images/Paineelout.jpg"
+    ]
+  },
+  {
+    "id": "erud's_crossing",
+    "url": "https://wiki.project1999.com/Erud%27s_Crossing",
+    "images": [
+      "https://wiki.project1999.com/images/Map_erudsxing.jpg",
+      "https://wiki.project1999.com/images/Eruds_crossing_maps.jpg"
+    ]
+  },
+  {
+    "id": "kerra_island",
+    "url": "https://wiki.project1999.com/Kerra_Island",
+    "images": [
+      "https://wiki.project1999.com/images/Kerra.jpg"
+    ]
+  },
+  {
+    "id": "toxxulia_forest",
+    "url": "https://wiki.project1999.com/Toxxulia_Forest",
+    "images": [
+      "https://wiki.project1999.com/images/Toxxulia.jpg"
+    ]
+  },
+  {
+    "id": "the_hole",
+    "url": "https://wiki.project1999.com/The_Hole",
+    "images": [
+      "https://wiki.project1999.com/images/Map_thehole.jpg"
+    ]
+  },
+  {
+    "id": "stonebrunt_mountains",
+    "url": "https://wiki.project1999.com/Stonebrunt_Mountains",
+    "images": [
+      "https://wiki.project1999.com/images/Map_stonebrunt_mountains.jpg"
+    ]
+  },
+  {
+    "id": "the_warrens",
+    "url": "https://wiki.project1999.com/The_Warrens",
+    "images": [
+      "https://wiki.project1999.com/images/Warrens.jpg"
+    ]
+  },
+  {
+    "id": "ak'anon",
+    "url": "https://wiki.project1999.com/Ak%27Anon",
+    "images": [
+      "https://wiki.project1999.com/images/Akanon.jpg"
+    ]
+  },
+  {
+    "id": "felwithe",
+    "url": "https://wiki.project1999.com/Felwithe",
+    "images": [
+      "https://wiki.project1999.com/images/Nfelwithe.jpg",
+      "https://wiki.project1999.com/images/Sfelwithe.jpg"
+    ]
+  },
+  {
+    "id": "kaladim",
+    "url": "https://wiki.project1999.com/Kaladim",
+    "images": [
+      "https://wiki.project1999.com/images/Nkaladim.jpg",
+      "https://wiki.project1999.com/images/Skaladim.jpg"
+    ]
+  },
+  {
+    "id": "kelethin",
+    "url": "https://wiki.project1999.com/Kelethin",
+    "images": [
+      "https://wiki.project1999.com/images/Kelethin.jpg"
+    ]
+  },
+  {
+    "id": "butcherblock_mountains",
+    "url": "https://wiki.project1999.com/Butcherblock_Mountains",
+    "images": [
+      "https://wiki.project1999.com/images/Butcherblock-v3.jpg"
+    ]
+  },
+  {
+    "id": "dagnor's_cauldron",
+    "url": "https://wiki.project1999.com/Dagnor%27s_Cauldron",
+    "images": [
+      "https://wiki.project1999.com/images/Dagnor.jpg"
+    ]
+  },
+  {
+    "id": "greater_faydark",
+    "url": "https://wiki.project1999.com/Greater_Faydark",
+    "images": [
+      "https://wiki.project1999.com/images/Greaterfaydark.jpg"
+    ]
+  },
+  {
+    "id": "lesser_faydark",
+    "url": "https://wiki.project1999.com/Lesser_Faydark",
+    "images": [
+      "https://wiki.project1999.com/images/Lesserfaydark.jpg"
+    ]
+  },
+  {
+    "id": "ocean_of_tears",
+    "url": "https://wiki.project1999.com/Ocean_of_Tears",
+    "images": [
+      "https://wiki.project1999.com/images/Map_OOT.gif"
+    ]
+  },
+  {
+    "id": "steamfont_mountains",
+    "url": "https://wiki.project1999.com/Steamfont_Mountains",
+    "images": [
+      "https://wiki.project1999.com/images/Steamfont.jpg",
+      "https://wiki.project1999.com/images/Minocaves.jpg"
+    ]
+  },
+  {
+    "id": "crushbone",
+    "url": "https://wiki.project1999.com/Crushbone",
+    "images": [
+      "https://wiki.project1999.com/images/Crushbone.jpg"
+    ]
+  },
+  {
+    "id": "kedge_keep",
+    "url": "https://wiki.project1999.com/Kedge_Keep",
+    "images": [
+      "https://wiki.project1999.com/images/Kedgekeep.jpg"
+    ]
+  },
+  {
+    "id": "mistmoore_castle",
+    "url": "https://wiki.project1999.com/Mistmoore_Castle",
+    "images": [
+      "https://wiki.project1999.com/images/Mistmoore.jpg"
+    ]
+  },
+  {
+    "id": "the_estate_of_unrest",
+    "url": "https://wiki.project1999.com/The_Estate_of_Unrest",
+    "images": [
+      "https://wiki.project1999.com/images/Unrest.jpg",
+      "https://wiki.project1999.com/images/Unrestmanor.jpg"
+    ]
+  },
+  {
+    "id": "burning_wood",
+    "url": "https://wiki.project1999.com/Burning_Wood",
+    "images": [
+      "https://wiki.project1999.com/images/Map_burningwood.jpg"
+    ]
+  },
+  {
+    "id": "dreadlands",
+    "url": "https://wiki.project1999.com/Dreadlands",
+    "images": [
+      "https://wiki.project1999.com/images/Map_dreadlands.jpg",
+      "https://wiki.project1999.com/images/Map_dreadlandsvalley.jpg"
+    ]
+  },
+  {
+    "id": "emerald_jungle",
+    "url": "https://wiki.project1999.com/Emerald_Jungle",
+    "images": [
+      "https://wiki.project1999.com/images/Map_emeraldjungle.jpg"
+    ]
+  },
+  {
+    "id": "field_of_bone",
+    "url": "https://wiki.project1999.com/Field_of_Bone",
+    "images": [
+      "https://wiki.project1999.com/images/Map_fieldofbone.jpg",
+      "https://wiki.project1999.com/images/Map_fieldsubmap1.jpg"
+    ]
+  },
+  {
+    "id": "firiona_vie",
+    "url": "https://wiki.project1999.com/Firiona_Vie",
+    "images": [
+      "https://wiki.project1999.com/images/Map_firionavie.jpg",
+      "https://wiki.project1999.com/images/Map_firionaviedocks.jpg"
+    ]
+  },
+  {
+    "id": "frontier_mountains",
+    "url": "https://wiki.project1999.com/Frontier_Mountains",
+    "images": [
+      "https://wiki.project1999.com/images/Map_frontiermtns.jpg"
+    ]
+  },
+  {
+    "id": "lake_of_ill_omen",
+    "url": "https://wiki.project1999.com/Lake_of_Ill_Omen",
+    "images": [
+      "https://wiki.project1999.com/images/Map_lakeofillomen.jpg",
+      "https://wiki.project1999.com/images/Map_loio_sarnakfortress.jpg",
+      "https://wiki.project1999.com/images/Map_loio_gobtunnels.jpg"
+    ]
+  },
+  {
+    "id": "the_overthere",
+    "url": "https://wiki.project1999.com/The_Overthere",
+    "images": [
+      "https://wiki.project1999.com/images/Map_overthere.jpg"
+    ]
+  },
+  {
+    "id": "skyfire_mountains",
+    "url": "https://wiki.project1999.com/Skyfire_Mountains",
+    "images": [
+      "https://wiki.project1999.com/images/Map_skyfiremtns.jpg"
+    ]
+  },
+  {
+    "id": "swamp_of_no_hope",
+    "url": "https://wiki.project1999.com/Swamp_of_No_Hope",
+    "images": [
+      "https://wiki.project1999.com/images/Map_swampofnohope.jpg"
+    ]
+  },
+  {
+    "id": "timorous_deep",
+    "url": "https://wiki.project1999.com/Timorous_Deep",
+    "images": [
+      "https://wiki.project1999.com/images/Map_timdeep.jpg",
+      "https://wiki.project1999.com/images/Fireport_Room_Map.jpg"
+    ]
+  },
+  {
+    "id": "trakanon's_teeth",
+    "url": "https://wiki.project1999.com/Trakanon%27s_Teeth",
+    "images": [
+      "https://wiki.project1999.com/images/Map_trakanonsteeth.jpg"
+    ]
+  },
+  {
+    "id": "warsliks_woods",
+    "url": "https://wiki.project1999.com/Warsliks_Woods",
+    "images": [
+      "https://wiki.project1999.com/images/Map_warslikswood.jpg",
+      "https://wiki.project1999.com/images/Map_warwoodstunels.jpg"
+    ]
+  },
+  {
+    "id": "cabilis",
+    "url": "https://wiki.project1999.com/Cabilis",
+    "images": [
+      "https://wiki.project1999.com/images/Map_ecabilis.jpg",
+      "https://wiki.project1999.com/images/Map_wcabilis.jpg",
+      "https://wiki.project1999.com/images/Map_cabilis_catacombs.gif"
+    ]
+  },
+  {
+    "id": "chardok",
+    "url": "https://wiki.project1999.com/Chardok",
+    "images": []
+  },
+  {
+    "id": "city_of_mist",
+    "url": "https://wiki.project1999.com/City_of_Mist",
+    "images": [
+      "https://wiki.project1999.com/images/Map_citymist.jpg"
+    ]
+  },
+  {
+    "id": "dalnir",
+    "url": "https://wiki.project1999.com/Dalnir",
+    "images": [
+      "https://wiki.project1999.com/images/Map_dalnir1.jpg",
+      "https://wiki.project1999.com/images/Map_dalnir2.jpg",
+      "https://wiki.project1999.com/images/Map_dalnir3.jpg"
+    ]
+  },
+  {
+    "id": "howling_stones",
+    "url": "https://wiki.project1999.com/Howling_Stones",
+    "images": [
+      "https://wiki.project1999.com/images/Map_charasis1.jpg",
+      "https://wiki.project1999.com/images/Map_charasis2.jpg"
+    ]
+  },
+  {
+    "id": "kaesora",
+    "url": "https://wiki.project1999.com/Kaesora",
+    "images": [
+      "https://wiki.project1999.com/images/Map_kaesora1.jpg",
+      "https://wiki.project1999.com/images/Map_kaesora23.jpg"
+    ]
+  },
+  {
+    "id": "karnor's_castle",
+    "url": "https://wiki.project1999.com/Karnor%27s_Castle",
+    "images": [
+      "https://wiki.project1999.com/images/Map_karnor2.jpg"
+    ]
+  },
+  {
+    "id": "kurn's_tower",
+    "url": "https://wiki.project1999.com/Kurn%27s_Tower",
+    "images": [
+      "https://wiki.project1999.com/images/Map_kurnsupper.jpg",
+      "https://wiki.project1999.com/images/Map_kurnslower.jpg"
+    ]
+  },
+  {
+    "id": "mines_of_nurga",
+    "url": "https://wiki.project1999.com/Mines_of_Nurga",
+    "images": [
+      "https://wiki.project1999.com/images/Map_nurga1.jpg",
+      "https://wiki.project1999.com/images/Map_nurga2.jpg"
+    ]
+  },
+  {
+    "id": "old_sebilis",
+    "url": "https://wiki.project1999.com/Old_Sebilis",
+    "images": [
+      "https://wiki.project1999.com/images/Map_sebilis1.jpg",
+      "https://wiki.project1999.com/images/Map_sebilis2.jpg"
+    ]
+  },
+  {
+    "id": "temple_of_droga",
+    "url": "https://wiki.project1999.com/Temple_of_Droga",
+    "images": [
+      "https://wiki.project1999.com/images/Map_droga.jpg",
+      "https://wiki.project1999.com/images/Map_templedrogainner.jpg"
+    ]
+  },
+  {
+    "id": "veeshan's_peak",
+    "url": "https://wiki.project1999.com/Veeshan%27s_Peak",
+    "images": [
+      "https://wiki.project1999.com/images/Map_veeshanspeak_p99.jpg"
+    ]
+  },
+  {
+    "id": "cobalt_scar",
+    "url": "https://wiki.project1999.com/Cobalt_Scar",
+    "images": [
+      "https://wiki.project1999.com/images/Map_cobalt_scar.jpg"
+    ]
+  },
+  {
+    "id": "eastern_wastes",
+    "url": "https://wiki.project1999.com/Eastern_Wastes",
+    "images": [
+      "https://wiki.project1999.com/images/Map_eastern_wastes.jpg"
+    ]
+  },
+  {
+    "id": "the_great_divide",
+    "url": "https://wiki.project1999.com/The_Great_Divide",
+    "images": [
+      "https://wiki.project1999.com/images/Map_great_divide.jpg"
+    ]
+  },
+  {
+    "id": "iceclad_ocean",
+    "url": "https://wiki.project1999.com/Iceclad_Ocean",
+    "images": [
+      "https://wiki.project1999.com/images/Iceclad.jpg"
+    ]
+  },
+  {
+    "id": "wakening_land",
+    "url": "https://wiki.project1999.com/Wakening_Land",
+    "images": [
+      "https://wiki.project1999.com/images/Map_wakening_lands.jpg"
+    ]
+  },
+  {
+    "id": "western_wastes",
+    "url": "https://wiki.project1999.com/Western_Wastes",
+    "images": [
+      "https://wiki.project1999.com/images/Westernwastes.jpg"
+    ]
+  },
+  {
+    "id": "icewell_keep",
+    "url": "https://wiki.project1999.com/Icewell_Keep",
+    "images": [
+      "https://wiki.project1999.com/images/Map_icewell_keep.jpg"
+    ]
+  },
+  {
+    "id": "kael_drakkal",
+    "url": "https://wiki.project1999.com/Kael_Drakkal",
+    "images": [
+      "https://wiki.project1999.com/images/Map_kael_drakkal.jpg"
+    ]
+  },
+  {
+    "id": "skyshrine",
+    "url": "https://wiki.project1999.com/Skyshrine",
+    "images": [
+      "https://wiki.project1999.com/images/SkyshrineMapsCity.jpg"
+    ]
+  },
+  {
+    "id": "thurgadin",
+    "url": "https://wiki.project1999.com/Thurgadin",
+    "images": [
+      "https://wiki.project1999.com/images/Map_thurgadin.jpg",
+      "https://wiki.project1999.com/images/Map_thurgadin_mines.jpg"
+    ]
+  },
+  {
+    "id": "crystal_caverns",
+    "url": "https://wiki.project1999.com/Crystal_Caverns",
+    "images": [
+      "https://wiki.project1999.com/images/Map_crystal_caverns1.jpg",
+      "https://wiki.project1999.com/images/Map_crystal_caverns2.jpg",
+      "https://wiki.project1999.com/images/Map_crystal_caverns3.jpg"
+    ]
+  },
+  {
+    "id": "dragon_necropolis",
+    "url": "https://wiki.project1999.com/Dragon_Necropolis",
+    "images": [
+      "https://wiki.project1999.com/images/Map_dragon_necropolis1.jpg"
+    ]
+  },
+  {
+    "id": "siren's_grotto",
+    "url": "https://wiki.project1999.com/Siren%27s_Grotto",
+    "images": [
+      "https://wiki.project1999.com/images/Map_sirens_grotto.jpg"
+    ]
+  },
+  {
+    "id": "sleeper's_tomb",
+    "url": "https://wiki.project1999.com/Sleeper%27s_Tomb",
+    "images": [
+      "https://wiki.project1999.com/images/Map_sleepers_tomb.jpg"
+    ]
+  },
+  {
+    "id": "temple_of_veeshan",
+    "url": "https://wiki.project1999.com/Temple_of_Veeshan",
+    "images": [
+      "https://wiki.project1999.com/images/Map_tov.png"
+    ]
+  },
+  {
+    "id": "tower_of_frozen_shadow",
+    "url": "https://wiki.project1999.com/Tower_of_Frozen_Shadow",
+    "images": [
+      "https://wiki.project1999.com/images/Map_tower_of_frozen_shadow_1.jpg",
+      "https://wiki.project1999.com/images/Map_tower_of_frozen_shadow_2.png"
+    ]
+  },
+  {
+    "id": "velketor's_labyrinth",
+    "url": "https://wiki.project1999.com/Velketor%27s_Labyrinth",
+    "images": [
+      "https://wiki.project1999.com/images/Map_velketors_labyrinth.jpg"
+    ]
+  },
+  {
+    "id": "plane_of_fear",
+    "url": "https://wiki.project1999.com/Plane_of_Fear",
+    "images": [
+      "https://wiki.project1999.com/images/Plane_of_fear_torridprogreen.jpg"
+    ]
+  },
+  {
+    "id": "plane_of_hate",
+    "url": "https://wiki.project1999.com/Plane_of_Hate",
+    "images": [
+      "https://wiki.project1999.com/images/Plane_of_hate_kronas.jpg",
+      "https://wiki.project1999.com/images/HateSecondFloorTrimmed.jpg",
+      "https://wiki.project1999.com/images/Hateplane2.jpg",
+      "https://wiki.project1999.com/images/HateSecondFloorWithFirstOverlay.jpg"
+    ]
+  },
+  {
+    "id": "plane_of_sky",
+    "url": "https://wiki.project1999.com/Plane_of_Sky",
+    "images": [
+      "https://wiki.project1999.com/images/Planeofsky.jpg"
+    ]
+  },
+  {
+    "id": "plane_of_growth",
+    "url": "https://wiki.project1999.com/Plane_of_Growth",
+    "images": [
+      "https://wiki.project1999.com/images/Map_plane_of_growth.jpg"
+    ]
+  },
+  {
+    "id": "plane_of_mischief",
+    "url": "https://wiki.project1999.com/Plane_of_Mischief",
+    "images": [
+      "https://wiki.project1999.com/images/Map_plane_of_mischief_750px.png",
+      "https://wiki.project1999.com/images/POM_Puppets_Map_5.png",
+      "https://wiki.project1999.com/images/Mischiefplane2.jpg"
+    ]
+  }
+]
