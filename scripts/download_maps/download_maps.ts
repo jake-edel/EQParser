@@ -41,18 +41,23 @@ zonesDom.window.document.querySelectorAll('a').forEach((element, index) => {
 // Splitpaw - 42
 // Chardok - 81
 
-let index = 0
+const zoneRequests: Promise<Response>[] = []
 for (const zone of zoneUrls) {
   zone.images = []
-  console.log('Fetching images urls for', zone.id)
-  const request = await fetch(zone.url, {
+  console.log('Fetching DOM for', zone.url)
+  const request = fetch(zone.url, {
     headers: {
       'Content-Type': 'text'
     }
   })
-  const domString = await request.text()
+  zoneRequests.push(request)
+}
+const zoneResponses = await Promise.all(zoneRequests)
+const domStrings = await Promise.all(zoneResponses.map(response => response.text()))
 
-  const zoneDom = new JSDOM(domString)
+let index = 0
+domStrings.forEach((dom, i) => {
+  const zoneDom = new JSDOM(dom)
   let imageFound = false
   zoneDom.window.document.querySelectorAll('img').forEach(element => {
     const src = element.getAttribute('src') || ''
@@ -63,18 +68,22 @@ for (const zone of zoneUrls) {
       && !src.includes('poweredby_mediawiki')
     ) {
       console.log('Pushing image URL:', url)
-      zone.images.push(url)
+      zoneUrls[i].images.push(url)
       imageFound = true
     }
   })
-  if (!imageFound) console.log(`${index} - No image found for zone ${zone.id}`)
+  if (!imageFound) console.log(`${index} - No image found for zone ${zoneUrls[i].id}`)
   index++
-}
+})
+
 
 const jsonString = JSON.stringify(zoneUrls, null, 2)
 await fs.promises.writeFile(`./scripts/download_maps/zone_urls.json`, jsonString)
 // let buffer = await fs.promises.readFile('./scripts/download_maps/zone_image_urls.json')
 // const zones: zone[] = JSON.parse(buffer.toString())
+
+const imageRequests: Promise<Response>[] = []
+const fileNames: string[] = []
 
 for (const zone of zoneUrls) {
   let imageIndex = 1
@@ -83,18 +92,29 @@ for (const zone of zoneUrls) {
 
     console.log(image + imageCount)
     const imageType = image.endsWith('.jpg') ? 'jpg' : 'png'
-    const imageRequest = await fetch(image, {
+    const request = fetch(image, {
       headers: {
         'Content-Type': `image/${imageType}`
       }
     })
-    const blob = await imageRequest.blob()
-    const imageBuffer = await blob.arrayBuffer()
-    await fs.promises.writeFile(
-      `./scripts/download_maps/maps/${zone.id + imageCount}.${imageType}`,
-      Buffer.from(imageBuffer)
-    )
+    const fileName = `${zone.id + imageCount}.${imageType}`
+    imageRequests.push(request)
+    fileNames.push(fileName)
     imageIndex++
   }
 }
+const responses = await Promise.all(imageRequests)
+const blobs = await Promise.all(responses.map(response => response.blob()))
+const imageBuffers = await Promise.all(blobs.map(blob => blob.arrayBuffer()))
+
+const fileWrites: Promise<void>[] = []
+imageBuffers.forEach((buffer, index) => {
+  const fileWrite = fs.promises.writeFile(
+    `./scripts/download_maps/maps/${fileNames[index]}`,
+    Buffer.from(buffer)
+  )
+  fileWrites.push(fileWrite)
+})
+
+await Promise.all(fileWrites)
 
