@@ -15,13 +15,13 @@ const zonesDom = new JSDOM(domString)
 type zone = {
   id: string,
   url: string,
-  images: string[]
+  imageUrls: string[]
 }
 
 const zoneUrls: zone[] = []
 zonesDom.window.document.querySelectorAll('a').forEach((element, index) => {
   if (index < 19 || index > 132) return;
-  const zone: zone = { id: '', url: '', images: [] }
+  const zone: zone = { id: '', url: '', imageUrls: [] }
   const zoneId = element.getAttribute('href')?.replace('/', '').toLowerCase() || ''
   zone.id = decodeURI(zoneId)
   
@@ -43,7 +43,7 @@ zonesDom.window.document.querySelectorAll('a').forEach((element, index) => {
 
 const zoneRequests: Promise<Response>[] = []
 for (const zone of zoneUrls) {
-  zone.images = []
+  zone.imageUrls = []
   console.log('Fetching DOM for', zone.url)
   const request = fetch(zone.url, {
     headers: {
@@ -68,7 +68,7 @@ domStrings.forEach((dom, i) => {
       && !src.includes('poweredby_mediawiki')
     ) {
       console.log('Pushing image URL:', url)
-      zoneUrls[i].images.push(url)
+      zoneUrls[i].imageUrls.push(url)
       imageFound = true
     }
   })
@@ -87,10 +87,9 @@ const fileNames: string[] = []
 
 for (const zone of zoneUrls) {
   let imageIndex = 1
-  for (const image of zone.images) {
+  for (const image of zone.imageUrls) {
     const imageCount = imageIndex > 1 ? imageIndex : ''
 
-    console.log(image + imageCount)
     const imageType = image.endsWith('.jpg') ? 'jpg' : 'png'
     const request = fetch(image, {
       headers: {
@@ -98,6 +97,7 @@ for (const zone of zoneUrls) {
       }
     })
     const fileName = `${zone.id + imageCount}.${imageType}`
+    console.log('Retrieveing' + fileName)
     imageRequests.push(request)
     fileNames.push(fileName)
     imageIndex++
