@@ -1,4 +1,5 @@
 <template>
+  <img v-if="isLoading" src="./assets/svgs/loader.svg" alt="loading-animation" style="position: absolute;"/>
   <div id="header-container">
     <CharacterInfo />
     <Compass />
@@ -37,7 +38,7 @@ import ZoneMap from './src/components/ZoneMap.vue';
 const components = ['spells', 'zone', 'chat']
 const activeComponent = ref('chat')
 
-const { startWebSocketService } = useWebSocket();
+const { startWebSocketService, isLoading } = useWebSocket();
 startWebSocketService();
 </script>
 

@@ -1,8 +1,9 @@
-import { reactive } from 'vue'
+import { ref, reactive } from 'vue'
 
 const serverPort = 4000;
 const socketAddress = `ws://${import.meta.env.VITE_HOST_IP}:${serverPort}/ws`;
 
+const isLoading = ref(false)
 const socketListeners = reactive({})
 
 export default function useWebSocket(listeners = []) {
@@ -15,7 +16,13 @@ export default function useWebSocket(listeners = []) {
 
   let websocket;
 
+  function createWebSocket() {
+    websocket = new WebSocket(socketAddress);
+    websocket.onopen = onWebSocketOpen
+  }
+
   function startWebSocketService() {
+    isLoading.value = true
     console.log('Begin polling for WebSocket Connection');
     createWebSocket();
     setTimeout(() => {
@@ -24,26 +31,14 @@ export default function useWebSocket(listeners = []) {
       if (websocket.readyState !== WebSocket.OPEN) {
         websocket.close()
         handleWebSocketRetry()
+      } else {
+        websocket.onclose = onWebSocketClose
       }
     }, 3000)
   }
 
-  function createWebSocket() {
-    websocket = new WebSocket(socketAddress);
-    websocket.onopen = () => {
-      console.log('WebSocket connection established')
-      attachWsHandlers(websocket)
-    };
-
-    return websocket;
-  }
-
-  function attachWsHandlers(websocket) {
-    websocket.onmessage = (event) => onWebSocketMessage(event);
-    websocket.onclose = onWebSocketClose;
-  }
-  
   function handleWebSocketRetry() {
+    isLoading.value = true
     // Immediately start up a new connection
     createWebSocket()
     // Start our retry loop
@@ -52,20 +47,21 @@ export default function useWebSocket(listeners = []) {
       // cancel the loop, attach the handlers, move along
       if (websocket?.readyState === WebSocket.OPEN) {
         clearInterval(interval);
-        attachWsHandlers(websocket)
+        websocket.onmessage = (event) => onWebSocketMessage(event);
+        websocket.onclose = onWebSocketClose;
         return;
       }
       // Otherwise, close the existing attempt and start a new one
       console.log('Attempting to re-connect...');
       await websocket.close()
-      websocket = new WebSocket(socketAddress);
-      // Immediately attach the message handler
-      // so we can start receiving messages as soon as the connection is made
-      // Don't attach the close handler until the connection is made
-      // to prevent a hell loop when websocket.close() spawns new
-      // timeout loops.
-      websocket.onmessage = onWebSocketMessage
+      createWebSocket()
     }, 3000);
+  }
+
+  function onWebSocketOpen() {
+    console.log('WebSocket connection established')
+    isLoading.value = false
+    websocket.onmessage = (event) => onWebSocketMessage(event);
   }
   
   function onWebSocketClose() {
@@ -88,6 +84,7 @@ export default function useWebSocket(listeners = []) {
   };
 
   return {
+    isLoading,
     startWebSocketService
   }
 }
