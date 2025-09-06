@@ -144,7 +144,7 @@ export const spells = {
     duration: 1.2,
     icon: 'poison'
   },
-  greaterShielding: {
+  greater_shielding: {
     name: 'Greater shielding',
     id: 'greater_shielding',
     onSpellLand: 'You feel armored.',
