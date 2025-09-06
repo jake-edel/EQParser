@@ -28,17 +28,11 @@ class File {
   }
 
   async read(position: number, readLength: number): Promise<fs.promises.FileReadResult<Buffer<ArrayBuffer>>> {
-    try {
-      const result = await this.file.read(Buffer.alloc(readLength), 0, readLength, position)
-    
-      if (result.bytesRead <= 0) console.error('No data read from file')
+    const result = await this.file.read(Buffer.alloc(readLength), 0, readLength, position)
+  
+    if (result.bytesRead <= 0) console.error('No data read from file')
 
-      return result
-    } catch (error) {
-      console.error('Error reading file:', error);
-    }
-
-    return { buffer: Buffer.alloc(0), bytesRead: 0 }
+    return result
   }
 
   async readAll() {
