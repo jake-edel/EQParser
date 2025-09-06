@@ -1,36 +1,28 @@
 <template>
-  <div class="card flex-col items-center">
-    <a :href="formatWikiLink()" target="_blank">{{ zone }}</a>
+  <div class="flex-col items-center">
+    <a :href="`https://wiki.project1999.com/${currentZone}`" target="_blank">{{ zone }}</a>
     <img
       :src="zoneMap"
       alt="map of zone"
       style="max-width: 100%;"
     />
-    <component :is="currentZoneContent"></component>
+    <div v-html="zoneData" />
   </div>
 </template>
 
 <script setup>
-import OasisOfMarr from '../zones/OasisOfMarr.vue'
-import EastCommonlands from '../zones/EastCommonlands.vue'
-import NorthRo from '../zones/NorthRo.vue'
 import useWebSocket from '../composables/useWebSocket'
 import { ref, computed } from 'vue'
 
 const zone = ref('')
-useWebSocket([{zone: (newZone) => zone.value = newZone}])
-
-const formatWikiLink = () => {
-  const currentZone = zone.value.replace(' ', '_')
-  return `https://wiki.project1999.com/${currentZone}`
-}
-
+const zoneData = ref('')
 const zoneId = computed(() => zone.value.replace(/ /g, '_').toLowerCase())
-const zoneContent = {
-  'oasis_of_marr': OasisOfMarr,
-  'east_commonlands': EastCommonlands,
-  'northern_desert_of_ro': NorthRo
-}
-const currentZoneContent = computed(() => zoneContent[zoneId.value])
 const zoneMap = computed(() => `../../assets/maps/${zoneId.value}.jpg`)
+
+const handleZoneChange = async (newZone) => {
+  zone.value = newZone
+  zoneData.value = (await import(`../zones/${zoneId.value}.html?raw`)).default
+}
+
+useWebSocket([{zone: handleZoneChange}])
 </script>
