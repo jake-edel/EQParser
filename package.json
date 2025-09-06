@@ -9,6 +9,8 @@
   "scripts": {
     "server": "nodemon --verbose --watch server ./server/app.ts",
     "client": "vite --config client/vite.config.js --host",
+    "build": "vite build --config client/vite.config.js",
+    "preview": "npm run build & vite preview --config client/vite.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -17,8 +19,8 @@
     "ws": "^8.18.3"
   },
   "devDependencies": {
-    "ts-node": "^10.9.2",
     "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
     "vite": "^7.1.3"
   }
 }
