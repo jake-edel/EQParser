@@ -1,29 +1,27 @@
 <template>
   <div class="flex-col">
-    <div v-for="spell in activeSpells" class="flex items-center">
-      <img :src="`../../assets/icons/${spell.icon}.png`" alt="spell icon"/>
-      {{ spell.name }} {{ spell.timeRemaining }}
-    </div>
+    <SpellTimer v-for="spell in activeSpells" :spell @cancelTimer="clearSpell" />
   </div>
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref } from 'vue';
 import useWebSocket from '../composables/useWebSocket';
+import SpellTimer from './SpellTimer.vue';
 
-let activeSpells = reactive([])
+let activeSpells = ref([])
 
-const timer = ref(0)
 const clearSpell = (spell) => {
-  activeSpells = reactive(activeSpells.filter(activeSpell => (
-    activeSpell.instanceId !== spell.id
-  )))
+  clearInterval(spell.intervalId)
+  activeSpells.value = activeSpells.value.filter(activeSpell => (
+    activeSpell.instanceId !== spell.instanceId
+  ))
 }
 
 function setSpellTimeout(spell) {
-  timer.value = spell.duration * 60
-  console.log('setting timeout for', timer.value, 'seconds for spell', spell.name)
-  spell.timeRemaining = ref(timer.value)
+  const timer = spell.duration * 60
+  console.log('setting timeout for', timer, 'seconds for spell', spell.name)
+  spell.timeRemaining = ref(timer)
   spell.intervalId = setInterval(() => {
     spell.timeRemaining.value--
     if (spell.timeRemaining.value <= 0) {
@@ -35,7 +33,7 @@ function setSpellTimeout(spell) {
 
 function spellHandler(spell) {
   setSpellTimeout(spell)
-  activeSpells.push(spell)
+  activeSpells.value.push(spell)
 }
 
 useWebSocket([{ spellLanded: spellHandler }])
