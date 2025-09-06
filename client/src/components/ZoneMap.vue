@@ -1,6 +1,6 @@
 <template>
   <div class="flex-col items-center">
-    <a :href="`https://wiki.project1999.com/${currentZone}`" target="_blank">{{ zone }}</a>
+    <a :href="`https://wiki.project1999.com/${zoneId}`" target="_blank">{{ zone }}</a>
     <img
       :src="zoneMap"
       alt="map of zone"

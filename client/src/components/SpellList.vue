@@ -37,5 +37,4 @@ function spellHandler(spell) {
 }
 
 useWebSocket([{ spellLanded: spellHandler }])
-
 </script>
