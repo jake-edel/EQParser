@@ -4,10 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EQParser</title>
+    <link rel="manifest" href="manifest.json" />
     <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.ico">
     <script src="main.js" type="module"></script>
   </head>
   <body>
     <div id="app"></div>
   </body>
+  <script>
+    if ("serviceWorker" in navigator) {
+      try {
+        navigator.serviceWorker.register('/serviceWorker.js')
+        console.log('Service worker registered')
+      } catch (error) {
+        console.error('Error registering service worker', error)
+      }
+    }
+  </script>
 </html>
