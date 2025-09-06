@@ -60,14 +60,13 @@ class Location {
   // Looks backwards through the log for a pattern matching a zone message
   // The first instance of this will be the current zone of the character
   async searchForCurrentZone() {
-    await logFile.open()
-
     let data;
     let currentPosition;
     const readLength = 1024
     const fileSize = await logFile.size()
     currentPosition = fileSize - readLength
     
+    await logFile.open()
     while (!this.zonePattern.test(data)) {
       const { buffer } = await logFile.read(currentPosition, readLength)
       data = buffer.toString()
@@ -75,6 +74,8 @@ class Location {
       currentPosition -= (readLength + newlineLocation)
       if (currentPosition <= 0) break
     }
+    await logFile.close()
+
     const match = this.zonePattern.exec(data)
     if (match) {
       const zoneName = match[1]
@@ -82,7 +83,6 @@ class Location {
       gameState.set('zone', zoneName)
     }
 
-    await logFile.close()
   }
 }
 
