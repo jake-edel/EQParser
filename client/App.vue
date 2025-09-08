@@ -1,28 +1,32 @@
 <template>
-  <img v-if="isLoading" src="./assets/svgs/loader.svg" alt="loading-animation" style="position: absolute;"/>
-  <div id="header-container">
-    <CharacterInfo />
-    <Compass />
-    <CoinCounter />
+   <div v-if="isLoading" style="height: 100vh" class="flex items-center justify-center">
+     <img src="./assets/icons/eqLogo.png" alt="everquest logo" class="bounce"/>
+   </div>
+  <div v-else>
+    <div id="header-container">
+      <CharacterInfo />
+      <Compass />
+      <CoinCounter />
+    </div>
+    <div class="flex">
+      <button
+        v-for="component in components"
+        :key="component"
+        @click="activeComponent = component"
+        :style="{
+            backgroundColor: component === activeComponent ? 'green' : 'white',
+            width: '64px',
+            height: '24px',
+            borderRadius: '8px'
+        }"
+      >
+        {{ component }}
+      </button>
+    </div>
+    <SpellList v-show="activeComponent === 'spells'" />
+    <ZoneMap v-show="activeComponent === 'zone'" />
+    <ChatBox v-show="activeComponent === 'chat'" />
   </div>
-  <div class="flex">
-    <button
-      v-for="component in components"
-      :key="component"
-      @click="activeComponent = component"
-      :style="{
-          backgroundColor: component === activeComponent ? 'green' : 'white',
-          width: '64px',
-          height: '24px',
-          borderRadius: '8px'
-      }"
-    >
-      {{ component }}
-    </button>
-  </div>
-  <SpellList v-show="activeComponent === 'spells'" />
-  <ZoneMap v-show="activeComponent === 'zone'" />
-  <ChatBox v-show="activeComponent === 'chat'" />
 </template>
 
 <script setup>

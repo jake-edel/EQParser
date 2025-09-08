@@ -21,6 +21,10 @@ a {
   align-items: center;
 }
 
+.justify-center {
+  justify-content: center;
+}
+
 .flex-col {
   display: flex;
   flex-direction: column;
@@ -51,22 +55,16 @@ a {
   overflow-y: auto;
 }
 
-#coin-platinum,
-#total-coin-platinum {
-  color: var(--color-platinum);
+.bounce {
+  animation: 1s infinite alternate bounce
 }
 
-#coin-gold,
-#total-coin-gold {
-  color: var(--color-gold);
-}
+@keyframes bounce {
+  from {
+    transform:scale(10%)
+  }
 
-#coin-silver,
-#total-coin-silver {
-  color: var(--color-silver);
-}
-
-#coin-copper,
-#total-coin-copper {
-  color: var(--color-copper);
+  to {
+    transform: scale(90%)
+  }
 }
