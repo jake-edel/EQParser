@@ -20,6 +20,7 @@ const zoneId = computed(() => zone.value.replace(/ /g, '_').toLowerCase())
 const zoneMap = computed(() => `../../assets/maps/${zoneId.value}.jpg`)
 
 const handleZoneChange = async (newZone) => {
+  if (!newZone) return
   zone.value = newZone
   zoneData.value = (await import(`../zones/${zoneId.value}.html?raw`)).default
 }
