@@ -8,7 +8,7 @@
   "main": "app.js",
   "scripts": {
     "server": "nodemon --verbose --watch server ./server/app.ts",
-    "client": "vite --mode production --config client/vite.config.js",
+    "client": "vite --config client/vite.config.js",
     "build": "vite build --config client/vite.config.js",
     "preview": "npm run build & vite preview --config client/vite.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
