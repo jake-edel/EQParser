@@ -36,7 +36,7 @@ import ChatBox from './src/components/ChatBox.vue';
 import ZoneMap from './src/components/ZoneMap.vue';
 
 const components = ['spells', 'zone', 'chat']
-const activeComponent = ref('chat')
+const activeComponent = ref('zone')
 
 const { startWebSocketService, isLoading } = useWebSocket();
 startWebSocketService();
