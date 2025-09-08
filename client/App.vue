@@ -11,7 +11,7 @@
       :key="component"
       @click="activeComponent = component"
       :style="{
-          backgroundColor: component === activeComponent ? 'blue' : 'white',
+          backgroundColor: component === activeComponent ? 'green' : 'white',
           width: '64px',
           height: '24px',
           borderRadius: '8px'
