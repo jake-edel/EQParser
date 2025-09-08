@@ -7,9 +7,11 @@ import path from 'path'
 process.env.BROWSER = 'chrome'
 
 export default defineConfig(({ mode }) => {
+  console.log(`Vite started in ${mode} mode`)
+
   const env = loadEnv(mode, process.cwd() + '\\client', '')
 
-  let https = {}
+  let https;
   if (mode === 'production') {
     https = {
       key: fs.readFileSync(path.resolve(__dirname, 'certs/localhost+1-key.pem')),
