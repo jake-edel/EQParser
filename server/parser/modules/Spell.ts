@@ -41,7 +41,7 @@ class Spell {
   }
 
   isSpellLanded(line: string): boolean {
-    const spellSignature = spells[this.currentSpellId].onSpellLand;
+    const spellSignature = spells[this.currentSpellId]?.onSpellLand;
     this.debug.log(`${this.currentSpellId} signature:`, spellSignature)
     return line.includes(spellSignature);
   }

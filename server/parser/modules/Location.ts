@@ -1,5 +1,4 @@
 import gameState from "../GameState.ts";
-import server from "../Server.ts";
 import Debugger from "../Debugger.ts";
 import logFile from '../files/LogFile.ts'
 import type { Coordinates } from '../../types/types.d.ts'
@@ -9,10 +8,6 @@ class Location {
   private readonly locationPattern = /^your location is (-?\d+.\d+), (-?\d+.\d+), (-?\d+.\d+)$/i
   private readonly zonePattern = /.*you have entered ([\w|\s]+).*/si
   private readonly debug = new Debugger(this.constructor.name)
-
-  constructor() {
-    server.connectionHandlers.push(() => this.searchForCurrentZone())
-  }
 
   isDirection(line: string): boolean {
     return this.senseHeadingPattern.test(line);

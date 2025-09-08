@@ -41,11 +41,16 @@ class Server {
     });
   }
 
-  send(data: any, key?: string): void {
+  formatBuffer(data: any, key?: string | undefined): Buffer | string {
     if (key) {
       const payload = { [key]: data };
       data = Buffer.from(JSON.stringify(payload));
     }
+    return data
+  }
+
+  send(data: any, key?: string | undefined): void {
+    data = this.formatBuffer(data, key)
     this.wsServer?.clients?.forEach(client => {
       if (client.readyState === client.OPEN) client.send(data);
     });

@@ -4,6 +4,11 @@ export interface Coordinates {
   z: number
 }
 
+export type WebsocketPayload = {
+  data: any,
+  key: string,
+}
+
 export interface CoinQuantity {
   total: {
     platinum: number,

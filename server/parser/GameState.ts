@@ -12,18 +12,28 @@ class GameState {
   compassDirection = ''
   zone = ''
   currentSpells: Spell[] = []
-  petName = ''
-  petStatus = ''
   camping = ''
   playerCharacter = playerCharacter.info()
   debug = new Debugger(this.constructor.name).enable()
 
   constructor() {
-    server.connectionHandlers.push(
-      () => server.send(this.playerCharacter, 'playerCharacter'),
-      () => server.send(this.coinLoot, 'coinLoot'),
-      () => server.send(this.location, 'location')
-    )
+    server.connectionHandlers.push((socket) => this.sendGameState(socket))
+  }
+
+  sendGameState(socket) {
+    for (const [ key, value ] of Object.entries(this.getGameState())) {
+      socket.send(server.formatBuffer(value, key))
+    }
+  }
+
+  getGameState() {
+    return {
+      location: this.location,
+      zone: this.zone,
+      coinLoot: this.coinLoot,
+      compassDirection: this.compassDirection,
+      playerCharacter: this.playerCharacter
+    }
   }
 
   set(event: string, value: string | object | Spell) {
@@ -61,7 +71,6 @@ class GameState {
       Compass direction: ${this.compassDirection}
       Zone: ${this.zone}
       Spells: ${this.currentSpells.map(spell => spell.name)}
-      Pet name: ${this.petName}
       Camping: ${this.camping}
     `
     console.log(state)
