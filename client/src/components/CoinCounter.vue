@@ -3,7 +3,7 @@
     <div
       v-for="coin in coins"
       :key="coin"
-      :id="`total-coin-${coin}`"
+      :id="`coin-${coin}`"
       class="flex items-center"
     >
       <div>{{ coinLoot.total[coin] }}</div>
@@ -38,5 +38,21 @@ useWebSocket(socketListeners);
     background-color: var(--color-platinum);
     border-radius: 50%;
     border: 1px solid #646464
+  }
+
+  #coin-platinum {
+    color: var(--color-platinum);
+  }
+
+  #coin-gold {
+    color: var(--color-gold);
+  }
+
+  #coin-silver {
+    color: var(--color-silver);
+  }
+
+  #coin-copper {
+    color: var(--color-copper);
   }
 </style>
