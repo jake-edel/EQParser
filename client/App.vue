@@ -29,7 +29,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 import useWebSocket from './src/composables/useWebSocket.js'
 import CharacterInfo from './src/components/CharacterInfo.vue'
