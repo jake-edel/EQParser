@@ -4,7 +4,7 @@ import crypto from 'node:crypto'
 import { spells, defaultSpell } from "../../data/spells.ts";
 
 class Spell {
-  private readonly debug: Debugger = new Debugger(this.constructor.name).enable()
+  private readonly debug: Debugger = new Debugger(this.constructor.name)
   private currentSpell = defaultSpell
   private currentSpellId = ''
   private readonly castingPattern = /^You begin casting (.*)\.$/i
