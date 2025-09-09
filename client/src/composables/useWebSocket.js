@@ -17,6 +17,7 @@ export default function useWebSocket(listeners = []) {
   let websocket;
 
   function createWebSocket() {
+    isLoading.value = true
     websocket = new WebSocket(socketAddress);
     websocket.onopen = onWebSocketOpen
   }
@@ -38,7 +39,6 @@ export default function useWebSocket(listeners = []) {
   }
 
   function handleWebSocketRetry() {
-    isLoading.value = true
     // Immediately start up a new connection
     createWebSocket()
     // Start our retry loop
