@@ -43,6 +43,14 @@
          handler: (line: string) => chat.auctionHandler(line)
       },
       {
+         condition: (line: string) => chat.isGroup(line),
+         handler: (line: string) => chat.groupHandler(line)
+      },
+      {
+         condition: (line: string) => chat.isTell(line),
+         handler: (line: string) => chat.tellHandler(line)
+      },
+      {
          condition: () => true,
          handler: (line: string) => server.send(line, 'log')
       }

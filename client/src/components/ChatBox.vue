@@ -34,7 +34,7 @@ import { reactive, ref } from 'vue';
 import useWebSocket from '../composables/useWebSocket';
 import LogLine from './LogLine.vue';
 
-const chatTypes = ['debug', 'log', 'auction']
+const chatTypes = ['debug', 'log', 'auction', 'group', 'tell']
 
 const chats = reactive({})
 const currentChat = ref('log')
