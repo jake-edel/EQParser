@@ -21,12 +21,12 @@ Todos:
 - ~~Update logic for websocket reconnects~~
 - ~~Support multiple simultaneous clients~~
 - More robust string matching via regex/regex matching groups - WIP
-- Spell + buff timers
-- Filtered chat groups
+- ~~Spell + buff timers~~
+- ~~Filtered chat groups~~
 - Camping notifications
 - handle /who
-- persistent storage of character data (/who - name level class race)
+- ~~persistent storage of character data (/who - name level class race)~~
 - ~~search log for current zone~~
 - make UI nice
-- backend stores model of game state and can be requested by front end (app load/reload)
-- Typescript
+- ~~backend stores model of game state and can be requested by front end (app load/reload)~~
+- Vue Typescript
