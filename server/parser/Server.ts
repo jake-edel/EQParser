@@ -17,7 +17,6 @@ class Server {
 
   createWebSocketServer(): void {
     this.wsServer = new WebSocketServer({ server: this.httpServer });
-
     this.wsServer.on('connection', (socket: WebSocket) => this.handleOnWsConnection(socket));
     this.wsServer.on('close', () => this.handleOnWsClose());
   }
