@@ -8,6 +8,7 @@
       <Compass />
       <CoinCounter />
     </div>
+    <SpellList/>
     <div class="flex">
       <button
         v-for="component in components"
@@ -23,7 +24,6 @@
         {{ component }}
       </button>
     </div>
-    <SpellList v-show="activeComponent === 'spells'" />
     <ZoneMap v-show="activeComponent === 'zone'" />
     <ChatBox v-show="activeComponent === 'chat'" />
   </div>
@@ -39,7 +39,7 @@ import SpellList from './src/components/SpellList.vue';
 import ChatBox from './src/components/ChatBox.vue';
 import ZoneMap from './src/components/ZoneMap.vue';
 
-const components = ['spells', 'zone', 'chat']
+const components = ['zone', 'chat']
 const activeComponent = ref('zone')
 
 const { startWebSocketService, isLoading } = useWebSocket();

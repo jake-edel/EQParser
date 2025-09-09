@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-col">
+  <div class="flex" style="margin-bottom: 8px;">
     <SpellTimer v-for="spell in activeSpells" :spell @cancelTimer="clearSpell" />
   </div>
 </template>
