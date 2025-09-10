@@ -1,5 +1,5 @@
 {
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "src/**.*.vue"],
   "compilerOptions": {
     // Most non-library projects don't need to emit declarations.
     // So we add this option by default to make the config more friendly to most users.
