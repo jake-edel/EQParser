@@ -6,9 +6,9 @@ const socketAddress = `ws://${import.meta.env.VITE_HOST_IP}:${serverPort}/ws`;
 
 
 const isLoading = ref(false)
-const socketListeners: SocketListeners = reactive({})
+const socketListeners = reactive<SocketListeners>({})
 
-export default function useWebSocket(listeners: Listener[] = []) {
+export default function useWebSocket(listeners: Array<Listener> = []) {
   listeners.forEach(listener => {
     Object.entries(listener).forEach(([key, handler]) => {
       socketListeners[key] ??= [] ;
