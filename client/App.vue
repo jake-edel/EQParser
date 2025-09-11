@@ -29,9 +29,9 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
-import useWebSocket from './src/composables/useWebSocket.js'
+import useWebSocket from './src/composables/useWebSocket.ts'
 import CharacterInfo from './src/components/CharacterInfo.vue'
 import Compass from './src/components/Compass.vue';
 import CoinCounter from './src/components/CoinCounter.vue';

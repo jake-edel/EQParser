@@ -16,16 +16,36 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 import useWebSocket from '../composables/useWebSocket';
+import type { Coin, CoinLoot, Listener, SocketHandler } from '../types/WebSocket';
 
-const coins = ['platinum', 'gold', 'silver', 'copper']
+const coins: Array<Coin> = ['platinum', 'gold', 'silver', 'copper']
 
-const coinLoot = ref({ total: {}, received: {}});
+const initialCoinCount = {
+  total: {
+    platinum: 0,
+    gold: 0,
+    silver: 0,
+    copper: 0
+  },
+  received: { 
+    platinum: 0,
+    gold: 0,
+    silver: 0,
+    copper: 0
+  }
+}
 
-const socketListeners = [
-  { 'coinLoot': (message) => { coinLoot.value = message; } }
+const coinLoot = ref<CoinLoot>(initialCoinCount);
+
+const handler: SocketHandler = (payload) => {
+  if ('total' in payload && 'received' in payload) coinLoot.value = payload;
+}
+
+const socketListeners: Listener[] = [
+  { coinLoot: handler }
 ];
 
 useWebSocket(socketListeners);

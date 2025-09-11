@@ -5,34 +5,33 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import useWebSocket from '../composables/useWebSocket';
 import SpellTimer from './SpellTimer.vue';
 
 let activeSpells = ref([])
 
+onMounted(() => {
+  setInterval(() => {
+    activeSpells.value.forEach(spell => {
+      spell.timeRemaining--
+      if (spell.timeRemaining <= 0) clearSpell(spell)
+    })
+  }, 1000);
+})
+
 const clearSpell = (spell) => {
-  clearInterval(spell.intervalId)
   activeSpells.value = activeSpells.value.filter(activeSpell => (
-    activeSpell.instanceId !== spell.instanceId
+    activeSpell.id !== spell.id
   ))
 }
 
-function setSpellTimeout(spell) {
-  const timer = spell.duration * 60
-  console.log('setting timeout for', timer, 'seconds for spell', spell.name)
-  spell.timeRemaining = ref(timer)
-  spell.intervalId = setInterval(() => {
-    spell.timeRemaining.value--
-    if (spell.timeRemaining.value <= 0) {
-      clearSpell(spell)
-      clearInterval(spell.intervalId)
-    }
-  }, 1000)
-}
+const hasExistingSpell = (spell) => !!(activeSpells.value.find(activeSpell => activeSpell.id == spell.id)) 
 
 function spellHandler(spell) {
-  setSpellTimeout(spell)
+  const timer = spell.duration * 60
+  spell.timeRemaining = ref(timer)
+  if (hasExistingSpell(spell)) clearSpell(spell)
   activeSpells.value.push(spell)
 }
 

@@ -1,20 +1,22 @@
 import { ref, reactive } from 'vue'
+import type { SocketListeners, Listener } from '../types/WebSocket';
 
 const serverPort = 4000;
 const socketAddress = `ws://${import.meta.env.VITE_HOST_IP}:${serverPort}/ws`;
 
-const isLoading = ref(false)
-const socketListeners = reactive({})
 
-export default function useWebSocket(listeners = []) {
+const isLoading = ref(false)
+const socketListeners = reactive<SocketListeners>({})
+
+export default function useWebSocket(listeners: Array<Listener> = []) {
   listeners.forEach(listener => {
     Object.entries(listener).forEach(([key, handler]) => {
-      if (!socketListeners[key]) { socketListeners[key] = [] };
+      socketListeners[key] ??= [] ;
       socketListeners[key].push(handler);
     })
   })
 
-  let websocket;
+  let websocket: WebSocket;
 
   function createWebSocket() {
     isLoading.value = true
@@ -23,7 +25,6 @@ export default function useWebSocket(listeners = []) {
   }
 
   function startWebSocketService() {
-    isLoading.value = true
     console.log('Begin polling for WebSocket Connection');
     createWebSocket();
     setTimeout(() => {
@@ -53,7 +54,7 @@ export default function useWebSocket(listeners = []) {
       }
       // Otherwise, close the existing attempt and start a new one
       console.log('Attempting to re-connect...');
-      await websocket.close()
+      websocket.close()
       createWebSocket()
     }, 3000);
   }
@@ -69,7 +70,7 @@ export default function useWebSocket(listeners = []) {
     handleWebSocketRetry()
   }
 
-  async function onWebSocketMessage(event) {
+  async function onWebSocketMessage(event: MessageEvent) {
     if (typeof event.data === 'string') {
       console.log('Received message:', event.data);
       return;
